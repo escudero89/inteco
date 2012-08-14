@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1344916285 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
+	<stdio.h>
+	<iostream>
+	"../include/perceptron.h"
+
+1344917205 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+
