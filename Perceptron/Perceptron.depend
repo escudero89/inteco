@@ -4,9 +4,23 @@
 	<iostream>
 	"../include/perceptron.h"
 
-1344917205 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
+1344983369 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
 	<iostream>
 	<cstdlib>
 	<ctime>
+	<vector>
+	"../src/utilidades.cpp"
+
+1344982744 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
+	"../include/perceptron.h"
+
+1344983413 /media/Cristian/Repositorios/inteco/Perceptron/src/utilidades.cpp
+	<iostream>
+	<cstdlib>
+	<vector>
+
+1344983413 source:/media/Cristian/Repositorios/inteco/Perceptron/src/utilidades.cpp
+	<iostream>
+	<cstdlib>
 	<vector>
 

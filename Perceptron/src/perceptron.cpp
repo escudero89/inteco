@@ -35,9 +35,44 @@ bool Perceptron::entrenar(vector<float> patrones) {
 
     // Hay que revisar aca que tira error y no se porque
     for (unsigned int i = 0; i < tamanio; i++) {
-        aux = pesos[i + 1] + factorDeCambio * patrones[i];
-        pesos[i + 1] = aux;
+        aux = pesos->at(i + 1) + factorDeCambio * patrones[i];
+        pesos->at(i + 1) = aux;
     }
 
     return true;
 }
+
+/* Esta funcion la usamos para hacer producto punto entre vectores */
+float Perceptron::dot(vector<float> V1, vector<float> V2) {
+
+    float sol = 0;
+
+    if (V1.size() == V2.size()) {
+        for (unsigned int i = 0; i < V1.size(); i++) {
+            sol += V1[i] * V2[i];
+        }
+    } else {
+        cout << "Error haciendo el producto escalar, distinta longitud.";
+        exit (1);
+    }
+
+    return sol;
+}
+
+// Esto es para ver el archivo CSV (lo saque de internet, aun no lo vi)
+    /*
+    std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str)
+    {
+        std::vector<std::string>   result;
+        std::string                line;
+        std::getline(str,line);
+
+        std::stringstream          lineStream(line);
+        std::string                cell;
+
+        while(std::getline(lineStream,cell,','))
+        {
+            result.push_back(cell);
+        }
+        return result;
+    }*/
