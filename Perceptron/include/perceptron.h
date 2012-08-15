@@ -6,13 +6,12 @@
 #include <ctime>
 #include <vector>
 
-#include "../src/utilidades.cpp"
 using namespace std;
 
 class Perceptron {
     vector<float> *pesos;	// W(i)
     float umbral;			// w_0
-    int N;					// cantidad de elementos
+    int N;					// cantidad de elementos que conforman el patron -1 (por el valor verdadero)
     float tasa; //tasa de aprendizaje
 
 public:

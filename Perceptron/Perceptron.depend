@@ -24,3 +24,41 @@
 	<cstdlib>
 	<vector>
 
+1345056131 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
+	<stdio.h>
+	<iostream>
+	"../include/perceptron.h"
+	"utils.cpp"
+
+1345056131 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/perceptron.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+
+1345040277 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/utilidades.cpp
+	<iostream>
+	<cstdlib>
+	<vector>
+
+1345055969 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/perceptron.cpp
+	"../include/perceptron.h"
+
+1345056389 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/utils.cpp
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1345056008 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/utils.cpp
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
