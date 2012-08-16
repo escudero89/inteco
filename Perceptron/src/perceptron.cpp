@@ -1,8 +1,7 @@
 #include "../include/perceptron.h"
 
-Perceptron::Perceptron(float umbral, int N, float tasa, float desvio, float media)
+Perceptron::Perceptron(int N, float tasa, float desvio, float media)
 {
-    this -> umbral = umbral;
     this -> N = N;
     this -> tasa = tasa;
     this -> pesos = new vector<float>;
@@ -14,6 +13,9 @@ Perceptron::Perceptron(float umbral, int N, float tasa, float desvio, float medi
         float r = ( rand() % 1001 * 0.002 - 1) * desvio + media;
         pesos -> push_back(r);
     }
+
+    // Guardo el umbral por las dudas
+    this -> umbral = pesos -> at(0);
 }
 
 /* Podemos comentar bien que hace esta funcion  */
@@ -23,7 +25,7 @@ bool Perceptron::entrenar(vector<float> patrones) {
     float ydeseado = patrones.back();
     patrones.pop_back();
 
-    float y = (dot(*pesos, patrones) < umbral) ? -1 : 1, //Funcion de activacion
+    float y = (dot(*pesos, patrones) > 0) ? 1 : -1, //Funcion de activacion
           aux = 0,
           factorDeCambio = tasa * (ydeseado - y);
 

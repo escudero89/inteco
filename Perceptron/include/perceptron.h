@@ -16,7 +16,7 @@ class Perceptron {
 
 public:
 
-    Perceptron(float umbral, int N, float tasa=1.5, float desvio=0.5, float media=0);
+    Perceptron(int N, float tasa=1.5, float desvio=0.5, float media=0);
 
     bool entrenar(vector<float> patrones);
     bool estEntrenamiento(vector<vector<float> > estacion);

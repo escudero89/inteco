@@ -4,10 +4,11 @@ Entrada: Path al archivo csv
 Salida: Devuelve un vector de vector<double>  con el contenido de un archivo CSV
 */
 
-void parseCSV(char *filename, std::vector<std::vector<double> > & X) {
+void parseCSV(std::string filename, std::vector<std::vector<double> > & X) {
 
 	std::ifstream file;
-	file.open(filename);
+	file.open(filename.c_str());
+
 	assert(file.is_open()); //muestra error si no se pudo abrir el archivo
 
 	double value;
@@ -26,23 +27,5 @@ void parseCSV(char *filename, std::vector<std::vector<double> > & X) {
 			ss.clear(); //limpia el stream
 		}
 		iss.clear();
-	}
-}
-
-template<typename T>
-void printVector(std::vector<T> &v, char separator){
-	for (unsigned int i = 0; i < v.size(); i++){
-		std::cout<<v[i];
-		if(i < v.size()-1) //Si no es el ultimo caso
-			std::cout<<separator;
-	}
-}
-
-
-template<typename T>
-void printVectorHelper(std::vector<std::vector<T> > &v, char separator,	std::string newcase){
-	for (unsigned int i = 0; i < v.size(); i++){
-		printVector(v[i],separator);
-		std::cout<<newcase;
 	}
 }
