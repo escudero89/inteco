@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="include/perceptron.h" open="1" top="0" tabpos="3">
+	<File name="include\perceptron.h" open="1" top="0" tabpos="3">
 		<Cursor position="117" topLine="0" />
 	</File>
-	<File name="src/main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="92" topLine="0" />
+	<File name="include\utils.h" open="1" top="0" tabpos="5">
+		<Cursor position="472" topLine="0" />
 	</File>
-	<File name="src/perceptron.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="21" topLine="0" />
+	<File name="src\main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="304" topLine="0" />
 	</File>
-	<File name="src/utils.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="1170" topLine="38" />
+	<File name="src\perceptron.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="10" topLine="0" />
 	</File>
-	<File name="src/utils.h" open="1" top="1" tabpos="5">
-		<Cursor position="37" topLine="0" />
+	<File name="src\utils.cpp" open="1" top="1" tabpos="4">
+		<Cursor position="814" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

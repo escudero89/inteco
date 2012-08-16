@@ -1,5 +1,4 @@
-#include "utils.h"
-
+#include "../include/utils.h"
 /*
 Entrada: Path al archivo csv
 Salida: Devuelve un vector de vector<double>  con el contenido de un archivo CSV
@@ -31,7 +30,7 @@ void parseCSV(char *filename, std::vector<std::vector<double> > & X) {
 }
 
 template<typename T>
-void printVector(std::vector<T> &v, char separator = ' '){
+void printVector(std::vector<T> &v, char separator){
 	for (unsigned int i = 0; i < v.size(); i++){
 		std::cout<<v[i];
 		if(i < v.size()-1) //Si no es el ultimo caso
@@ -41,8 +40,7 @@ void printVector(std::vector<T> &v, char separator = ' '){
 
 
 template<typename T>
-void printVectorVector(std::vector<std::vector<T> > &v, char separator = ' ',
-						std::string newcase = "\n-------\n"){
+void printVectorHelper(std::vector<std::vector<T> > &v, char separator,	std::string newcase){
 	for (unsigned int i = 0; i < v.size(); i++){
 		printVector(v[i],separator);
 		std::cout<<newcase;
