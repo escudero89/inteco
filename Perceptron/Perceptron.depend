@@ -71,3 +71,30 @@
 	<cstdlib>
 	<cassert>
 
+1345213679 source:c:\users\marcos\workspace\inteco\perceptron\src\perceptron.cpp
+	"../include/perceptron.h"
+
+1345213679 c:\users\marcos\workspace\inteco\perceptron\include\perceptron.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+
+1345216025 source:c:\users\marcos\workspace\inteco\perceptron\src\utils.cpp
+	"../include/utils.h"
+
+1345215812 c:\users\marcos\workspace\inteco\perceptron\include\utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1345216482 source:c:\users\marcos\workspace\inteco\perceptron\src\main.cpp
+	<stdio.h>
+	<iostream>
+	"../include/perceptron.h"
+	"../include/utils.h"
+

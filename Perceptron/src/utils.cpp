@@ -4,20 +4,20 @@ Entrada: Path al archivo csv
 Salida: Devuelve un vector de vector<double>  con el contenido de un archivo CSV
 */
 
-void parseCSV(std::string filename, std::vector<std::vector<double> > & X) {
+void parseCSV(std::string filename, std::vector<std::vector<float> > & X) {
 
 	std::ifstream file;
 	file.open(filename.c_str());
 
 	assert(file.is_open()); //muestra error si no se pudo abrir el archivo
 
-	double value;
+	float value;
 	std::string s, line;
 	std::stringstream ss, iss;
 	//Lectura de los datos de entrenamiento
 	while(getline(file,line)){ 		//lee una linea entera
 		iss<<line;
-		X.push_back(std::vector<double>()); 		//agrega un vector vacio
+		X.push_back(std::vector<float>()); 		//agrega un vector vacio
 
 		while(getline(iss,s,',')){ //separa la linea entre las comas
 			//transforma de string a double
@@ -28,4 +28,5 @@ void parseCSV(std::string filename, std::vector<std::vector<double> > & X) {
 		}
 		iss.clear();
 	}
+    file.close();
 }

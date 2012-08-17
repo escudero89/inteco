@@ -9,7 +9,7 @@
 #include <cstdlib>
 #include <cassert>
 
-void parseCSV(std::string filename, std::vector<std::vector<double> > & X);
+void parseCSV(std::string filename, std::vector<std::vector<float> > & X);
 
 // Debo definir las funciones con templates en los headers porque sino no linkea
 
