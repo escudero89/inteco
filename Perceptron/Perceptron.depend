@@ -1,17 +1,17 @@
 # depslib dependency file v1.0
-1344916285 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
+1345234885 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
 	<stdio.h>
 	<iostream>
 	"../include/perceptron.h"
+	"../include/utils.h"
 
-1344983369 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
+1345226494 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
 	<iostream>
 	<cstdlib>
 	<ctime>
 	<vector>
-	"../src/utilidades.cpp"
 
-1344982744 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
+1345234850 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
 	"../include/perceptron.h"
 
 1344983413 /media/Cristian/Repositorios/inteco/Perceptron/src/utilidades.cpp
@@ -96,5 +96,17 @@
 	<stdio.h>
 	<iostream>
 	"../include/perceptron.h"
+	"../include/utils.h"
+
+1345226772 /media/Cristian/Repositorios/inteco/Perceptron/include/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1345226743 source:/media/Cristian/Repositorios/inteco/Perceptron/src/utils.cpp
 	"../include/utils.h"
 

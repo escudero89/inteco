@@ -2,18 +2,18 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="include/perceptron.h" open="1" top="0" tabpos="3">
-		<Cursor position="375" topLine="11" />
+		<Cursor position="375" topLine="10" />
 	</File>
-	<File name="include/utils.h" open="1" top="0" tabpos="5">
-		<Cursor position="252" topLine="8" />
+	<File name="include/utils.h" open="1" top="1" tabpos="5">
+		<Cursor position="1633" topLine="9" />
 	</File>
 	<File name="src/main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="255" topLine="6" />
+		<Cursor position="327" topLine="0" />
 	</File>
-	<File name="src/perceptron.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="1177" topLine="42" />
+	<File name="src/perceptron.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="1044" topLine="0" />
 	</File>
 	<File name="src/utils.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="828" topLine="17" />
+		<Cursor position="30" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

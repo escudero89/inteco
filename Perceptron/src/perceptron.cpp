@@ -31,11 +31,12 @@ bool Perceptron::entrenar(vector<float> patrones) {
 
     unsigned int tamanio = patrones.size();
 
-    // Hay que revisar aca que tira error y no se porque
     for (unsigned int i = 0; i < tamanio; i++) {
         cout << pesos->at(i);
+
         aux = pesos->at(i) + factorDeCambio * patrones[i];
         pesos->at(i) = aux;
+
         cout << " ... " << pesos->at(i) << endl;
     }
 
