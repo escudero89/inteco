@@ -10,3 +10,6 @@
 *.lai
 *.la
 *.a
+
+# IDE's stuff
+*.layout
