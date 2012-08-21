@@ -7,19 +7,22 @@
 using namespace std;
 
 int main(int argc, char **argv) {
+
     Perceptron A(3, 0.4);
-    vector< vector<float> > V1;
+    vector< vector<float> > Ventrenamiento;
+    vector< vector<float> > Vprueba;
+    vector< vector<float> > Vcontrol;
 
-    parseCSV <float> ("src/basket.txt", V1);
-    printVectorVector <float> (V1);
-
+    parseCSV <float> ("data/700datos_entrenamiento.csv", Ventrenamiento);
+    parseCSV <float> ("data/200datos_prueba.csv", Vprueba);
+    parseCSV <float> ("data/100datos_control.csv", Vcontrol);
 
     //Entrenamiento
-    for(int i=0; i<30; i++)
-        A.estEntrenamiento(V1);
-
+    cout<<"Resultados de precision del entrenamiento: ";
+    cout<<A.entrenamiento(Ventrenamiento,Vcontrol,1) * 100<<"%"<<endl;
     //Prueba
-    A.estTrabajo(V1, true);
+    cout<<"Resultados de precision con valores nunca vistos: ";
+    cout<<A.estTrabajo(Vprueba) * 100<<"%"<<endl;
 
     return 0;
 }
