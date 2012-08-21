@@ -13,7 +13,13 @@ int main(int argc, char **argv) {
     parseCSV <float> ("src/basket.txt", V1);
     printVectorVector <float> (V1);
 
-    A.estEntrenamiento(V1);
+
+    //Entrenamiento
+    for(int i=0; i<30; i++)
+        A.estEntrenamiento(V1);
+
+    //Prueba
+    A.estTrabajo(V1, true);
 
     return 0;
 }

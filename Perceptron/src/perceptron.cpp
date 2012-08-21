@@ -52,6 +52,41 @@ bool Perceptron::estEntrenamiento(vector<vector<float> > estacion) {
     return true;
 }
 
+bool Perceptron::trabajar(vector<float> patrones){
+    float ydeseado = patrones.back();
+    patrones.pop_back();
+    float y = (dot(*pesos, patrones) > 0) ? 1 : -1; //Funcion de activacion
+    bool esCorrecto;
+
+    if (y == ydeseado)
+        esCorrecto = true;
+    else
+        esCorrecto = false;
+
+    return esCorrecto;
+
+}
+
+float Perceptron::estTrabajo(vector< vector<float> > patrones, bool mostrar){
+    int aciertos = 0, errores = 0;
+
+    for(unsigned int i=0; i<patrones.size(); i++){
+         if( trabajar( patrones[i] ) )
+            aciertos += 1;
+        else
+            errores +=1;
+
+    }
+    float porcentaje = (float(aciertos) / float(patrones.size()));
+
+    if(mostrar){
+        cout<<"Resultados:"<<endl;
+        cout<<"Porcentaje de aciertos: "<<porcentaje * 100<<"%"<<endl;
+        cout<<"Aciertos: "<<aciertos<<endl;
+        cout<<"Errores: "<<errores<<endl;
+    }
+    return porcentaje;
+}
 /* Esta funcion la usamos para hacer producto punto entre vectores */
 float Perceptron::dot(vector<float> V1, vector<float> V2) {
 

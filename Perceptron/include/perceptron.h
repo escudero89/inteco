@@ -20,7 +20,8 @@ public:
 
     bool entrenar(vector<float> patrones);
     bool estEntrenamiento(vector<vector<float> > estacion);
-
+    bool trabajar(vector<float> patrones); //Trabaja con patron y devuelve si acerto o no
+    float estTrabajo(vector< vector<float> >patrones, bool mostrar=false); //Trabaja con patrones y devuelve % de aciertos
     void set_tasa(float tasa) {
         this->tasa = tasa;
     }
