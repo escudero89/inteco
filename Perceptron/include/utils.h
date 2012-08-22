@@ -13,7 +13,7 @@
 Entrada: Path al archivo csv
 Salida: Devuelve un vector de vector<double>  con el contenido de un archivo CSV
 */
-template<class T>
+template <class T>
 void parseCSV(std::string filename, std::vector<std::vector<T> > & X) {
 	std::ifstream file;
 	file.open(filename.c_str());
@@ -44,7 +44,8 @@ void parseCSV(std::string filename, std::vector<std::vector<T> > & X) {
 
 // Debo definir las funciones con templates en los headers porque sino no linkea
 
-template<class T> void printVector(std::vector<T> &v, char separator = ' ') {
+template <class T> 
+void printVector(std::vector<T> &v, char separator = ' ') {
 	for (unsigned int i = 0; i < v.size(); i++){
 		std::cout << v[i];
 		if(i < v.size() - 1) //Si no es el ultimo caso
@@ -52,10 +53,57 @@ template<class T> void printVector(std::vector<T> &v, char separator = ' ') {
 	}
 }
 
-template<class S> void printVectorVector(std::vector< std::vector<S> > &v, char separator = ' ', std::string newcase = "\n-------\n"){
+template <class S> 
+void printVectorVector(std::vector< std::vector<S> > &v, char separator = ' ', std::string newcase = "\n-------\n"){
     for (unsigned int i = 0; i < v.size(); i++){
 		printVector(v[i],separator);
 		std::cout<<newcase;
 	}
 }
+
+/* La idea es que exporte archivos para plotearlo luego con otro programa */
+/* El formato es: 
+	padrones
+	...
+	#END#
+	pesos
+*/
+template <class T> 
+void genPlot2D(std::vector< std::vector<T> > &pesos, std::vector< std::vector<T> > &padrones, std::string filename_o = "log.dat") {
+	
+	unsigned int PLOT_ARGS = 2; // debido a que es un ploteo 2D, solo quiero dos argumentos de los padrones
+	
+	std::string filename = "logs/" + filename_o;
+	
+	std::ofstream file;
+	file.open(filename.c_str());
+	
+	assert(file.is_open()); //muestra error si no se pudo abrir el archivo
+	
+	// Guardo los pesos y todos los padrones separados por comas
+	for (unsigned int i = 0, N = padrones.size(); i < N; i++){
+		for (unsigned int j = 0, step = PLOT_ARGS; j < step ; j++) {
+			file << padrones[i][j];
+			if (j < step - 1) { // si no es el ultimo elemento, agrego la coma
+				file << ","; 
+			}
+		}	
+		file << std::endl;
+	}
+	
+	file << "#END#" << std::endl; // para avisar hasta donde llegan los patrones
+	
+	for (unsigned int i = 0, N = pesos.size(); i < N; i++){
+		for (unsigned int j = 0, step = pesos[i].size(); j < step ; j++) {			
+			file << pesos[i][j] ;
+			if (j < step - 1) { // si no es el ultimo elemento, agrego la coma
+				file << ","; 				
+			}
+		}
+		file << std::endl;
+	}
+	
+	file.close();
+}
+
 #endif

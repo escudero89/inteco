@@ -105,3 +105,15 @@
 1345226743 source:/media/Cristian/Repositorios/inteco/Perceptron/src/utils.cpp
 	"../include/utils.h"
 
+1345226743 source:e:\repositorios\inteco\perceptron\src\utils.cpp
+	"../include/utils.h"
+
+1345226772 e:\repositorios\inteco\perceptron\include\utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+

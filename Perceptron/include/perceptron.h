@@ -9,10 +9,12 @@
 using namespace std;
 
 class Perceptron {
-    vector<float> *pesos;	// W(i)
+    vector<float> *pesos;	// W(i)    
     float umbral;			// w_0
     int N;					// cantidad de elementos que conforman el patron -1 (por el valor verdadero)
-    float tasa; //tasa de aprendizaje
+    float tasa; 			//tasa de aprendizaje
+	
+	vector< vector<float> > *pesos_totales;	// Va juntando la progresion de todos los pesos
 
 public:
 
@@ -30,6 +32,13 @@ public:
     }
 
     float dot(vector<float> &V1, vector<float> &V2);
+	
+	// Para ploteo
+	void add_pesos(vector <float> & pesos) {
+		pesos_totales->push_back(pesos);
+	}
+	
+	
 };
 
 #endif // PERCEPTRON_H

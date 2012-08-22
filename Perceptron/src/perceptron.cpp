@@ -6,6 +6,7 @@ Perceptron::Perceptron(int N, float tasa, float desvio, float media)
     this -> N = N;
     this -> tasa = tasa;
     this -> pesos = new vector<float>;
+    this -> pesos_totales = new vector< vector<float> >; // para ploteo
 
     // Inicializamos semilla
     srand(time(NULL));
@@ -43,6 +44,7 @@ bool Perceptron::entrenar(vector<float> patrones) {
 
 //        cout << " ... " << pesos->at(i) << endl;
     }
+	
     return true;
 }
 
@@ -50,6 +52,8 @@ bool Perceptron::entrenar(vector<float> patrones) {
 bool Perceptron::estEntrenamiento(vector<vector<float> > &estacion) {
     for(unsigned int i = 0; i < estacion.size() ; i++) {
         entrenar(estacion[i]);
+		// Cada vez que cambiabmos los pesos, actualizamos pesos_totales, para ploteo
+		add_pesos(*this->pesos);
     }
     return true;
 }
@@ -91,6 +95,10 @@ float Perceptron::estTrabajo(vector< vector<float> > &patrones, bool mostrar){
         cout<<"Aciertos: "<<aciertos<<endl;
         cout<<"Errores: "<<errores<<endl;
     }
+	
+	// Genera archivos para ploteo
+	genPlot2D <float> (*(this->pesos_totales), patrones);
+	
     return porcentaje;
 }
 
@@ -101,7 +109,7 @@ float Perceptron::entrenamiento(vector< vector<float> > &patrones, vector< vecto
     for (unsigned int i = 0; i < maxIt ; i++) {
         estEntrenamiento(patrones);
         error = estTrabajo(trabajos);
-
+		
         if (error < tol)
             break;
     }
