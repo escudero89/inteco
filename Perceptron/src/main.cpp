@@ -8,8 +8,8 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
-    Perceptron A(3, 0.4);
-	
+    Perceptron A(3, 0.01);
+
     vector< vector<float> > Ventrenamiento;
     vector< vector<float> > Vprueba;
     vector< vector<float> > Vcontrol;
