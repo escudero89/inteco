@@ -5,14 +5,20 @@
 	"../include/perceptron.h"
 	"../include/utils.h"
 
+1345226743 e/utils.h"
+
 1345226494 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
 	<iostream>
 	<cstdlib>
 	<ctime>
 	<vector>
 
+1345226772 
+
 1345234850 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
 	"../include/perceptron.h"
+
+1345234850 e/perceptron.h"
 
 1344983413 /media/Cristian/Repositorios/inteco/Perceptron/src/utilidades.cpp
 	<iostream>
@@ -117,4 +123,32 @@
 	<string>
 	<cstdlib>
 	<cassert>
+
+1345606935 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
+	<stdio.h>
+	<iostream>
+	"../include/perceptron.h"
+	"../include/utils.h"
+
+1345760883 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+
+1345760390 /media/Cristian/Repositorios/inteco/Perceptron/include/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1345760315 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
+	"../include/perceptron.h"
+	"../include/utils.h"
+
+1345755361 source:/media/Cristian/Repositorios/inteco/Perceptron/src/utils.cpp
+	"../include/utils.h"
 

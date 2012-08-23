@@ -5,6 +5,12 @@ Perceptron::Perceptron(int N, float tasa, float desvio, float media)
 {
     this -> N = N;
     this -> tasa = tasa;
+
+    inicializar_neuronas(desvio, media);
+}
+
+/* La funcion de inializacion de neuronas esta aparte para que sea mas sencillo reinicializarla */
+void Perceptron::inicializar_neuronas(float desvio, float media) {
     this -> pesos = new vector<float>;
     this -> pesos_totales = new vector< vector<float> >; // para ploteo
 
@@ -20,7 +26,22 @@ Perceptron::Perceptron(int N, float tasa, float desvio, float media)
     this -> umbral = pesos -> at(0);
 }
 
-/* Podemos comentar bien que hace esta funcion  */
+/* Funcion de activacion */
+float Perceptron::funcion_activacion(vector<float> &pesos, vector<float> &patrones, short tipo) {
+    float retorno = 0;
+
+    switch(tipo) {
+        case 1: // Lineal
+            retorno = (dot<float>(pesos, patrones) > 0) ? 1 : -1;
+
+        default: // Lineal
+            retorno = (dot<float>(pesos, patrones) > 0) ? 1 : -1;
+    }
+
+    return retorno;
+}
+
+/* Realiza el entrenamiento de las neuronas al recibir una fila de patrones  */
 bool Perceptron::entrenar(vector<float> patrones) {
 
     // Le pongo el ydeseado. Y eliminamos el ultimo elemento
@@ -30,7 +51,7 @@ bool Perceptron::entrenar(vector<float> patrones) {
     // para hacer producto punto con el umbral
     patrones.insert(patrones.begin(), -1);
 
-    float y = (dot(*pesos, patrones) > 0) ? 1 : -1, //Funcion de activacion
+    float y = funcion_activacion(*pesos, patrones), //Funcion de activacion
           aux = 0,
           factorDeCambio = tasa * (ydeseado - y);
 
@@ -44,7 +65,7 @@ bool Perceptron::entrenar(vector<float> patrones) {
 
 //        cout << " ... " << pesos->at(i) << endl;
     }
-	
+
     return true;
 }
 
@@ -65,7 +86,7 @@ bool Perceptron::trabajar(vector<float> patrones){
     // para hacer producto punto con el umbral
     patrones.insert(patrones.begin(), -1);
 
-    float y = (dot(*pesos, patrones) > 0) ? 1 : -1; //Funcion de activacion
+    float y = funcion_activacion(*pesos, patrones); //Funcion de activacion
     bool esCorrecto;
 
     if (y == ydeseado)
@@ -95,10 +116,10 @@ float Perceptron::estTrabajo(vector< vector<float> > &patrones, bool mostrar){
         cout<<"Aciertos: "<<aciertos<<endl;
         cout<<"Errores: "<<errores<<endl;
     }
-	
+
 	// Genera archivos para ploteo
 	genPlot2D <float> (*(this->pesos_totales), patrones);
-	
+
     return porcentaje;
 }
 
@@ -109,30 +130,9 @@ float Perceptron::entrenamiento(vector< vector<float> > &patrones, vector< vecto
     for (unsigned int i = 0; i < maxIt ; i++) {
         estEntrenamiento(patrones);
         error = estTrabajo(trabajos);
-		
+
         if (error < tol)
             break;
     }
     return error;
-}
-
-/* Esta funcion la usamos para hacer producto punto entre vectores */
-float Perceptron::dot(vector<float> &V1, vector<float> &V2) {
-
-    float sol = 0;
-
-    if (V1.size() == V2.size()) {
-        for (unsigned int i = 0; i < V1.size(); i++) {
-            sol += V1[i] * V2[i];
-        }
-    } else {
-        cout << "Error haciendo el producto escalar, distinta longitud.\n";
-        cout << "V1: " << V1.size() << endl;
-        printVector(V1);
-        cout << "\nV2: "<< V2.size() << endl;
-        printVector(V2);
-        exit (1);
-    }
-
-    return sol;
 }

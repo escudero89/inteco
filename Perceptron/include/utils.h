@@ -69,21 +69,35 @@ void printVectorVector(std::vector< std::vector<S> > &v, char separator = ' ', s
 	pesos
 */
 template <class T>
-void genPlot2D(std::vector< std::vector<T> > &pesos, std::vector< std::vector<T> > &padrones, std::string filename_o = "log.dat") {
+void genPlot2D(std::vector< std::vector<T> > &pesos, std::vector< std::vector<T> > &padrones, std::string padrones_o = "padrones.log", std::string pesos_o = "pesos.log") {
 
 	unsigned int PLOT_ARGS = 2; // debido a que es un ploteo 2D, solo quiero dos argumentos de los padrones
 
-	std::string filename = "logs/" + filename_o;
+    std::string file_padron = "logs/" + padrones_o;
+    std::string file_pesos = "logs/" + pesos_o;
+
+    genPlot2D_helper(padrones, file_padron, PLOT_ARGS);
+    genPlot2D_helper(pesos, file_pesos);
+}
+
+// Se encarga de crear y guardar los archivos de log.
+template <class T>
+void genPlot2D_helper(std::vector< std::vector<T> > &array, std::string filename_o, unsigned int PLOT_ARGS = 0) {
 
 	std::ofstream file;
-	file.open(filename.c_str());
+	file.open(filename_o.c_str());
 
 	assert(file.is_open()); //muestra error si no se pudo abrir el archivo
 
-	// Guardo los pesos y todos los padrones separados por comas
-	for (unsigned int i = 0, N = padrones.size(); i < N; i++){
+    // Si no hay PLOT_ARGS, el defaul es el tamanio del vector de largo
+    if (PLOT_ARGS == 0) {
+        PLOT_ARGS = array[0].size();
+    }
+
+	// Guardo los pesos en "filename_o.log"
+	for (unsigned int i = 0, N = array.size(); i < N; i++){
 		for (unsigned int j = 0, step = PLOT_ARGS; j < step ; j++) {
-			file << padrones[i][j];
+			file << array[i][j];
 			if (j < step - 1) { // si no es el ultimo elemento, agrego la coma
 				file << ",";
 			}
@@ -91,19 +105,28 @@ void genPlot2D(std::vector< std::vector<T> > &pesos, std::vector< std::vector<T>
 		file << std::endl;
 	}
 
-	file << "#END#" << std::endl; // para avisar hasta donde llegan los patrones
+    file.close();
+}
 
-	for (unsigned int i = 0, N = pesos.size(); i < N; i++){
-		for (unsigned int j = 0, step = pesos[i].size(); j < step ; j++) {
-			file << pesos[i][j] ;
-			if (j < step - 1) { // si no es el ultimo elemento, agrego la coma
-				file << ",";
-			}
-		}
-		file << std::endl;
-	}
+// Es para hacer productos puntos entre vectores
+template <class T>
+T dot(std::vector<T> &V1, std::vector<T> &V2) {
+    T sol = 0;
 
-	file.close();
+    if (V1.size() == V2.size()) {
+        for (unsigned int i = 0; i < V1.size(); i++) {
+            sol += V1[i] * V2[i];
+        }
+    } else {
+        std::cout << "Error haciendo el producto escalar, distinta longitud.\n";
+        std::cout << "V1: " << V1.size() << std::endl;
+        printVector(V1);
+        std::cout << "\nV2: "<< V2.size() << std::endl;
+        printVector(V2);
+        exit (1);
+    }
+
+    return sol;
 }
 
 // Funcion para particionar vector de datos
