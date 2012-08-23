@@ -44,7 +44,7 @@ void parseCSV(std::string filename, std::vector<std::vector<T> > & X) {
 
 // Debo definir las funciones con templates en los headers porque sino no linkea
 
-template <class T> 
+template <class T>
 void printVector(std::vector<T> &v, char separator = ' ') {
 	for (unsigned int i = 0; i < v.size(); i++){
 		std::cout << v[i];
@@ -53,7 +53,7 @@ void printVector(std::vector<T> &v, char separator = ' ') {
 	}
 }
 
-template <class S> 
+template <class S>
 void printVectorVector(std::vector< std::vector<S> > &v, char separator = ' ', std::string newcase = "\n-------\n"){
     for (unsigned int i = 0; i < v.size(); i++){
 		printVector(v[i],separator);
@@ -62,48 +62,59 @@ void printVectorVector(std::vector< std::vector<S> > &v, char separator = ' ', s
 }
 
 /* La idea es que exporte archivos para plotearlo luego con otro programa */
-/* El formato es: 
+/* El formato es:
 	padrones
 	...
 	#END#
 	pesos
 */
-template <class T> 
+template <class T>
 void genPlot2D(std::vector< std::vector<T> > &pesos, std::vector< std::vector<T> > &padrones, std::string filename_o = "log.dat") {
-	
+
 	unsigned int PLOT_ARGS = 2; // debido a que es un ploteo 2D, solo quiero dos argumentos de los padrones
-	
+
 	std::string filename = "logs/" + filename_o;
-	
+
 	std::ofstream file;
 	file.open(filename.c_str());
-	
+
 	assert(file.is_open()); //muestra error si no se pudo abrir el archivo
-	
+
 	// Guardo los pesos y todos los padrones separados por comas
 	for (unsigned int i = 0, N = padrones.size(); i < N; i++){
 		for (unsigned int j = 0, step = PLOT_ARGS; j < step ; j++) {
 			file << padrones[i][j];
 			if (j < step - 1) { // si no es el ultimo elemento, agrego la coma
-				file << ","; 
-			}
-		}	
-		file << std::endl;
-	}
-	
-	file << "#END#" << std::endl; // para avisar hasta donde llegan los patrones
-	
-	for (unsigned int i = 0, N = pesos.size(); i < N; i++){
-		for (unsigned int j = 0, step = pesos[i].size(); j < step ; j++) {			
-			file << pesos[i][j] ;
-			if (j < step - 1) { // si no es el ultimo elemento, agrego la coma
-				file << ","; 				
+				file << ",";
 			}
 		}
 		file << std::endl;
 	}
-	
+
+	file << "#END#" << std::endl; // para avisar hasta donde llegan los patrones
+
+	for (unsigned int i = 0, N = pesos.size(); i < N; i++){
+		for (unsigned int j = 0, step = pesos[i].size(); j < step ; j++) {
+			file << pesos[i][j] ;
+			if (j < step - 1) { // si no es el ultimo elemento, agrego la coma
+				file << ",";
+			}
+		}
+		file << std::endl;
+	}
+
 	file.close();
 }
+
+// Funcion para particionar vector de datos
+#if 0
+bool particionar(string path,
+                 vector< vector<float> > &Ventrenamiento,
+                 vector< vector<float> > &Vcontrol,
+                 vector< vector<float> > &Vpruebas,
+                 float porEntr = 70,
+                 float porControl = 20,
+                 float porPruebas = 10);
+#endif
 
 #endif
