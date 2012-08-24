@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <iostream>
-
 #include "../include/perceptron.h"
 #include "../include/utils.h"
 
@@ -10,20 +9,23 @@ int main(int argc, char **argv) {
 
     Perceptron A(3, 0.01);
 
-    vector< vector<float> > Ventrenamiento;
-    vector< vector<float> > Vprueba;
-    vector< vector<float> > Vcontrol;
+///Creacion de Vector con conjuntos de particiones de datos
+      vector<conjuntoDatos> V1;
+      V1 = particionar("data/1000datos_xor2.csv",5);
+      for(int i = 0; i<5; i++){
+          cout<<"**** CONJUNTO DE DATOS "<<i<<" ****"<<endl;
 
-    parseCSV <float> ("data/700datos_entrenamiento.csv", Ventrenamiento);
-    parseCSV <float> ("data/200datos_prueba.csv", Vprueba);
-    parseCSV <float> ("data/100datos_control.csv", Vcontrol);
+          cout<<"Particion Entrenamiento n°"<<i<<endl;
+          printVectorVector((V1.at(i)).entrenamiento);
 
-    //Entrenamiento
-    cout<<"Resultados de precision del entrenamiento: ";
-    cout<<A.entrenamiento(Ventrenamiento,Vcontrol,1) * 100<<"%"<<endl;
-    //Prueba
-    cout<<"Resultados de precision con valores nunca vistos: ";
-    cout<<A.estTrabajo(Vprueba) * 100<<"%"<<endl;
+          cout<<"Particion Prueba n°"<<i<<endl;
+          printVectorVector((V1.at(i)).prueba);
+
+          cout<<"Particion Control n°"<<i<<endl;
+          printVectorVector((V1.at(i)).control);
+       }
+
+
 
     return 0;
 }

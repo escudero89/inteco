@@ -129,15 +129,24 @@ T dot(std::vector<T> &V1, std::vector<T> &V2) {
     return sol;
 }
 
-// Funcion para particionar vector de datos
-#if 0
-bool particionar(string path,
-                 vector< vector<float> > &Ventrenamiento,
-                 vector< vector<float> > &Vcontrol,
-                 vector< vector<float> > &Vpruebas,
-                 float porEntr = 70,
-                 float porControl = 20,
-                 float porPruebas = 10);
-#endif
+/*
+Struc conjunto de datos. Tiene 3 elementos. Ellos son: una particion con datos de
+entrenamiento, una particion con datos de pruebas y una particion con datos de control
+*/
+struct conjuntoDatos {
+std::vector< std::vector<float> > entrenamiento;
+std::vector< std::vector<float> > prueba;
+std::vector< std::vector<float> > control;
+};
+/*
+Dados una ruta de archivo, una cantidad de Conjunto de datos (cantConj) y los
+porcentajes deseados para cada particion; la funcion devuelve un vector que contiene
+cantConj conjuntos DISTINTOS de datos.
+*/
+std::vector<conjuntoDatos> particionar(std::string path, int cantConj = 1,
+                    float porEntr = 70,
+                    float porPruebas = 20,
+                    float porControl = 10);
+
 
 #endif
