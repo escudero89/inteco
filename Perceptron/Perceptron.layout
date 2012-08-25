@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
+<<<<<<< HEAD
 	<File name="include/perceptron.h" open="1" top="0" tabpos="3">
 		<Cursor position="1454" topLine="23" />
 	</File>
@@ -15,5 +16,21 @@
 	</File>
 	<File name="src/utils.cpp" open="1" top="0" tabpos="4">
 		<Cursor position="387" topLine="0" />
+=======
+	<File name="include\perceptron.h" open="1" top="0" tabpos="3">
+		<Cursor position="359" topLine="16" />
+	</File>
+	<File name="include\utils.h" open="1" top="0" tabpos="5">
+		<Cursor position="4191" topLine="123" />
+	</File>
+	<File name="src\main.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="763" topLine="5" />
+	</File>
+	<File name="src\perceptron.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="3770" topLine="97" />
+	</File>
+	<File name="src\utils.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="1151" topLine="27" />
+>>>>>>> 242e96473b3183568cce9b0f511e1d7ebfb2c1c6
 	</File>
 </CodeBlocks_layout_file>
