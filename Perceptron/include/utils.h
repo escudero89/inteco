@@ -62,12 +62,6 @@ void printVectorVector(std::vector< std::vector<S> > &v, char separator = ' ', s
 }
 
 /* La idea es que exporte archivos para plotearlo luego con otro programa */
-/* El formato es:
-	padrones
-	...
-	#END#
-	pesos
-*/
 template <class T>
 void genPlot2D(std::vector< std::vector<T> > &pesos, std::vector< std::vector<T> > &padrones, std::string padrones_o = "padrones.log", std::string pesos_o = "pesos.log") {
 
