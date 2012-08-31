@@ -128,9 +128,9 @@ Struc conjunto de datos. Tiene 3 elementos. Ellos son: una particion con datos d
 entrenamiento, una particion con datos de pruebas y una particion con datos de control
 */
 struct conjuntoDatos {
-std::vector< std::vector<float> > entrenamiento;
-std::vector< std::vector<float> > prueba;
-std::vector< std::vector<float> > control;
+    std::vector< std::vector<float> > entrenamiento;
+    std::vector< std::vector<float> > control;
+    std::vector< std::vector<float> > prueba;
 };
 /*
 Dados una ruta de archivo, una cantidad de Conjunto de datos (cantConj) y los

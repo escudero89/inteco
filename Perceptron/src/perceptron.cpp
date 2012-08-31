@@ -1,18 +1,24 @@
 #include "../include/perceptron.h"
-#include "../include/utils.h"
 
 Perceptron::Perceptron(int N, float tasa, float desvio, float media)
 {
     this -> N = N;
     this -> tasa = tasa;
 
+    this -> desvio = desvio;
+    this -> media = media;
+
+    this -> pesos = new vector<float>;
+    this -> pesos_totales = new vector< vector<float> >; // para ploteo
+
     inicializar_neuronas(desvio, media);
 }
 
 /* La funcion de inializacion de neuronas esta aparte para que sea mas sencillo reinicializarla */
 void Perceptron::inicializar_neuronas(float desvio, float media) {
-    this -> pesos = new vector<float>;
-    this -> pesos_totales = new vector< vector<float> >; // para ploteo
+
+    pesos->clear();
+    pesos_totales->clear();
 
     // Inicializamos semilla
     srand(time(NULL));
@@ -59,16 +65,13 @@ bool Perceptron::entrenar(vector<float> patrones) {
 
     for (unsigned int i = 0; i < tamanio; i++) {
 //        cout << pesos->at(i);
-
         aux = pesos->at(i) + factorDeCambio * patrones[i];
         pesos->at(i) = aux;
-
 //        cout << " ... " << pesos->at(i) << endl;
     }
 
     return true;
 }
-
 
 bool Perceptron::estEntrenamiento(vector<vector<float> > &estacion) {
     for(unsigned int i = 0; i < estacion.size() ; i++) {
@@ -115,18 +118,19 @@ float Perceptron::estTrabajo(vector< vector<float> > &patrones, bool mostrar){
         cout<<"Porcentaje de aciertos: "<<porcentaje * 100<<"%"<<endl;
         cout<<"Aciertos: "<<aciertos<<endl;
         cout<<"Errores: "<<errores<<endl;
-    }
 
-	// Genera archivos para ploteo
-	genPlot2D <float> (*(this->pesos_totales), patrones);
+        // Genera archivos para ploteo
+        genPlot2D <float> (*(this->pesos_totales), patrones);
+    }
 
     return porcentaje;
 }
 
 /* Realiza un entrenamiento hasta que el error sea menor que la tolerancia dada
-   y durante una cierta cantidad de epocas dadas por maxIt */
+   y durante una cierta cantidad de epocas dadas por maxIt
+   El error es obtenido haciendo trabajar el perceptron con datos que nunca vio */
 float Perceptron::entrenamiento(vector< vector<float> > &patrones, vector< vector<float> > &trabajos, unsigned int maxIt, float tol) {
-    float error = 100;
+    float error = 100000;
     for (unsigned int i = 0; i < maxIt ; i++) {
         estEntrenamiento(patrones);
         error = estTrabajo(trabajos);
@@ -135,4 +139,19 @@ float Perceptron::entrenamiento(vector< vector<float> > &patrones, vector< vecto
             break;
     }
     return error;
+}
+
+float Perceptron::validacionCruzada(vector<conjuntoDatos> &V, unsigned int maxIt,float tol){
+    float err_promedio = 0;
+    unsigned int n = V.size();
+    cout<<"Iniciando, n = "<<n<<endl;
+    for (unsigned int i = 0; i < n ; i++ ) {
+        entrenamiento(V.at(i).entrenamiento, V.at(i).control,maxIt,tol);
+        err_promedio += estTrabajo(V.at(i).prueba);
+        cout<<i<<" . ";
+        inicializar_neuronas(this->desvio, this->media);
+    }
+
+    err_promedio /= n;
+    return err_promedio;
 }

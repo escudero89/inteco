@@ -98,6 +98,8 @@
 	<math.h>
 	<algorithm>
 
+1345848560 >
+
 1345848560 c:\users\marcos\workspace\inteco\perceptron\include\utils.h
 	<vector>
 	<sstream>
@@ -144,4 +146,35 @@
 	<string>
 	<cstdlib>
 	<cassert>
+
+1346444706 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
+	<stdio.h>
+	<iostream>
+	"../include/perceptron.h"
+	"../include/utils.h"
+
+1346443251 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/perceptron.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+	"../include/utils.h"
+
+1346443251 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1346446560 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/perceptron.cpp
+	"../include/perceptron.h"
+
+1346446803 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/utils.cpp
+	"../include/utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
 
