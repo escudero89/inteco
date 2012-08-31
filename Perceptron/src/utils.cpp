@@ -47,8 +47,8 @@ vector<conjuntoDatos> particionar(std::string path, int cantConj,
          v3.insert(v3.begin(),V.begin()+longE+longP,V.end());
          conjuntoDatos P;
          P.entrenamiento = v1;
-         P.prueba = v2;
-         P.control = v3;
+         P.control = v2;
+         P.prueba = v3;
          particiones.push_back(P);
          v1.clear();
          v2.clear();

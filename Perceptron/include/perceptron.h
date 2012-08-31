@@ -6,6 +6,8 @@
 #include <ctime>
 #include <vector>
 
+#include "../include/utils.h"
+
 using namespace std;
 
 class Perceptron {
@@ -13,6 +15,8 @@ class Perceptron {
     float umbral;			// w_0
     int N;					// cantidad de elementos que conforman el patron -1 (por el valor verdadero)
     float tasa; 			//tasa de aprendizaje
+
+    float desvio, media;
 
 	vector< vector<float> > *pesos_totales;	// Va juntando la progresion de todos los pesos
 
@@ -43,6 +47,9 @@ public:
     float estTrabajo(vector< vector<float> > &patrones, bool mostrar=false);
 
     float entrenamiento(vector< vector<float> > &patrones, vector< vector<float> > &trabajos, unsigned int maxIt = 3000, float tol = 0.1);
+
+    /* FUNCION DE PRUEBA DE LAS NEURONAS (para obtener margenes de error) */
+    float validacionCruzada(vector<conjuntoDatos> &V, unsigned int maxIt = 3000, float tol = 0.1);
 
 };
 
