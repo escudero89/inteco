@@ -12,7 +12,7 @@ custom_tabs=0
 tab_use_spaces=0
 use_wxfb=0
 explorer_path=
-current_source=src\perceptron.cpp
+current_source=include\utils.h
 path_char=\
 [source]
 path=src\main.cpp
@@ -20,7 +20,7 @@ cursor=311
 open=true
 [source]
 path=src\perceptron.cpp
-cursor=2641
+cursor=2978
 open=true
 [source]
 path=src\utils.cpp
@@ -32,7 +32,7 @@ cursor=1191
 open=true
 [header]
 path=include\utils.h
-cursor=2591
+cursor=4251
 open=true
 [config]
 name=Debug
