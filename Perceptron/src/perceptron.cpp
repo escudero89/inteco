@@ -1,9 +1,11 @@
 #include "../include/perceptron.h"
 
-Perceptron::Perceptron(int N, float tasa, float desvio, float media)
-{
+Perceptron::Perceptron(int N, float tasa, bool is_recording, float desvio, float media) {
+
     this -> N = N;
     this -> tasa = tasa;
+
+    this -> is_recording = is_recording;
 
     this -> desvio = desvio;
     this -> media = media;
@@ -114,11 +116,14 @@ float Perceptron::estTrabajo(vector< vector<float> > &patrones, bool mostrar){
     float porcentaje = (float(aciertos) / float(patrones.size()));
 
     if(mostrar){
-        cout<<"Resultados:"<<endl;
-        cout<<"Porcentaje de aciertos: "<<porcentaje * 100<<"%"<<endl;
-        cout<<"Aciertos: "<<aciertos<<endl;
-        cout<<"Errores: "<<errores<<endl;
+        stringstream ss;
 
+        ss << "Resultados:"<<endl;
+        ss << "Porcentaje de aciertos: "<<porcentaje * 100<<"%"<<endl;
+        ss << "Aciertos: "<<aciertos<<endl;
+        ss << "Errores: "<<errores<<endl;
+
+        myRecord.add_record(ss, is_recording);
         // Genera archivos para ploteo
         genPlot2D <float> (*(this->pesos_totales), patrones);
     }
@@ -144,11 +149,11 @@ float Perceptron::entrenamiento(vector< vector<float> > &patrones, vector< vecto
 float Perceptron::validacionCruzada(vector<conjuntoDatos> &V, unsigned int maxIt,float tol){
     float err_promedio = 0;
     unsigned int n = V.size();
-    cout<<"Iniciando, n = "<<n<<endl;
+
     for (unsigned int i = 0; i < n ; i++ ) {
         entrenamiento(V.at(i).entrenamiento, V.at(i).control,maxIt,tol);
         err_promedio += estTrabajo(V.at(i).prueba);
-        cout<<i<<" . ";
+        cout << i <<" . ";
         inicializar_neuronas(this->desvio, this->media);
     }
 

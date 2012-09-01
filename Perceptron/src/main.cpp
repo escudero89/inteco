@@ -1,63 +1,94 @@
 #include <stdio.h>
 #include <iostream>
+#include <sstream>
 #include "../include/perceptron.h"
 #include "../include/utils.h"
+#include "../include/record.h"
 
 using namespace std;
 
 int main(int argc, char **argv) {
 
-#if 0 /// Ejercicio 1a
+// Para guardar
 
-//Problema OR//
+bool is_recording = true; // pasar a falso si no queremos crear archivo
 
-//Creamos perceptron
-Perceptron A(3,0.5);
+Record myRecord;
+myRecord.start(is_recording);
 
-//Cargamos los datos
-vector< vector<float> > vec_entrenamiento;
-vector< vector<float> > vec_control;
-vector< vector<float> > vec_prueba;
-parseCSV("data/700datos_entrenamiento.csv",vec_entrenamiento);
-parseCSV("data/200datos_prueba.csv",vec_prueba);
-parseCSV("data/100datos_control.csv",vec_control);
+stringstream ss;
 
-//Entrenamos Perceptron
-A.entrenamiento(vec_entrenamiento,vec_control,500,0.05);
+#if 1 /// Ejercicio 1a
 
-//Probamos perceptron y visualizamos porcentaje de aciertos
-cout<<"Porcentaje de aciertos: "<<A.estTrabajo(vec_prueba) * 100 <<"%"<<endl;#endif
+    //Problema OR//
 
-//Problema XOR
+    //Creamos perceptron
+    Perceptron A(3, 0.5, is_recording);
+
+    //Cargamos los datos
+    vector< vector<float> > vec_entrenamiento;
+    vector< vector<float> > vec_control;
+    vector< vector<float> > vec_prueba;
+    parseCSV("data/700datos_entrenamiento.csv",vec_entrenamiento);
+    parseCSV("data/200datos_prueba.csv",vec_prueba);
+    parseCSV("data/100datos_control.csv",vec_control);
+
+    //Entrenamos Perceptron
+    A.entrenamiento(vec_entrenamiento,vec_control,500,0.05);
+
+    //Probamos perceptron y visualizamos porcentaje de aciertos
+    ss << "Porcentaje de aciertos: " << A.estTrabajo(vec_prueba, true) * 100 << "%" << endl;
 
 #endif
 
 #if 0 /// Ejercicio 1b
 
+    //Creamos perceptron
+    Perceptron A(3, 0.5, is_recording);
+
+    //Cargamos los datos
+    vector< vector<float> > vec_entrenamiento;
+    vector< vector<float> > vec_control;
+    vector< vector<float> > vec_prueba;
+    parseCSV("data/xor700.csv",vec_entrenamiento);
+    parseCSV("data/xor200.csv",vec_prueba);
+    parseCSV("data/xor100.csv",vec_control);
+
+    //Entrenamos Perceptron
+    A.entrenamiento(vec_entrenamiento,vec_control,500,0.31);
+
+    //Probamos perceptron y visualizamos porcentaje de aciertos
+    ss<<"Porcentaje de aciertos: "<<A.estTrabajo(vec_prueba) * 100 <<"%"<<endl;
+
 #endif
 
 #if 0 /// Ejercicio 2 a
-    Perceptron A(4, 0.9);
+    Perceptron A(4, 0.9, is_recording);
 
 //Creacion de Vector con conjuntos de particiones de datos
       vector<conjuntoDatos> V1;
       V1 = particionar("data/eje2a.csv",5,70,20,10);
 
-    cout<<"Porcentaje de aciertos: "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;#endif
+    ss<<"Porcentaje de aciertos: "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;#endif
 #endif
 
 #if 0 /// Ejercicio 2 b
-    Perceptron A(4, 0.9);
+    Perceptron A(4, 0.9, is_recording);
     vector<conjuntoDatos> V1;
 
     V1 = particionar("data/eje2b_10.csv",50,70,20,10);
-    cout<<"Porcentaje de aciertos (10%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
+    ss<<"Porcentaje de aciertos (10%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
 
     V1 = particionar("data/eje2b_50.csv",50,70,20,10);
-    cout<<"Porcentaje de aciertos (50%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
+    ss<<"Porcentaje de aciertos (50%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
 
     V1 = particionar("data/eje2b_70.csv",50,70,20,10);
-    cout<<"Porcentaje de aciertos (70%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
+    ss<<"Porcentaje de aciertos (70%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
+
 #endif
+
+    myRecord.add_record(ss, is_recording);
+    myRecord.finish(is_recording);
+
     return 0;
 }

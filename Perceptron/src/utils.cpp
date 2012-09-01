@@ -2,9 +2,10 @@
 #include <vector>
 #include <math.h>
 #include <algorithm>
-#if 1
+
 using namespace std;
-vector<conjuntoDatos> particionar(std::string path, int cantConj,
+
+vector<conjuntoDatos> particionar(string path, int cantConj,
                  float porEntr,
                  float porPruebas,
                  float porControl){
@@ -37,24 +38,26 @@ vector<conjuntoDatos> particionar(std::string path, int cantConj,
 
     // Creamos cantConj Conjuntos
     vector< vector<float> > v1,v2,v3;
+
     vector<conjuntoDatos> particiones;
 
     for(int i = 0; i<cantConj; i++)
-     {
-         random_shuffle(V.begin(),V.end()); //revolvemos el vector
-         v1.insert(v1.begin(),V.begin(),V.begin()+longE);
-         v2.insert(v2.begin(),V.begin()+longE,V.begin()+longE+longP);
-         v3.insert(v3.begin(),V.begin()+longE+longP,V.end());
-         conjuntoDatos P;
-         P.entrenamiento = v1;
-         P.control = v2;
-         P.prueba = v3;
-         particiones.push_back(P);
-         v1.clear();
-         v2.clear();
-         v3.clear();
-     }
+    {
+        random_shuffle(V.begin(),V.end()); //revolvemos el vector
+        v1.insert(v1.begin(),V.begin(),V.begin()+longE);
+        v2.insert(v2.begin(),V.begin()+longE,V.begin()+longE+longP);
+        v3.insert(v3.begin(),V.begin()+longE+longP,V.end());
+        conjuntoDatos P;
+        P.entrenamiento = v1;
+        P.control = v2;
+        P.prueba = v3;
+
+        particiones.push_back(P);
+        v1.clear();
+        v2.clear();
+        v3.clear();
+    }
 
     return particiones;
-                                    }
-#endif
+
+}

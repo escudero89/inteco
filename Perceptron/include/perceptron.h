@@ -5,25 +5,31 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <sstream>
 
 #include "../include/utils.h"
+#include "../include/record.h"
 
 using namespace std;
 
 class Perceptron {
+    float
+        umbral,			// w_0
+        tasa, 			//tasa de aprendizaje
+        desvio, media;
+
+    int N;		// cantidad de elementos que conforman el patron -1 (por el valor verdadero)
+
     vector<float> *pesos;	// W(i)
-    float umbral;			// w_0
-    int N;					// cantidad de elementos que conforman el patron -1 (por el valor verdadero)
-    float tasa; 			//tasa de aprendizaje
-
-    float desvio, media;
-
 	vector< vector<float> > *pesos_totales;	// Va juntando la progresion de todos los pesos
+
+    bool is_recording;
+	Record myRecord;    // Para recording
 
 public:
 
     /* FUNCIONES DE INICIALIZACION Y SETS/GETS */
-    Perceptron(int N, float tasa=1.5, float desvio=0.5, float media=0);
+    Perceptron(int N, float tasa=1.5, bool is_recording = true, float desvio=0.5, float media=0);
     void inicializar_neuronas(float desvio, float media);
     void set_tasa(float tasa) {
         this->tasa = tasa;

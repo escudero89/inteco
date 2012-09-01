@@ -40,23 +40,38 @@ function [ret] = validar(a, b, c)
 
 endfunction
 
+% XOR
+function [ret] = validar_xor(a,b)
+
+    a = sign(a);
+    b = sign(b);
+
+    ret = 1;
+
+    if (a == b)
+        ret = -1;
+    endif    
+    
+endfunction
+
 % SCRIPT %
 
-cantidad = 992;
-desvio = 10; %
+cantidad = 996;
+desvio = 5; %
 
-matrix = [-1 -1 -1 1 ; -1 -1 1 1 ; -1 1 -1 -1 ; -1 1 1 1 ; 1 -1 -1 -1 ; 1 -1 1 -1 ; 1 1 -1 1 ; 1 1 1 -1];
+% matrix = [-1 -1 -1 1 ; -1 -1 1 1 ; -1 1 -1 -1 ; -1 1 1 1 ; 1 -1 -1 -1 ; 1 -1 1 -1 ; 1 1 -1 1 ; 1 1 1 -1];
+matrix = [ 1 1 -1 ; 1 -1 1 ; -1 1 1 ; -1 -1 -1 ];
 
 for i = 1 : cantidad
    
    datos = [];
    
-   for k = 1 : 3 
+   for k = 1 : 2
       datos(k) = ask_uno(desvio);
    endfor
    
-   res = validar(datos(1), datos(2), datos(3));
+   res = validar_xor(datos(1), datos(2));
    
-   matrix = [ matrix ; datos(1), datos(2), datos(3), res];   
+   matrix = [ matrix ; datos(1), datos(2), res];   
 
 endfor

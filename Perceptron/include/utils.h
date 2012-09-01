@@ -141,6 +141,4 @@ std::vector<conjuntoDatos> particionar(std::string path, int cantConj = 1,
                     float porEntr = 70,
                     float porPruebas = 20,
                     float porControl = 10);
-
-
 #endif
