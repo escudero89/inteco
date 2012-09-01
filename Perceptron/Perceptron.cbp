@@ -7,8 +7,8 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\Perceptron" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Debug\" />
+				<Option output="bin/Debug/Perceptron" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -16,8 +16,8 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin\Release\Perceptron" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Release\" />
+				<Option output="bin/Release/Perceptron" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -31,11 +31,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="include\perceptron.h" />
-		<Unit filename="include\utils.h" />
-		<Unit filename="src\main.cpp" />
-		<Unit filename="src\perceptron.cpp" />
-		<Unit filename="src\utils.cpp" />
+		<Unit filename="include/perceptron.h" />
+		<Unit filename="include/record.h" />
+		<Unit filename="include/utils.h" />
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/perceptron.cpp" />
+		<Unit filename="src/record.cpp" />
+		<Unit filename="src/utils.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
