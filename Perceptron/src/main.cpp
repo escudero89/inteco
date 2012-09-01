@@ -63,7 +63,7 @@ stringstream ss;
 #endif
 
 #if 1 /// Ejercicio 2 a
-    Perceptron A(4, 0.9, is_recording);
+    Perceptron A(4, 0.1, is_recording);
 
 //Creacion de Vector con conjuntos de particiones de datos
       vector<conjuntoDatos> V1;
