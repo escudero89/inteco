@@ -18,7 +18,7 @@ myRecord.start(is_recording);
 
 stringstream ss;
 
-#if 1 /// Ejercicio 1a
+#if 0 /// Ejercicio 1a
 
     //Problema OR//
 
@@ -62,14 +62,14 @@ stringstream ss;
 
 #endif
 
-#if 0 /// Ejercicio 2 a
+#if 1 /// Ejercicio 2 a
     Perceptron A(4, 0.9, is_recording);
 
 //Creacion de Vector con conjuntos de particiones de datos
       vector<conjuntoDatos> V1;
       V1 = particionar("data/eje2a.csv",5,70,20,10);
 
-    ss<<"Porcentaje de aciertos: "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;#endif
+    ss<<"Porcentaje de aciertos: "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
 #endif
 
 #if 0 /// Ejercicio 2 b
