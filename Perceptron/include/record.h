@@ -26,7 +26,7 @@ public:
     void finish(bool is_recording = true);
 
     void add_record(std::stringstream &log, bool is_recording = true);
-    void add_log(std::string log, bool is_recording = true);
+    void add_record(std::string log, bool is_recording = true);
 
     std::string get_filedir() {
         return this->filedir;

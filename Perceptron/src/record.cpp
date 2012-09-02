@@ -28,7 +28,7 @@ void Record::start(bool is_recording) {
 }
 
 void Record::finish(bool is_recording) {
-    add_log("\n", is_recording);
+	add_record("\n", is_recording);
 }
 
 /* AGREGAN LAS LINEAS AL ARCHIVO, UNO COMO STRINGSTREAM Y OTRO COMO STRING */
@@ -46,7 +46,7 @@ void Record::add_record(std::stringstream &log, bool is_recording) {
     }
 }
 
-void Record::add_log(std::string log, bool is_recording) {
+void Record::add_record(std::string log, bool is_recording) {
     std::stringstream ss;
     ss << log;
     add_record(ss, is_recording);

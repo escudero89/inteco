@@ -16,7 +16,7 @@ current_source=src\record.cpp
 path_char=\
 [source]
 path=src\main.cpp
-cursor=308
+cursor=2088
 open=true
 [source]
 path=src\perceptron.cpp
@@ -28,7 +28,7 @@ cursor=30
 open=true
 [source]
 path=src\record.cpp
-cursor=0
+cursor=1347
 open=true
 [header]
 path=include\perceptron.h
@@ -40,7 +40,7 @@ cursor=4251
 open=true
 [header]
 path=include\record.h
-cursor=0
+cursor=569
 open=true
 [config]
 name=Debug
