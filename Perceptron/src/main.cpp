@@ -9,9 +9,9 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
-// Para guardar
+/// Para guardar
 
-bool is_recording = true; // pasar a falso si no queremos crear archivo
+bool is_recording = false; // pasar a falso si no queremos crear archivo
 
 Record myRecord;
 myRecord.start(is_recording);
@@ -20,7 +20,7 @@ stringstream ss;
 
 #if 0 /// Ejercicio 1a
 
-    //Problema OR//
+    //---------- Problema OR ---------//
 
     //Creamos perceptron
     Perceptron A(3, 0.5, is_recording);
@@ -37,11 +37,13 @@ stringstream ss;
     A.entrenamiento(vec_entrenamiento,vec_control,500,0.05);
 
     //Probamos perceptron y visualizamos porcentaje de aciertos
-    ss << "Porcentaje de aciertos: " << A.estTrabajo(vec_prueba, true) * 100 << "%" << endl;
+    ss << "Porcentaje de aciertos OR: " << A.estTrabajo(vec_prueba) * 100 << "%" << endl;
 
 #endif
 
 #if 0 /// Ejercicio 1b
+
+    //---------- Problema XOR ---------//
 
     //Creamos perceptron
     Perceptron A(3, 0.5, is_recording);
@@ -62,17 +64,17 @@ stringstream ss;
 
 #endif
 
-#if 1 /// Ejercicio 2 a
+#if 0 /// Ejercicio 2 a
     Perceptron A(4, 0.1, is_recording);
 
 //Creacion de Vector con conjuntos de particiones de datos
       vector<conjuntoDatos> V1;
-      V1 = particionar("data/eje2a.csv",5,70,20,10);
+      V1 = particionar("data/eje2a.csv",10,70,20,10);
 
     ss<<"Porcentaje de aciertos: "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
 #endif
 
-#if 0 /// Ejercicio 2 b
+#if 1 /// Ejercicio 2 b
     Perceptron A(4, 0.9, is_recording);
     vector<conjuntoDatos> V1;
 

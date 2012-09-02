@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1345606935 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
+1346466826 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
 	<stdio.h>
 	<iostream>
 	"../include/perceptron.h"
@@ -8,10 +8,16 @@
 	<iostream>
 	"../include/perceptron.h"
 	"../include/utils.h"
+	<stdio.h>
+	<iostream>
+	<sstream>
+	"../include/perceptron.h"
+	"../include/utils.h"
+	"../include/record.h"
 
 1345226743 e/utils.h"
 
-1345760883 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
+1346465471 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
 	<iostream>
 	<cstdlib>
 	<ctime>
@@ -20,13 +26,21 @@
 	<cstdlib>
 	<ctime>
 	<vector>
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+	<sstream>
+	"../include/utils.h"
+	"../include/record.h"
 
 1345226772 
 
-1345760945 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
+1346465463 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
 	"../include/perceptron.h"
 	"../include/perceptron.h"
 	"../include/utils.h"
+	"../include/perceptron.h"
 
 1345234850 e/perceptron.h"
 
@@ -40,26 +54,36 @@
 	<cstdlib>
 	<vector>
 
-1345562029 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
+1346444706 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
+	<stdio.h>
+	<iostream>
+	"../include/perceptron.h"
+	"../include/utils.h"
 	<stdio.h>
 	<iostream>
 	"../include/perceptron.h"
 	"../include/utils.h"
 
-1345562187 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/perceptron.h
+1346443251 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/perceptron.h
 	<iostream>
 	<cstdlib>
 	<ctime>
 	<vector>
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+	"../include/utils.h"
 
 1345040277 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/utilidades.cpp
 	<iostream>
 	<cstdlib>
 	<vector>
 
-1345562834 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/perceptron.cpp
+1346446560 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/perceptron.cpp
 	"../include/perceptron.h"
 	"../include/utils.h"
+	"../include/perceptron.h"
 
 1345150372 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/utils.cpp
 	<vector>
@@ -70,10 +94,21 @@
 	<cstdlib>
 	<cassert>
 
-1345514754 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/utils.cpp
+1346446803 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/utils.cpp
 	"../include/utils.h"
+	"../include/utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
 
-1345514754 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/utils.h
+1346443251 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
 	<vector>
 	<sstream>
 	<fstream>
@@ -82,17 +117,19 @@
 	<cstdlib>
 	<cassert>
 
-1345831246 source:c:\users\marcos\workspace\inteco\perceptron\src\perceptron.cpp
+1346594540 source:c:\users\marcos\workspace\inteco\perceptron\src\perceptron.cpp
 	"../include/perceptron.h"
-	"../include/utils.h"
 
-1345831246 c:\users\marcos\workspace\inteco\perceptron\include\perceptron.h
+1346594533 c:\users\marcos\workspace\inteco\perceptron\include\perceptron.h
 	<iostream>
 	<cstdlib>
 	<ctime>
 	<vector>
+	<sstream>
+	"../include/utils.h"
+	"../include/record.h"
 
-1345848560 source:c:\users\marcos\workspace\inteco\perceptron\src\utils.cpp
+1346594540 source:c:\users\marcos\workspace\inteco\perceptron\src\utils.cpp
 	"../include/utils.h"
 	<vector>
 	<math.h>
@@ -100,7 +137,7 @@
 
 1345848560 >
 
-1345848560 c:\users\marcos\workspace\inteco\perceptron\include\utils.h
+1346594533 c:\users\marcos\workspace\inteco\perceptron\include\utils.h
 	<vector>
 	<sstream>
 	<fstream>
@@ -109,13 +146,15 @@
 	<cstdlib>
 	<cassert>
 
-1345847730 source:c:\users\marcos\workspace\inteco\perceptron\src\main.cpp
+1346595469 source:c:\users\marcos\workspace\inteco\perceptron\src\main.cpp
 	<stdio.h>
 	<iostream>
+	<sstream>
 	"../include/perceptron.h"
 	"../include/utils.h"
+	"../include/record.h"
 
-1345760390 /media/Cristian/Repositorios/inteco/Perceptron/include/utils.h
+1346459292 /media/Cristian/Repositorios/inteco/Perceptron/include/utils.h
 	<vector>
 	<sstream>
 	<fstream>
@@ -130,10 +169,21 @@
 	<string>
 	<cstdlib>
 	<cassert>
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
 
-1345755361 source:/media/Cristian/Repositorios/inteco/Perceptron/src/utils.cpp
+1346458521 source:/media/Cristian/Repositorios/inteco/Perceptron/src/utils.cpp
 	"../include/utils.h"
 	"../include/utils.h"
+	"../include/utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
 
 1345226743 source:e:\repositorios\inteco\perceptron\src\utils.cpp
 	"../include/utils.h"
@@ -147,72 +197,6 @@
 	<cstdlib>
 	<cassert>
 
-1346444706 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
-	<stdio.h>
-	<iostream>
-	"../include/perceptron.h"
-	"../include/utils.h"
-
-1346443251 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/perceptron.h
-	<iostream>
-	<cstdlib>
-	<ctime>
-	<vector>
-	"../include/utils.h"
-
-1346443251 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/utils.h
-	<vector>
-	<sstream>
-	<fstream>
-	<iostream>
-	<string>
-	<cstdlib>
-	<cassert>
-
-1346446560 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/perceptron.cpp
-	"../include/perceptron.h"
-
-1346446803 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/utils.cpp
-	"../include/utils.h"
-	<vector>
-	<math.h>
-	<algorithm>
-
-1346465463 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
-	"../include/perceptron.h"
-
-1346465471 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
-	<iostream>
-	<cstdlib>
-	<ctime>
-	<vector>
-	<sstream>
-	"../include/utils.h"
-	"../include/record.h"
-
-1346459292 /media/Cristian/Repositorios/inteco/Perceptron/include/utils.h
-	<vector>
-	<sstream>
-	<fstream>
-	<iostream>
-	<string>
-	<cstdlib>
-	<cassert>
-
-1346458521 source:/media/Cristian/Repositorios/inteco/Perceptron/src/utils.cpp
-	"../include/utils.h"
-	<vector>
-	<math.h>
-	<algorithm>
-
-1346466826 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
-	<stdio.h>
-	<iostream>
-	<sstream>
-	"../include/perceptron.h"
-	"../include/utils.h"
-	"../include/record.h"
-
 1346466883 source:/media/Cristian/Repositorios/inteco/Perceptron/src/record.cpp
 	"../include/record.h"
 
@@ -223,4 +207,15 @@
 	<sstream>
 	<iostream>
 	<ctime>
+
+1346594533 c:\users\marcos\workspace\inteco\perceptron\include\record.h
+	<cassert>
+	<string>
+	<fstream>
+	<sstream>
+	<iostream>
+	<ctime>
+
+1346594540 source:c:\users\marcos\workspace\inteco\perceptron\src\record.cpp
+	"../include/record.h"
 
