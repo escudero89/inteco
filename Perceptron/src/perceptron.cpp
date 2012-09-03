@@ -86,6 +86,7 @@ bool Perceptron::estEntrenamiento(vector<vector<float> > &estacion) {
     return true;
 }
 
+/* Trabaja con patron y devuelve si acerto o no */
 bool Perceptron::trabajar(vector<float> patrones){
     float ydeseado = patrones.back();
     patrones.pop_back();
@@ -105,10 +106,11 @@ bool Perceptron::trabajar(vector<float> patrones){
 
 }
 
+/* Trabaja con patrones y devuelve % de aciertos */
 float Perceptron::estTrabajo(vector< vector<float> > &patrones, bool mostrar){
     int aciertos = 0, errores = 0;
 
-    for(unsigned int i=0; i<patrones.size(); i++){
+    for (unsigned int i=0; i<patrones.size(); i++) {
         if ( trabajar( patrones[i] ) ) {
             aciertos++;
         } else {
@@ -117,16 +119,16 @@ float Perceptron::estTrabajo(vector< vector<float> > &patrones, bool mostrar){
     }
     float porcentaje = (float(aciertos) / float(patrones.size()));
 
-    if(mostrar){
+    if (mostrar) {
         stringstream ss;
 
-        ss << "Resultados:"<<endl;
-        ss << "Porcentaje de aciertos: "<<porcentaje * 100<<"%"<<endl;
-        ss << "Aciertos: "<<aciertos<<endl;
-        ss << "Errores: "<<errores<<endl;
+        ss << "Resultados:" << endl;
+        ss << "Porcentaje de aciertos: " << porcentaje * 100 << "%" << endl;
+        ss << "Aciertos: " << aciertos << endl;
+        ss << "Errores: " << errores << endl;
 
-        myRecord.add_record(ss, is_recording);
-        // Genera archivos para ploteo
+		// Genera archivos para ploteo y para grabar
+        myRecord.add_record(ss, is_recording);        
         genPlot2D <float> (*(this->pesos_totales), patrones);
     }
 
@@ -157,10 +159,11 @@ float Perceptron::validacionCruzada(vector<conjuntoDatos> &V, unsigned int maxIt
     unsigned int n = V.size();
 
     for (unsigned int i = 0; i < n ; i++ ) {
-        entrenamiento(V.at(i).entrenamiento, V.at(i).control,maxIt,tol);
-        err_promedio += estTrabajo(V.at(i).prueba);
-        cout << i <<" . ";
+        entrenamiento(V.at(i).entrenamiento, V.at(i).control, maxIt, tol);
+        err_promedio += estTrabajo(V.at(i).prueba);        
         inicializar_neuronas(this->desvio, this->media);
+		
+		cout << i <<" . ";
     }
 
     err_promedio /= n;
