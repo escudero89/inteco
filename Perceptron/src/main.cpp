@@ -57,34 +57,34 @@ stringstream ss;
     parseCSV("data/xor100.csv",vec_control);
 
     //Entrenamos Perceptron
-    A.entrenamiento(vec_entrenamiento,vec_control,500,0.31);
+    A.entrenamiento(vec_entrenamiento,vec_control,500,0.3);
 
     //Probamos perceptron y visualizamos porcentaje de aciertos
     ss<<"Porcentaje de aciertos: "<<A.estTrabajo(vec_prueba) * 100 <<"%"<<endl;
 
 #endif
 
-#if 0 /// Ejercicio 2 a
-    Perceptron A(4, 0.1, is_recording);
+#if 1 /// Ejercicio 2 a
+    Perceptron A(4, 0.01, is_recording);
 
 //Creacion de Vector con conjuntos de particiones de datos
       vector<conjuntoDatos> V1;
       V1 = particionar("data/eje2a.csv",10,70,20,10);
 
-    ss<<"Porcentaje de aciertos: "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
+    ss<<"Porcentaje de aciertos: "<<A.validacionCruzada(V1,900,0.16) * 100 <<"%"<<endl;
 #endif
 
-#if 1 /// Ejercicio 2 b
+#if 0 /// Ejercicio 2 b
     Perceptron A(4, 0.9, is_recording);
     vector<conjuntoDatos> V1;
 
-    V1 = particionar("data/eje2b_10.csv",50,70,20,10);
+    V1 = particionar("data/eje2b_10.csv",5,70,20,10);
     ss<<"Porcentaje de aciertos (10%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
 
-    V1 = particionar("data/eje2b_50.csv",50,70,20,10);
+    V1 = particionar("data/eje2b_50.csv",5,70,20,10);
     ss<<"Porcentaje de aciertos (50%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
 
-    V1 = particionar("data/eje2b_70.csv",50,70,20,10);
+    V1 = particionar("data/eje2b_70.csv",5,70,20,10);
     ss<<"Porcentaje de aciertos (70%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
 
 #endif

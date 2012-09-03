@@ -18,7 +18,7 @@ Perceptron::Perceptron(int N, float tasa, bool is_recording, float desvio, float
 
 /* La funcion de inializacion de neuronas esta aparte para que sea mas sencillo reinicializarla */
 void Perceptron::inicializar_neuronas(float desvio, float media) {
-
+    // @TODO hacer un mejor manejo de memoria en los vectores
     pesos->clear();
     pesos_totales->clear();
 
@@ -35,15 +35,17 @@ void Perceptron::inicializar_neuronas(float desvio, float media) {
 }
 
 /* Funcion de activacion */
+// Sacar fuera de la funcion el producto punto
 float Perceptron::funcion_activacion(vector<float> &pesos, vector<float> &patrones, short tipo) {
-    float retorno = 0;
+    float retorno = 0,
+        producto_punto = dot<float>(pesos, patrones);
 
     switch(tipo) {
         case 1: // Lineal
-            retorno = (dot<float>(pesos, patrones) > 0) ? 1 : -1;
+            retorno = (producto_punto > 0) ? 1 : -1;
 
         default: // Lineal
-            retorno = (dot<float>(pesos, patrones) > 0) ? 1 : -1;
+            retorno = (producto_punto > 0) ? 1 : -1;
     }
 
     return retorno;
@@ -138,10 +140,14 @@ float Perceptron::entrenamiento(vector< vector<float> > &patrones, vector< vecto
     float error = 100000;
     for (unsigned int i = 0; i < maxIt ; i++) {
         estEntrenamiento(patrones);
-        error = estTrabajo(trabajos);
+        error = 1 - estTrabajo(trabajos);
 
-        if (error < tol)
+        if (error < tol) {
+            stringstream ss;
+            ss << "\n[[Salio por ERROR en entrenamiento de: " << error << "]]\n";
+            myRecord.add_record(ss, is_recording);
             break;
+        }
     }
     return error;
 }
