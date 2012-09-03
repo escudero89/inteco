@@ -45,11 +45,9 @@ public:
 
     bool entrenar(vector<float> patrones);
     bool estEntrenamiento(vector<vector<float> > &estacion);
-
-    //Trabaja con patron y devuelve si acerto o no
+	
+	/* FUNCIONES DE PRUEBA DE NEURONAS */
     bool trabajar(vector<float> patrones);
-
-    //Trabaja con patrones y devuelve % de aciertos
     float estTrabajo(vector< vector<float> > &patrones, bool mostrar=false);
 
     float entrenamiento(vector< vector<float> > &patrones, vector< vector<float> > &trabajos, unsigned int maxIt = 3000, float tol = 0.1);
