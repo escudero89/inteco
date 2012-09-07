@@ -31,11 +31,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="include/Capa.h" />
 		<Unit filename="include/Miniptron.h" />
+		<Unit filename="include/Red.h" />
 		<Unit filename="include/perceptron.h" />
 		<Unit filename="include/record.h" />
 		<Unit filename="include/utils.h" />
+		<Unit filename="src/Capa.cpp" />
 		<Unit filename="src/Miniptron.cpp" />
+		<Unit filename="src/Red.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/perceptron.cpp" />
 		<Unit filename="src/record.cpp" />
