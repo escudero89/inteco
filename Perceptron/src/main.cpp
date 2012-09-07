@@ -36,7 +36,7 @@ stringstream ss;
     parseCSV("data/100datos_control.csv",vec_control);
 
     //Entrenamos Perceptron
-    A.entrenamiento(vec_entrenamiento,vec_control,500,0.05);
+    A.entrenamiento(vec_entrenamiento,vec_control,500,0.1);
 
     //Probamos perceptron y visualizamos porcentaje de aciertos
     ss << "Porcentaje de aciertos OR: " << A.estTrabajo(vec_prueba) * 100 << "%" << endl;
@@ -67,7 +67,7 @@ stringstream ss;
 #endif
 
 #if 0 /// Ejercicio 2 a
-    Perceptron A(4, 0.01, is_recording);
+    Perceptron A(4, 0.1, is_recording);
 
 //Creacion de Vector con conjuntos de particiones de datos
       vector<conjuntoDatos> V1;

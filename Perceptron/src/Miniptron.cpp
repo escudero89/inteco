@@ -1,32 +1,21 @@
-#include "../include/perceptron.h"
+#include "../include/Miniptron.h"
 
-Perceptron::Perceptron(int N, float tasa, bool is_recording, float desvio, float media) {
+Miniptron::Miniptron(int N, float tasa) {
 
     this -> N = N - 1; // @@ Guarda N - 1 en vez de N para poder contar el y_deseado
     this -> tasa = tasa;
 
-    this -> desvio = desvio;
-    this -> media = media;
-
     this -> pesos = new vector<float>;
-    this -> pesos_totales = new vector< vector<float> >; // para ploteo
 
     // Inicializamos semilla
     srand(time(NULL));
 
-    inicializar_neuronas(desvio, media);
-
-    /* A motivos de grabar archivo y ploteo */
-    this -> is_recording = is_recording;
+    inicializar_neuronas();
 }
 
 /* La funcion de inializacion de neuronas esta aparte para que sea mas sencillo reinicializarla */
-void Perceptron::inicializar_neuronas(float desvio, float media) {
+void Miniptron::inicializar_neuronas(float desvio, float media) {
     pesos->resize(N);
-
-    if (is_ploting) {
-        pesos_totales->clear();
-    }
 
     for (int i = 0; i <= N; i++) {
         float r = ( rand() % 1001 * 0.002 - 1) * desvio + media;
@@ -40,7 +29,7 @@ void Perceptron::inicializar_neuronas(float desvio, float media) {
 }
 
 /* Funcion de activacion */
-float Perceptron::funcion_activacion(vector<float> &pesos, vector<float> &patrones, short tipo) {
+float Miniptron::funcion_activacion(vector<float> &pesos, vector<float> &patrones, short tipo) {
     float retorno = 0,
         producto_punto = dot<float>(pesos, patrones) - this->umbral;
 
@@ -53,7 +42,7 @@ float Perceptron::funcion_activacion(vector<float> &pesos, vector<float> &patron
 }
 
 /* Entrenar y trabajar tenian el mismo bloque, asi que los uni aca */
-float Perceptron::entrenar_helper(vector<float> &patrones) {
+float Miniptron::entrenar_helper(vector<float> &patrones) {
     // Le pongo el ydeseado. Y eliminamos el ultimo elemento
     float ydeseado = patrones.back(), y;
     patrones.pop_back();
@@ -64,7 +53,7 @@ float Perceptron::entrenar_helper(vector<float> &patrones) {
 }
 
 /* Realiza el entrenamiento de las neuronas al recibir una fila de patrones  */
-bool Perceptron::entrenar(vector<float> patrones) {
+bool Miniptron::entrenar(vector<float> patrones) {
 
     float aux = 0, factorDeCambio = tasa * entrenar_helper(patrones);
 
@@ -78,7 +67,7 @@ bool Perceptron::entrenar(vector<float> patrones) {
     return true;
 }
 
-bool Perceptron::estEntrenamiento(vector<vector<float> > &estacion) {
+bool Miniptron::estEntrenamiento(vector<vector<float> > &estacion) {
     for(unsigned int i = 0; i < estacion.size() ; i++) {
         entrenar(estacion[i]);
     }
@@ -86,7 +75,7 @@ bool Perceptron::estEntrenamiento(vector<vector<float> > &estacion) {
 }
 
 /* Trabaja con patron y devuelve si acerto o no */
-bool Perceptron::trabajar(vector<float> patrones){
+bool Miniptron::trabajar(vector<float> patrones){
     bool esCorrecto;
 
     // entrenar_helper devuelve [ ydeseado - y ]
@@ -96,7 +85,7 @@ bool Perceptron::trabajar(vector<float> patrones){
 }
 
 /* Trabaja con patrones y devuelve % de aciertos */
-float Perceptron::estTrabajo(vector< vector<float> > &patrones, bool mostrar){
+float Miniptron::estTrabajo(vector< vector<float> > &patrones){
     int aciertos = 0, errores = 0;
 
     for (unsigned int i=0; i<patrones.size(); i++) {
@@ -108,41 +97,19 @@ float Perceptron::estTrabajo(vector< vector<float> > &patrones, bool mostrar){
     }
     float porcentaje = (float(aciertos) / float(patrones.size()));
 
-    if (mostrar) {
-        stringstream ss;
-
-        ss << "Resultados:" << endl;
-        ss << "Porcentaje de aciertos: " << porcentaje * 100 << "%" << endl;
-        ss << "Aciertos: " << aciertos << endl;
-        ss << "Errores: " << errores << endl;
-
-		// Genera archivos para ploteo y para grabar
-        myRecord.add_record(ss, is_recording);
-    }
-
-    if (is_ploting) {
-        genPlot2D <float> (*(this->pesos_totales), patrones);
-    }
-
     return porcentaje;
 }
 
 /* Realiza un entrenamiento hasta que el error sea menor que la tolerancia dada
    y durante una cierta cantidad de epocas dadas por maxIt
-   El error es obtenido haciendo trabajar el perceptron con datos que nunca vio */
-float Perceptron::entrenamiento(vector< vector<float> > &patrones, vector< vector<float> > &trabajos, unsigned int maxIt, float tol) {
+   El error es obtenido haciendo trabajar el Miniptron con datos que nunca vio */
+float Miniptron::entrenamiento(vector< vector<float> > &patrones, vector< vector<float> > &trabajos, unsigned int maxIt, float tol) {
     float error = 100000;
     for (unsigned int i = 0; i < maxIt ; i++) {
         estEntrenamiento(patrones);
         error = 1 - estTrabajo(trabajos);
 
-		// Cada vez que cambiabamos los pesos, actualizamos pesos_totales
-		add_pesos(*this->pesos, is_ploting);
-
         if (error < tol) {
-            stringstream ss;
-            ss << "\n[[Salio por ERROR en entrenamiento de: " << error << "]]\n";
-            myRecord.add_record(ss, is_recording);
             break;
         }
     }
@@ -150,16 +117,14 @@ float Perceptron::entrenamiento(vector< vector<float> > &patrones, vector< vecto
     return error;
 }
 
-float Perceptron::validacionCruzada(vector<conjuntoDatos> &V, unsigned int maxIt,float tol){
+float Miniptron::validacionCruzada(vector<conjuntoDatos> &V, unsigned int maxIt,float tol){
     float err_promedio = 0;
     unsigned int n = V.size();
 
     for (unsigned int i = 0; i < n ; i++ ) {
         entrenamiento(V.at(i).entrenamiento, V.at(i).control, maxIt, tol);
         err_promedio += estTrabajo(V.at(i).prueba);
-        inicializar_neuronas(this->desvio, this->media);
-
-		cout << i <<" . ";
+        inicializar_neuronas();
     }
 
     err_promedio /= n;

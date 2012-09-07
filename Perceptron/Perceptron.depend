@@ -221,19 +221,19 @@
 1346594540 source:c:\users\marcos\workspace\inteco\perceptron\src\record.cpp
 	"../include/record.h"
 
-1346697454 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/perceptron.cpp
+1347045510 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/perceptron.cpp
 	"../include/perceptron.h"
 
-1346644546 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/perceptron.h
+1347047542 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/perceptron.h
 	<iostream>
 	<cstdlib>
 	<ctime>
 	<vector>
 	<sstream>
-	"../include/utils.h"
-	"../include/record.h"
+	"utils.h"
+	"record.h"
 
-1346644546 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/utils.h
+1347035821 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/utils.h
 	<vector>
 	<sstream>
 	<fstream>
@@ -259,7 +259,7 @@
 	<math.h>
 	<algorithm>
 
-1346697319 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
+1347038192 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
 	<stdio.h>
 	<iostream>
 	<sstream>
@@ -312,4 +312,32 @@
 
 1346984301 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
 	"../include/perceptron.h"
+
+1347049256 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Capa.cpp
+	"../include/Capa.h"
+
+1347050091 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Capa.h
+	<vector>
+	"Miniptron.h"
+
+1347050002 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Red.cpp
+	"../include/Red.h"
+
+1347050092 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Red.h
+	<iostream>
+	<cassert>
+	<vector>
+	"Capa.h"
+
+1347048023 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Miniptron.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+	<sstream>
+	"utils.h"
+	"record.h"
+
+1347048050 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Miniptron.cpp
+	"../include/Miniptron.h"
 
