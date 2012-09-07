@@ -10,7 +10,7 @@ Red::Red(vector<short> &neuronas, float tasa, int N) {
         assert(0);
     }
 
-    hidden = new vector<Capa>;
+    //hidden = new vector<Capa>;
     //hidden->resize(hidden_cant);
 
     for (short i = 0; i < capas; i++ ) {

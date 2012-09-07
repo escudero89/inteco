@@ -310,7 +310,7 @@
 1346604611 source:/media/Cristian/Repositorios/inteco/Perceptron/src/record.cpp
 	"../include/record.h"
 
-1347058621 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
+1347060881 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
 	"../include/perceptron.h"
 
 1347049256 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Capa.cpp
@@ -341,10 +341,10 @@
 1347048050 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Miniptron.cpp
 	"../include/Miniptron.h"
 
-1347056753 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Miniptron.cpp
+1347060901 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Miniptron.cpp
 	"../include/Miniptron.h"
 
-1347056753 /media/Cristian/Repositorios/inteco/Perceptron/include/Miniptron.h
+1347061087 /media/Cristian/Repositorios/inteco/Perceptron/include/Miniptron.h
 	<iostream>
 	<cstdlib>
 	<ctime>
@@ -352,4 +352,20 @@
 	<sstream>
 	"utils.h"
 	"record.h"
+
+1347060998 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Capa.cpp
+	"../include/Capa.h"
+
+1347061077 /media/Cristian/Repositorios/inteco/Perceptron/include/Capa.h
+	<vector>
+	"Miniptron.h"
+
+1347060076 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Red.cpp
+	"../include/Red.h"
+
+1347061100 /media/Cristian/Repositorios/inteco/Perceptron/include/Red.h
+	<iostream>
+	<cassert>
+	<vector>
+	"Capa.h"
 

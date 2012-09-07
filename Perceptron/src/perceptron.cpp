@@ -22,7 +22,7 @@ Perceptron::Perceptron(int N, float tasa, bool is_recording, float desvio, float
 
 /* La funcion de inializacion de neuronas esta aparte para que sea mas sencillo reinicializarla */
 void Perceptron::inicializar_neuronas(float desvio, float media) {
-    pesos->resize(N);
+    pesos->reserve(N);
 
     if (is_ploting) {
         pesos_totales->clear();
@@ -34,7 +34,7 @@ void Perceptron::inicializar_neuronas(float desvio, float media) {
         if (i == N) {
             this -> umbral = r;
         } else {
-            pesos -> at(r);
+            pesos -> push_back(r);
         }
     }
 }

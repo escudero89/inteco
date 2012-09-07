@@ -28,12 +28,6 @@ public:
         this->tasa = tasa;
     }
 
-    Miniptron(const Miniptron &CP){
-        this->umbral = CP.umbral;
-        this->tasa = CP.tasa;
-        this->N = CP.N;
-    }
-
     /* FUNCIONES DE ENTRENAMIENTO DE NEURONAS */
     float funcion_activacion(vector<float> &pesos, vector<float> &patrones, short tipo = 0);
 
