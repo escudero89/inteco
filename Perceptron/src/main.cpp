@@ -11,19 +11,21 @@ int main(int argc, char **argv) {
 
 /// Para guardar
 
-bool is_recording = false; // pasar a falso si no queremos crear archivo
+bool is_recording = false, // pasar a falso si no queremos crear archivo
+    is_ploting = false;
 
 Record myRecord;
 myRecord.start(is_recording);
 
 stringstream ss;
 
-#if 0 /// Ejercicio 1a
+#if 1 /// Ejercicio 1a
 
     //---------- Problema OR ---------//
 
     //Creamos perceptron
     Perceptron A(3, 0.5, is_recording);
+    A.set_ploting(is_ploting);
 
     //Cargamos los datos
     vector< vector<float> > vec_entrenamiento;
@@ -64,7 +66,7 @@ stringstream ss;
 
 #endif
 
-#if 1 /// Ejercicio 2 a
+#if 0 /// Ejercicio 2 a
     Perceptron A(4, 0.01, is_recording);
 
 //Creacion de Vector con conjuntos de particiones de datos

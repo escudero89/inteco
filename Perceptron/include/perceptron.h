@@ -23,6 +23,7 @@ class Perceptron {
     vector<float> *pesos;	// W(i)
 	vector< vector<float> > *pesos_totales;	// Va juntando la progresion de todos los pesos
 
+    bool is_ploting;
     bool is_recording;
 	Record myRecord;    // Para recording
 
@@ -36,8 +37,13 @@ public:
     }
 
     // A motivos de ploteo
-    void add_pesos(vector <float> & pesos) {
+    void add_pesos(vector <float> pesos) {
+		pesos.push_back(this->umbral);
 		pesos_totales->push_back(pesos);
+	}
+
+	void set_ploting (bool is_ploting = false) {
+        this->is_ploting = is_ploting;
 	}
 
     /* FUNCIONES DE ENTRENAMIENTO DE NEURONAS */
@@ -45,7 +51,9 @@ public:
 
     bool entrenar(vector<float> patrones);
     bool estEntrenamiento(vector<vector<float> > &estacion);
-	
+
+    float entrenar_helper(vector<float> &patrones);
+
 	/* FUNCIONES DE PRUEBA DE NEURONAS */
     bool trabajar(vector<float> patrones);
     float estTrabajo(vector< vector<float> > &patrones, bool mostrar=false);

@@ -2,10 +2,8 @@
 
 Perceptron::Perceptron(int N, float tasa, bool is_recording, float desvio, float media) {
 
-    this -> N = N;
+    this -> N = N - 1; // @@ Guarda N - 1 en vez de N para poder contar el y_deseado
     this -> tasa = tasa;
-
-    this -> is_recording = is_recording;
 
     this -> desvio = desvio;
     this -> media = media;
@@ -13,37 +11,43 @@ Perceptron::Perceptron(int N, float tasa, bool is_recording, float desvio, float
     this -> pesos = new vector<float>;
     this -> pesos_totales = new vector< vector<float> >; // para ploteo
 
+    // Inicializamos semilla
+    srand(time(NULL));
+
     inicializar_neuronas(desvio, media);
+
+    /* A motivos de grabar archivo y ploteo */
+    this -> is_recording = is_recording;
+    set_ploting(true);
 }
 
 /* La funcion de inializacion de neuronas esta aparte para que sea mas sencillo reinicializarla */
 void Perceptron::inicializar_neuronas(float desvio, float media) {
-    // @TODO hacer un mejor manejo de memoria en los vectores
-    pesos->clear();
-    pesos_totales->clear();
-
-    // Inicializamos semilla
+    // @@ Cree un resize, y el umbral no lo guardo en pesos. No es necesario hacerle un clear (lo sobreescribo)
     srand(time(NULL));
+    pesos->resize(N);
 
-    for (int i = 0; i < N; i++) {
-        float r = ( rand() % 1001 * 0.002 - 1) * desvio + media;
-        pesos -> push_back(r);
+    if (is_ploting) {
+        pesos_totales->clear();
     }
 
-    // Guardo el umbral por las dudas
-    this -> umbral = pesos -> at(0);
+    for (int i = 0; i <= N; i++) {
+        float r = ( rand() % 1001 * 0.002 - 1) * desvio + media;
+
+        if (i == N) {
+            this -> umbral = r;
+        } else {
+            pesos -> at(r);
+        }
+    }
 }
 
 /* Funcion de activacion */
-// Sacar fuera de la funcion el producto punto
 float Perceptron::funcion_activacion(vector<float> &pesos, vector<float> &patrones, short tipo) {
     float retorno = 0,
-        producto_punto = dot<float>(pesos, patrones);
+        producto_punto = dot<float>(pesos, patrones) - this->umbral;
 
     switch(tipo) {
-        case 1: // Lineal
-            retorno = (producto_punto > 0) ? 1 : -1;
-
         default: // Lineal
             retorno = (producto_punto > 0) ? 1 : -1;
     }
@@ -51,27 +55,28 @@ float Perceptron::funcion_activacion(vector<float> &pesos, vector<float> &patron
     return retorno;
 }
 
+/* Entrenar y trabajar tenian el mismo bloque, asi que los uni aca */
+float Perceptron::entrenar_helper(vector<float> &patrones) {
+    // @@ Quite la insercion de un valor a patrones
+    // Le pongo el ydeseado. Y eliminamos el ultimo elemento
+    float ydeseado = patrones.back(), y;
+    patrones.pop_back();
+
+    y = funcion_activacion(*pesos, patrones);
+
+    return ydeseado - y;
+}
+
 /* Realiza el entrenamiento de las neuronas al recibir una fila de patrones  */
 bool Perceptron::entrenar(vector<float> patrones) {
 
-    // Le pongo el ydeseado. Y eliminamos el ultimo elemento
-    float ydeseado = patrones.back();
-    patrones.pop_back();
-
-    // para hacer producto punto con el umbral
-    patrones.insert(patrones.begin(), -1);
-
-    float y = funcion_activacion(*pesos, patrones), //Funcion de activacion
-          aux = 0,
-          factorDeCambio = tasa * (ydeseado - y);
+    float aux = 0, factorDeCambio = tasa * entrenar_helper(patrones);
 
     unsigned int tamanio = patrones.size();
 
     for (unsigned int i = 0; i < tamanio; i++) {
-//        cout << pesos->at(i);
         aux = pesos->at(i) + factorDeCambio * patrones[i];
         pesos->at(i) = aux;
-//        cout << " ... " << pesos->at(i) << endl;
     }
 
     return true;
@@ -80,30 +85,22 @@ bool Perceptron::entrenar(vector<float> patrones) {
 bool Perceptron::estEntrenamiento(vector<vector<float> > &estacion) {
     for(unsigned int i = 0; i < estacion.size() ; i++) {
         entrenar(estacion[i]);
-		// Cada vez que cambiabmos los pesos, actualizamos pesos_totales, para ploteo
-		add_pesos(*this->pesos);
+		// Cada vez que cambiabamos los pesos, actualizamos pesos_totales
+		if (is_ploting) {
+            add_pesos(*this->pesos);
+		}
     }
     return true;
 }
 
 /* Trabaja con patron y devuelve si acerto o no */
 bool Perceptron::trabajar(vector<float> patrones){
-    float ydeseado = patrones.back();
-    patrones.pop_back();
-
-    // para hacer producto punto con el umbral
-    patrones.insert(patrones.begin(), -1);
-
-    float y = funcion_activacion(*pesos, patrones); //Funcion de activacion
     bool esCorrecto;
 
-    if (y == ydeseado)
-        esCorrecto = true;
-    else
-        esCorrecto = false;
+    // entrenar_helper devuelve [ ydeseado - y ]
+    (entrenar_helper(patrones) == 0) ? esCorrecto = true : esCorrecto = false;
 
     return esCorrecto;
-
 }
 
 /* Trabaja con patrones y devuelve % de aciertos */
@@ -128,7 +125,10 @@ float Perceptron::estTrabajo(vector< vector<float> > &patrones, bool mostrar){
         ss << "Errores: " << errores << endl;
 
 		// Genera archivos para ploteo y para grabar
-        myRecord.add_record(ss, is_recording);        
+        myRecord.add_record(ss, is_recording);
+    }
+
+    if (is_ploting) {
         genPlot2D <float> (*(this->pesos_totales), patrones);
     }
 
@@ -160,9 +160,9 @@ float Perceptron::validacionCruzada(vector<conjuntoDatos> &V, unsigned int maxIt
 
     for (unsigned int i = 0; i < n ; i++ ) {
         entrenamiento(V.at(i).entrenamiento, V.at(i).control, maxIt, tol);
-        err_promedio += estTrabajo(V.at(i).prueba);        
+        err_promedio += estTrabajo(V.at(i).prueba);
         inicializar_neuronas(this->desvio, this->media);
-		
+
 		cout << i <<" . ";
     }
 

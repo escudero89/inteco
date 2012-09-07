@@ -267,3 +267,49 @@
 	"../include/utils.h"
 	"../include/record.h"
 
+1346458521 source:/media/Cristian/Repositorios/inteco/Perceptron/src/utils.cpp
+	"../include/utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
+
+1346679837 /media/Cristian/Repositorios/inteco/Perceptron/include/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1346985368 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
+	<stdio.h>
+	<iostream>
+	<sstream>
+	"../include/perceptron.h"
+	"../include/utils.h"
+	"../include/record.h"
+
+1346985123 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+	<sstream>
+	"../include/utils.h"
+	"../include/record.h"
+
+1346604611 /media/Cristian/Repositorios/inteco/Perceptron/include/record.h
+	<cassert>
+	<string>
+	<fstream>
+	<sstream>
+	<iostream>
+	<ctime>
+
+1346604611 source:/media/Cristian/Repositorios/inteco/Perceptron/src/record.cpp
+	"../include/record.h"
+
+1346984301 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
+	"../include/perceptron.h"
+
