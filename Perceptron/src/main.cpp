@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
 /// Para guardar
 
 bool is_recording = false, // pasar a falso si no queremos crear archivo
-    is_ploting = true;
+    is_ploting = false;
 
 Record myRecord;
 myRecord.start(is_recording);

@@ -75,6 +75,8 @@ bool Perceptron::entrenar(vector<float> patrones) {
         pesos->at(i) = aux;
     }
 
+    this->umbral -= factorDeCambio;
+
     return true;
 }
 
