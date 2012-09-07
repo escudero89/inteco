@@ -24,7 +24,6 @@ Perceptron::Perceptron(int N, float tasa, bool is_recording, float desvio, float
 /* La funcion de inializacion de neuronas esta aparte para que sea mas sencillo reinicializarla */
 void Perceptron::inicializar_neuronas(float desvio, float media) {
     // @@ Cree un resize, y el umbral no lo guardo en pesos. No es necesario hacerle un clear (lo sobreescribo)
-    srand(time(NULL));
     pesos->resize(N);
 
     if (is_ploting) {
@@ -85,10 +84,6 @@ bool Perceptron::entrenar(vector<float> patrones) {
 bool Perceptron::estEntrenamiento(vector<vector<float> > &estacion) {
     for(unsigned int i = 0; i < estacion.size() ; i++) {
         entrenar(estacion[i]);
-		// Cada vez que cambiabamos los pesos, actualizamos pesos_totales
-		if (is_ploting) {
-            add_pesos(*this->pesos);
-		}
     }
     return true;
 }
@@ -144,6 +139,9 @@ float Perceptron::entrenamiento(vector< vector<float> > &patrones, vector< vecto
         estEntrenamiento(patrones);
         error = 1 - estTrabajo(trabajos);
 
+		// Cada vez que cambiabamos los pesos, actualizamos pesos_totales
+		add_pesos(*this->pesos, is_ploting);
+		
         if (error < tol) {
             stringstream ss;
             ss << "\n[[Salio por ERROR en entrenamiento de: " << error << "]]\n";

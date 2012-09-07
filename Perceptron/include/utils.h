@@ -71,7 +71,7 @@ void genPlot2D(std::vector< std::vector<T> > &pesos, std::vector< std::vector<T>
     std::string file_pesos = "logs/" + pesos_o;
 
     genPlot2D_helper(padrones, file_padron, PLOT_ARGS);
-    genPlot2D_helper(pesos, file_pesos);
+    genPlot2D_helper(pesos, file_pesos, PLOT_ARGS + 1);
 }
 
 // Se encarga de crear y guardar los archivos de log.
@@ -82,11 +82,6 @@ void genPlot2D_helper(std::vector< std::vector<T> > &array, std::string filename
 	file.open(filename_o.c_str());
 
 	assert(file.is_open()); //muestra error si no se pudo abrir el archivo
-
-    // Si no hay PLOT_ARGS, el defaul es el tamanio del vector de largo
-    if (PLOT_ARGS == 0) {
-        PLOT_ARGS = array[0].size();
-    }
 
 	// Guardo los pesos en "filename_o.log"
 	for (unsigned int i = 0, N = array.size(); i < N; i++){

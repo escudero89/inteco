@@ -37,9 +37,9 @@ public:
     }
 
     // A motivos de ploteo
-    void add_pesos(vector <float> pesos) {
+    void add_pesos(vector <float> pesos, bool is_ploting = false) {
 		pesos.push_back(this->umbral);
-		pesos_totales->push_back(pesos);
+		pesos_totales->push_back(pesos);		
 	}
 
 	void set_ploting (bool is_ploting = false) {
