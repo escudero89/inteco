@@ -7,10 +7,8 @@ Miniptron::Miniptron(int N, float tasa) {
 
     this -> pesos = new vector<float>;
 
-    // Inicializamos semilla
-    srand(time(NULL));
-
     inicializar_neuronas();
+
 }
 
 /* La funcion de inializacion de neuronas esta aparte para que sea mas sencillo reinicializarla */
@@ -29,11 +27,18 @@ void Miniptron::inicializar_neuronas(float desvio, float media) {
 }
 
 /* Funcion de activacion */
-float Miniptron::funcion_activacion(vector<float> &pesos, vector<float> &patrones, short tipo) {
+float Miniptron::funcion_activacion(vector<float> &pesos, vector<float> &patrones, char tipo) {
     float retorno = 0,
         producto_punto = dot<float>(pesos, patrones) - this->umbral;
 
     switch(tipo) {
+
+        // sigmoidea
+        case 's': // @@ TODO:  Hay que ver si es tasa o es una constante a cualquiera
+            float eaz; eaz = exp(-tasa * producto_punto);
+            retorno = (1 - eaz) / (1 + eaz);
+            break;
+
         default: // Lineal
             retorno = (producto_punto > 0) ? 1 : -1;
     }

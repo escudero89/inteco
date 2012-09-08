@@ -11,7 +11,7 @@ using namespace std;
 
 class Red {
     vector<Capa> hidden;
-    Capa output;
+    //Capa output;
 
 public:
     Red(vector<short> &neuronas, float tasa, int N);

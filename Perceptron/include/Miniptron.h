@@ -3,9 +3,9 @@
 
 #include <iostream>
 #include <cstdlib>
-#include <ctime>
 #include <vector>
 #include <sstream>
+#include <cmath>
 
 #include "utils.h"
 #include "record.h"
@@ -28,8 +28,13 @@ public:
         this->tasa = tasa;
     }
 
+    float get_v(vector<float> patrones) {
+        patrones.pop_back();
+        return funcion_activacion(*pesos, patrones, 's');
+    }
+
     /* FUNCIONES DE ENTRENAMIENTO DE NEURONAS */
-    float funcion_activacion(vector<float> &pesos, vector<float> &patrones, short tipo = 0);
+    float funcion_activacion(vector<float> &pesos, vector<float> &patrones, char tipo = 0);
 
     bool entrenar(vector<float> patrones);
     bool estEntrenamiento(vector<vector<float> > &estacion);
