@@ -23,7 +23,7 @@
 	"../include/utils.h"
 	"../include/record.h"
 
-1346594540 e/record.h"
+1346644548 e/record.h"
 
 1345226743 e/utils.h"
 
@@ -51,7 +51,7 @@
 	"utils.h"
 	"record.h"
 
-1346594533 
+1347280061 
 
 1347060881 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
 	"../include/perceptron.h"
@@ -60,7 +60,7 @@
 	"../include/perceptron.h"
 	"../include/perceptron.h"
 
-1346594540 e/perceptron.h"
+1347223384 e/perceptron.h"
 
 1344983413 /media/Cristian/Repositorios/inteco/Perceptron/src/utilidades.cpp
 	<iostream>
@@ -200,6 +200,8 @@
 	"../include/record.h"
 	"../include/Red.h"
 
+1347288555 e/Red.h"
+
 1347030593 /media/Cristian/Repositorios/inteco/Perceptron/include/utils.h
 	<vector>
 	<sstream>
@@ -297,9 +299,13 @@
 1347049256 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Capa.cpp
 	"../include/Capa.h"
 
+1347288708 e/Capa.h"
+
 1347050091 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Capa.h
 	<vector>
 	"Miniptron.h"
+
+1347287400 .h"
 
 1347050002 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Red.cpp
 	"../include/Red.h"
@@ -321,6 +327,8 @@
 
 1347048050 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Miniptron.cpp
 	"../include/Miniptron.h"
+
+1347223384 e/Miniptron.h"
 
 1347065434 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Miniptron.cpp
 	"../include/Miniptron.h"
@@ -377,4 +385,81 @@
 	<cassert>
 	<vector>
 	"Capa.h"
+
+1347298566 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Capa.cpp
+	"../include/Capa.h"
+
+1347293683 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Capa.h
+	<vector>
+	"Miniptron.h"
+
+1347293683 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Miniptron.h
+	<iostream>
+	<cstdlib>
+	<vector>
+	<sstream>
+	<cmath>
+	"utils.h"
+	"record.h"
+
+1347293637 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1347293637 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/record.h
+	<cassert>
+	<string>
+	<fstream>
+	<sstream>
+	<iostream>
+	<ctime>
+
+1347293683 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Miniptron.cpp
+	"../include/Miniptron.h"
+
+1347293683 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
+	<ctime>
+	<stdio.h>
+	<iostream>
+	<sstream>
+	"../include/Capa.h"
+	"../include/perceptron.h"
+	"../include/utils.h"
+	"../include/record.h"
+	"../include/Red.h"
+
+1347293683 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/perceptron.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+	<sstream>
+	"utils.h"
+	"record.h"
+
+1347293683 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Red.h
+	<iostream>
+	<cassert>
+	<vector>
+	"Capa.h"
+
+1347293683 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/perceptron.cpp
+	"../include/perceptron.h"
+
+1347293638 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/record.cpp
+	"../include/record.h"
+
+1347293638 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/utils.cpp
+	"../include/utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
+
+1347298645 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Red.cpp
+	"../include/Red.h"
 

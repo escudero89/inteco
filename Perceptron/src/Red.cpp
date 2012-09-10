@@ -3,11 +3,11 @@
 Red::Red(vector<short> &Capas, float tasa, int N) {
     short cant_capas = Capas.size();
     this->capas.reserve(cant_capas);
-    this->capas.resize(cant_capas);
+
 
     for(short i=0; i<cant_capas; i++){
         Capa C(Capas[i],N,tasa);
-        capas[i] = C;
+        capas.push_back(C);
         //cout<<(capas[i]).cant_neuronas;
     }
     cout<<capas.size()<<endl;
