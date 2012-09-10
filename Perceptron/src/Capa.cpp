@@ -3,8 +3,11 @@
 Capa::Capa(short cant_neuronas, int N, float tasa) {
     this->tasa = tasa;
 
-    this->miniptrones.reserve(cant_neuronas);
-    this->output.reserve(cant_neuronas);
+    //this->miniptrones.reserve(cant_neuronas);
+    this->miniptrones.resize(cant_neuronas);
+
+    //this->output.reserve(cant_neuronas);
+    this->output.resize(cant_neuronas);
 
     this->cant_neuronas = cant_neuronas;
 

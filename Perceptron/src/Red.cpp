@@ -1,25 +1,26 @@
 #include "../include/Red.h"
 
-Red::Red(vector<short> &neuronas, float tasa, int N) {
+Red::Red(vector<short> &Capas, float tasa, int N) {
+    short cant_capas = Capas.size();
+    this->capas.reserve(cant_capas);
+    this->capas.resize(cant_capas);
 
-    short capas = neuronas.size(),
-        hidden_cant = capas - 1;
+    for(short i=0; i<cant_capas; i++){
+        Capa C(Capas[i],N,tasa);
+        capas[i] = C;
+        //cout<<(capas[i]).cant_neuronas;
+    }
+    cout<<capas.size()<<endl;
+}
 
-    if (hidden_cant < 1) {
-        cout << "No hay capas ocultas, se detiene ejecucion.\n";
-        assert(0);
+vector<float> Red::forward_pass(vector<float> input){
+    short cant_capas = this->capas.size();
+
+    for(short i=0; i<cant_capas; i++)
+    {
+        input = (this->capas[i]).forward_pass(input);
+
     }
 
-    //hidden = new vector<Capa>;
-    //hidden->resize(hidden_cant);
-
-    for (short i = 0; i < capas; i++ ) {
-        //Capa C(neuronas[i], tasa, N);
-
-        if (i == capas - 1) {
-            //output = C;
-        } else {
-            //hidden->at(i) = C;
-        }
-    }
+    return input;
 }

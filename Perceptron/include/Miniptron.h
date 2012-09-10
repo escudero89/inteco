@@ -22,12 +22,14 @@ public:
 
     /* FUNCIONES DE INICIALIZACION Y SETS/GETS */
     Miniptron(int N, float tasa=1.5);
+    Miniptron(){};
     void inicializar_neuronas(float desvio=0.5, float media=0);
 
     void set_tasa(float tasa) {
         this->tasa = tasa;
     }
-
+    ///TODO ¿porque el pop_back? hay que guardarlo en algun lugar para que llegue a la ultima capa
+    ///Además cuando evalue la proxima capa va a perder un valor de patron
     float get_v(vector<float> patrones) {
         patrones.pop_back();
         return funcion_activacion(*pesos, patrones, 's');

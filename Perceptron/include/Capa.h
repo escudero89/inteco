@@ -6,6 +6,7 @@
 #include "Miniptron.h"
 
 class Capa {
+public:
     short cant_neuronas;
     float tasa;
     vector<Miniptron> miniptrones;
@@ -13,7 +14,7 @@ class Capa {
 
 public:
     Capa(short cant_neuronas, int N, float tasa = 0.1);
-
+    Capa(){};
     // A partir de una entrada input, obtengo una salida modificada por pesos
     vector<float> forward_pass(vector<float> input);
 

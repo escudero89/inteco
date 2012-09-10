@@ -6,6 +6,7 @@
 #include "../include/perceptron.h"
 #include "../include/utils.h"
 #include "../include/record.h"
+#include "../include/Red.h"
 
 using namespace std;
 
@@ -14,16 +15,34 @@ int main(int argc, char **argv) {
     // Inicializamos semilla
     srand(time(NULL));
 
-    Capa C(3, 3);
+//    Capa C(3, 3);
+//
+//    vector<float> p;
+//    p.push_back(1);
+//    p.push_back(1);
+//    p.push_back(1);
+
+
+    //p = C.forward_pass(p);
+
+    //printVector<float>(p);
 
     vector<float> p;
     p.push_back(1);
     p.push_back(1);
     p.push_back(1);
+    p.push_back(1);
 
-    p = C.forward_pass(p);
+    vector<short> c;
+    c.push_back(3);
+    c.push_back(2);
+    c.push_back(1);
 
-    printVector<float>(p);
+    Red R(c,0.2,3);
+
+    vector<float> a = R.forward_pass(p);
+    //cout<<a.size();
+    //printVector<float>(a);
 
 
 

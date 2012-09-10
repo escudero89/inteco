@@ -10,11 +10,12 @@
 using namespace std;
 
 class Red {
-    vector<Capa> hidden;
-    //Capa output;
+    vector<Capa> capas;
+
 
 public:
-    Red(vector<short> &neuronas, float tasa, int N);
+    Red(vector<short> &Capas, float tasa, int N);
+    vector<float> forward_pass(vector<float> input);
 };
 
 #endif // RED_H
