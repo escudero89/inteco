@@ -14,24 +14,24 @@ using namespace std;
 
 class Miniptron {
 public:
-    float umbral, tasa;
+    float umbral, tasa, a;
     int N;
 
     vector<float> *pesos;	// W(i)
 
-
     /* FUNCIONES DE INICIALIZACION Y SETS/GETS */
-    Miniptron(int N, float tasa=1.5);
+    Miniptron(int N, float tasa=1.5, float a = 1);
     Miniptron(){};
     void inicializar_neuronas(float desvio=0.5, float media=0);
 
     void set_tasa(float tasa) {
         this->tasa = tasa;
     }
-    ///TODO ¿porque el pop_back? hay que guardarlo en algun lugar para que llegue a la ultima capa
-    ///Además cuando evalue la proxima capa va a perder un valor de patron
-    float get_v(vector<float> patrones) {
-        patrones.pop_back();
+   
+    float get_v(vector<float> patrones, bool pop = false) {
+        if (pop) {
+			patrones.pop_back();
+		}
         return funcion_activacion(*pesos, patrones, 's');
     }
 

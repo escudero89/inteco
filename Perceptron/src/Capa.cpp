@@ -2,18 +2,15 @@
 
 Capa::Capa(short cant_neuronas, int N, float tasa) {
     this->tasa = tasa;
-
+	
     this->miniptrones.reserve(cant_neuronas);
-    //this->miniptrones.resize(cant_neuronas);
-
     this->output.reserve(cant_neuronas);
-    //this->output.resize(cant_neuronas);
 
     this->cant_neuronas = cant_neuronas;
 
     for (short i = 0; i < cant_neuronas; i++) {
         Miniptron P(N, tasa);
-        this->miniptrones[i] = P;
+        this->miniptrones.push_back(P);
     }
 }
 
@@ -21,8 +18,8 @@ Capa::Capa(short cant_neuronas, int N, float tasa) {
 vector<float> Capa::forward_pass(vector<float> input) {
 
     for (short i = 0; i < cant_neuronas ; i++ ) {
-        output.push_back(miniptrones[i].get_v(input));
-    }
+		output.push_back(miniptrones[i].get_v(input));
+	}
 
     return output;
 }

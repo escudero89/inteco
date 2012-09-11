@@ -13,7 +13,7 @@ using namespace std;
 int main(int argc, char **argv) {
 
     // Inicializamos semilla
-    srand(time(NULL));
+    
 
 //    Capa C(3, 3);
 //
@@ -36,11 +36,12 @@ int main(int argc, char **argv) {
     vector<short> c;
     c.push_back(3);
     c.push_back(2);
-    c.push_back(1);
-
-    Red R(c,0.2,3);
-
+//    c.push_back(1);
+	
+    Red R(c,0.2,4);
+	
     vector<float> a = R.forward_pass(p);
+	
     //cout<<a.size();
     //printVector<float>(a);
 

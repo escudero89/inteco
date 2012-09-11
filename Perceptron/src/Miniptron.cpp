@@ -1,9 +1,10 @@
 #include "../include/Miniptron.h"
 
-Miniptron::Miniptron(int N, float tasa) {
+Miniptron::Miniptron(int N, float tasa, float a) {
 
     this -> N = N - 1; // @@ Guarda N - 1 en vez de N para poder contar el y_deseado
     this -> tasa = tasa;
+	this -> a = a;
 
     this -> pesos = new vector<float>;
 
@@ -34,8 +35,8 @@ float Miniptron::funcion_activacion(vector<float> &pesos, vector<float> &patrone
     switch(tipo) {
 
         // sigmoidea
-        case 's': // @@ TODO:  Hay que ver si es tasa o es una constante a cualquiera
-            float eaz; eaz = exp(-tasa * producto_punto);
+        case 's': // a es una constante cualquiera que define la empinacion
+            float eaz; eaz = exp(-a * producto_punto);
             retorno = (1 - eaz) / (1 + eaz);
             break;
 
