@@ -11,10 +11,10 @@
 #include "record.h"
 
 using namespace std;
-
+// @TODO no estamos considerando la actualizacion del umbral
 class Miniptron {
 public:
-    float umbral, tasa, a;
+    float umbral, tasa, a, salida;
     int N;
 
     vector<float> *pesos;	// W(i)
@@ -27,12 +27,21 @@ public:
     void set_tasa(float tasa) {
         this->tasa = tasa;
     }
-   
+
+    float get_salida() {
+        return salida;
+    }
+
+    vector<float> get_pesos() {
+        return *pesos;
+    }
+
     float get_v(vector<float> patrones, bool pop = false) {
         if (pop) {
 			patrones.pop_back();
 		}
-        return funcion_activacion(*pesos, patrones, 's');
+		this->salida = funcion_activacion(*pesos, patrones, 's');
+        return salida;
     }
 
     /* FUNCIONES DE ENTRENAMIENTO DE NEURONAS */

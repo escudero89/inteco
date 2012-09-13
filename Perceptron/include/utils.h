@@ -51,6 +51,7 @@ void printVector(std::vector<T> &v, char separator = ' ') {
 		if(i < v.size() - 1) //Si no es el ultimo caso
 			std::cout << separator;
 	}
+	std::cout << std::endl;
 }
 
 template <class S>

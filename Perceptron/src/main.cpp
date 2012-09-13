@@ -12,21 +12,6 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
-    // Inicializamos semilla
-    
-
-//    Capa C(3, 3);
-//
-//    vector<float> p;
-//    p.push_back(1);
-//    p.push_back(1);
-//    p.push_back(1);
-
-
-    //p = C.forward_pass(p);
-
-    //printVector<float>(p);
-
     vector<float> p;
     p.push_back(1);
     p.push_back(1);
@@ -36,14 +21,20 @@ int main(int argc, char **argv) {
     vector<short> c;
     c.push_back(3);
     c.push_back(2);
-//    c.push_back(1);
-	
+    c.push_back(1);
+
     Red R(c,0.2,4);
-	
     vector<float> a = R.forward_pass(p);
-	
-    //cout<<a.size();
-    //printVector<float>(a);
+
+    vector<float> d;
+    d.push_back(1);
+    R.backward_pass(d);
+    printVector<float>(p);
+
+//    p = R.forward_pass(p);
+
+
+    printVector<float>(p);
 
 
 

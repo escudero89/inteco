@@ -15,6 +15,7 @@ Miniptron::Miniptron(int N, float tasa, float a) {
 /* La funcion de inializacion de neuronas esta aparte para que sea mas sencillo reinicializarla */
 void Miniptron::inicializar_neuronas(float desvio, float media) {
     pesos->reserve(N);
+    this->salida = 0;
 
     for (int i = 0; i <= N; i++) {
         float r = ( rand() % 1001 * 0.002 - 1) * desvio + media;

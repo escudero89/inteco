@@ -15,6 +15,7 @@ class Red {
 public:
     Red(vector<short> &Capas, float tasa, int N);
     vector<float> forward_pass(vector<float> input);
+    void backward_pass(vector<float> ydeseado);
 };
 
 #endif // RED_H
