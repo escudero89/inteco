@@ -29,7 +29,7 @@ void Miniptron::inicializar_neuronas(float desvio, float media) {
 }
 
 /* Obtiene el vector de 'y' al hacer <patrones, pesos> */
-float Miniptron::get_v(vector<float> patrones, bool pop = false) {
+float Miniptron::get_v(vector<float> patrones, bool pop) {
     if (pop) {
         patrones.pop_back();
     }

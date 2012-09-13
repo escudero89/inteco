@@ -386,14 +386,14 @@
 	<vector>
 	"Capa.h"
 
-1347462924 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Capa.cpp
+1347547636 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Capa.cpp
 	"../include/Capa.h"
 
-1347462253 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Capa.h
+1347543937 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Capa.h
 	<vector>
 	"Miniptron.h"
 
-1347462344 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Miniptron.h
+1347542625 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Miniptron.h
 	<iostream>
 	<cstdlib>
 	<vector>
@@ -419,10 +419,10 @@
 	<iostream>
 	<ctime>
 
-1347453958 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Miniptron.cpp
+1347543392 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Miniptron.cpp
 	"../include/Miniptron.h"
 
-1347462748 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
+1347546972 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
 	<ctime>
 	<stdio.h>
 	<iostream>
@@ -442,7 +442,7 @@
 	"utils.h"
 	"record.h"
 
-1347461415 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Red.h
+1347540458 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Red.h
 	<iostream>
 	<cassert>
 	<vector>
@@ -460,6 +460,6 @@
 	<math.h>
 	<algorithm>
 
-1347462404 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Red.cpp
+1347547766 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Red.cpp
 	"../include/Red.h"
 

@@ -13,21 +13,29 @@ Red::Red(vector<short> &Capas, float tasa, int N) {
 
 	Capa C(Capas[0], N, tasa);
 	capas[0] = C;
-
-    for(short i = 1; i<cant_capas; i++){
-        Capa C(Capas[i], Capas[i-1]+1, tasa);
+    //Creamos capas
+    for(short i = 1; i<cant_capas-1; i++){
+        Capa C(Capas[i], Capas[i-1]+1, tasa, false);
         capas[i] = C;
     }
+    //Creamos la ultima capa
+    Capa ultima(Capas[cant_capas - 1], Capas[cant_capas-1 -1]+1, tasa, true);
+    capas[cant_capas-1] = ultima;
 }
 
 vector<float> Red::forward_pass(vector<float> input){
     short cant_capas = this->capas.size();
 
-	input.pop_back();
+	input.pop_back();//quitamos ydeseado
 
-    for(short i=0; i<cant_capas; i++) {
-        input = capas[i].forward_pass(input);
-	}
+    //Pasamos un input y la capa siguiente para que pueda sacar de alli los pesos para el backward
+    for(short i=0; i<cant_capas-1; i++) {
+        cout<<"Capa: "<<i<<endl;
+        input = capas[i].forward_pass(input, capas[i+1]);
+    }
+    //Hacemos el fowardpass con la ultima, (no le enviamos ninguna otra capa)
+    cout<<"Capa Ultima: "<<cant_capas-1<<endl;
+    input = capas[cant_capas-1].forward_pass(input);
 
     return input;
 }
@@ -41,8 +49,7 @@ void Red::backward_pass(vector<float> ydeseado){
 	old_grad = capas[ultimo].backward_pass(ydeseado);
 
     for (short i = ultimo - 1 ; i >= 0 ; i--) {
-        vector< vector<float> > pesos = capas[i + 1].get_pesos();
-        old_grad = capas[i].backward_pass(old_grad, pesos);
+        old_grad = capas[i].backward_pass(old_grad);
     }
 
 }

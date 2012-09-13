@@ -11,6 +11,7 @@ using namespace std;
 
 class Red {
     vector<Capa> capas;
+    vector< vector< vector<float> > > pesos; //esto queda horriblemente mal, pero pasa por no hacer un buen disenio desde el principio
 
 public:
     Red(vector<short> &Capas, float tasa, int N);

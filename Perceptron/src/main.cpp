@@ -16,25 +16,36 @@ int main(int argc, char **argv) {
     p.push_back(1);
     p.push_back(1);
     p.push_back(1);
-    p.push_back(1);
 
     vector<short> c;
     c.push_back(3);
     c.push_back(2);
     c.push_back(1);
 
-    Red R(c,0.2,4);
+    Red R(c,0.2,3);
+
+    vector<float> ydeseado;
+    ydeseado.push_back(1.3);
+
+    for(int i=0;i<300;i++){
+        R.forward_pass(p);
+        R.backward_pass(ydeseado);
+    }
+
     vector<float> a = R.forward_pass(p);
 
-    vector<float> d;
-    d.push_back(1);
-    R.backward_pass(d);
-    printVector<float>(p);
+    cout<<endl<<"****  Resultado Final foward: ****"<<endl;
+    printVector<float>(a);
+
+
+//    vector<float> d;
+//    d.push_back(1);
+//    R.backward_pass(d);
+//    printVector<float>(p);
 
 //    p = R.forward_pass(p);
 
 
-    printVector<float>(p);
 
 
 

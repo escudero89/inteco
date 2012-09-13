@@ -17,7 +17,7 @@ class Miniptron {
     int N;
     float umbral, tasa, a, salida;
     vector<float> pesos;	// W(i)
-
+    vector<float> pesos_siguientes;
 public:
 
     /* FUNCIONES DE INICIALIZACION */
@@ -34,6 +34,10 @@ public:
         this->tasa = tasa;
     }
 
+    void set_pesos_siguientes(vector<float> pesos_siguientes){
+        this->pesos_siguientes = pesos_siguientes;
+    }
+
     /* FUNCIONES QUE OBTIENEN PARAMETROS */
 
     float get_salida() {
@@ -44,6 +48,13 @@ public:
         return pesos;
     }
 
+    float getPesoI(int i) {
+        return pesos[i];
+    }
+
+    vector<float> get_pesos_siguientes(){
+        return this->pesos_siguientes;
+    }
     float get_v(vector<float> patrones, bool pop = false);
 
     /* FUNCIONES DE ENTRENAMIENTO DE NEURONAS */
