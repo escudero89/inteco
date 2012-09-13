@@ -18,6 +18,7 @@ class Miniptron {
     float umbral, tasa, a, salida;
     vector<float> pesos;	// W(i)
     vector<float> pesos_siguientes;
+
 public:
 
     /* FUNCIONES DE INICIALIZACION */
@@ -28,7 +29,7 @@ public:
 
     /* FUNCIONES QUE DEFINEN PARAMETROS */
 
-    void set_pesos(vector <float> &delta);
+    void actualizar_pesos(vector <float> &delta);
 
     void set_tasa(float &tasa) {
         this->tasa = tasa;

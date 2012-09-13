@@ -25,15 +25,19 @@ int main(int argc, char **argv) {
     Red R(c,0.2,3);
 
     vector<float> ydeseado;
-    ydeseado.push_back(1.3);
-
-    for(int i=0;i<300;i++){
-        R.forward_pass(p);
-        R.backward_pass(ydeseado);
-    }
+    ydeseado.push_back(3);
 
     vector<float> a = R.forward_pass(p);
+    R.backward_pass(ydeseado);
 
+
+    for(int i=0;i<3000;i++){
+        R.forward_pass(p);
+        R.backward_pass(ydeseado);
+        R.actualizar_pesos();
+    }
+
+    a = R.forward_pass(p);
     cout<<endl<<"****  Resultado Final foward: ****"<<endl;
     printVector<float>(a);
 

@@ -11,7 +11,8 @@ public:
     float tasa;
     bool es_ultima;
     vector<Miniptron> miniptrones;
-    vector<float> output, variacion_pesos, gradiente_local;
+    vector<float> output, gradiente_local;
+    vector< vector<float> > variacion_pesos;
 
 public:
     Capa(short cant_neuronas, int N, float tasa = 0.1, bool es_ultima=false);
@@ -24,21 +25,25 @@ public:
 			this->tasa = rhs.tasa;
 			this->miniptrones = rhs.miniptrones;
 			this->output = rhs.output;
-			this->es_ultima = es_ultima;
+			this->es_ultima = rhs.es_ultima;
 		}
 
 		return *this;
 	}
 
+	vector<float> get_output() { return output; }
+
     // A partir de una entrada input, obtengo una salida modificada por pesos
     vector<float> forward_pass(vector<float> input, Capa &capa_siguiente);
     vector<float> forward_pass(vector<float> input);
 
-    vector<float> backward_pass(vector<float> &output, vector< vector<float> > pesos = vector< vector<float> > ());
+    vector<float> backward_pass(vector<float> &output, vector<float> yAnterior);
 
     vector<vector<float> > get_pesos();
 
-    vector<float> getIesimosPesos(int i);
+    vector<float> get_iesimos_pesos(int i);
+
+    void actualizar_pesos();
 };
 
 #endif // CAPA_H

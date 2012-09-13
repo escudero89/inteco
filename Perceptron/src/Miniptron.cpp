@@ -2,7 +2,7 @@
 
 Miniptron::Miniptron(int N, float tasa, float a) {
 
-    this -> N = N - 1; // @@ Guarda N - 1 en vez de N para poder contar el y_deseado
+    this -> N = N;
     this -> tasa = tasa;
 	this -> a = a;
 
@@ -38,16 +38,18 @@ float Miniptron::get_v(vector<float> patrones, bool pop) {
 }
 
 /* A partir de un conjunto Delta W_ij, cambia los pesos */
-void Miniptron::set_pesos(vector <float> &delta) {
+void Miniptron::actualizar_pesos(vector <float> &delta) {
 
     /// Estoy considerando que el primer valor del delta es el W_ij que se le aplica al umbral.
     /// Por lo que hay que revisar ese tema. La otra es poner el umbral dentro de pesos.
     /// Analizar este tema no es un detalle menor (?).
-    this->umbral = delta[0];
+    unsigned int i = 0;
 
-    for (unsigned int i = 0 ; i < pesos.size(); i ++) {
-        pesos[i] = pesos[i] + pesos[i] * delta[i + 1];
+    for ( ; i < pesos.size(); i ++) {
+        pesos[i] = pesos[i] + delta[i];
     }
+
+    this->umbral += delta[i];
 }
 
 /* Funcion de activacion */
