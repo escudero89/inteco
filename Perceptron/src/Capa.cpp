@@ -15,15 +15,14 @@ Capa::Capa(short cant_neuronas, int N, float tasa) {
 }
 
 /* Le pasamos una simple capa de patrones */
-vector<float> Capa::forward_pass(vector<float> input,vector<vector<float>> &P) {
-    vector<vector<float> > P;
+vector<float> Capa::forward_pass(vector<float> input, vector< vector<float> > &P) {
+    vector< vector<float> > P;
     P.resize(cant_neuronas);
 
     for (short i = 0; i < cant_neuronas ; i++ ) {
 		 P[i] = miniptrones[i].get_pesos();
 		output.push_back(miniptrones[i].get_v(input));
 	}
-
 
     return output;
 }

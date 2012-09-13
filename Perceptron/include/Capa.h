@@ -30,7 +30,7 @@ public:
 	}
 
     // A partir de una entrada input, obtengo una salida modificada por pesos
-    vector<float> forward_pass(vector<float> input);
+    vector<float> forward_pass(vector<float> input, vector< vector<float> > &P);
 
     vector<float> backward_pass(vector<float> &output, vector< vector<float> > pesos = vector< vector<float> > ());
 

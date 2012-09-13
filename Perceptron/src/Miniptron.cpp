@@ -6,15 +6,15 @@ Miniptron::Miniptron(int N, float tasa, float a) {
     this -> tasa = tasa;
 	this -> a = a;
 
-    this -> pesos = new vector<float>;
-
     inicializar_neuronas();
 
 }
 
 /* La funcion de inializacion de neuronas esta aparte para que sea mas sencillo reinicializarla */
 void Miniptron::inicializar_neuronas(float desvio, float media) {
-    pesos->reserve(N);
+
+    pesos.reserve(N);
+
     this->salida = 0;
 
     for (int i = 0; i <= N; i++) {
@@ -23,8 +23,30 @@ void Miniptron::inicializar_neuronas(float desvio, float media) {
         if (i == N) {
             this -> umbral = r;
         } else {
-            pesos -> push_back(r);
+            pesos.push_back(r);
         }
+    }
+}
+
+/* Obtiene el vector de 'y' al hacer <patrones, pesos> */
+float Miniptron::get_v(vector<float> patrones, bool pop = false) {
+    if (pop) {
+        patrones.pop_back();
+    }
+    this->salida = funcion_activacion(pesos, patrones, 's');
+    return salida;
+}
+
+/* A partir de un conjunto Delta W_ij, cambia los pesos */
+void Miniptron::set_pesos(vector <float> &delta) {
+
+    /// Estoy considerando que el primer valor del delta es el W_ij que se le aplica al umbral.
+    /// Por lo que hay que revisar ese tema. La otra es poner el umbral dentro de pesos.
+    /// Analizar este tema no es un detalle menor (?).
+    this->umbral = delta[0];
+
+    for (unsigned int i = 0 ; i < pesos.size(); i ++) {
+        pesos[i] = pesos[i] + pesos[i] * delta[i + 1];
     }
 }
 
@@ -46,96 +68,4 @@ float Miniptron::funcion_activacion(vector<float> &pesos, vector<float> &patrone
     }
 
     return retorno;
-}
-
-/* Entrenar y trabajar tenian el mismo bloque, asi que los uni aca */
-float Miniptron::entrenar_helper(vector<float> &patrones) {
-    // Le pongo el ydeseado. Y eliminamos el ultimo elemento
-    float ydeseado = patrones.back(), y;
-    patrones.pop_back();
-
-    y = funcion_activacion(*pesos, patrones);
-
-    return ydeseado - y;
-}
-
-/* Realiza el entrenamiento de las neuronas al recibir una fila de patrones  */
-bool Miniptron::entrenar(vector<float> patrones) {
-
-    float aux = 0, factorDeCambio = tasa * entrenar_helper(patrones);
-
-    unsigned int tamanio = patrones.size();
-
-    for (unsigned int i = 0; i < tamanio; i++) {
-        aux = pesos->at(i) + factorDeCambio * patrones[i];
-        pesos->at(i) = aux;
-    }
-
-    this->umbral -= factorDeCambio;
-
-    return true;
-}
-
-bool Miniptron::estEntrenamiento(vector<vector<float> > &estacion) {
-    for(unsigned int i = 0; i < estacion.size() ; i++) {
-        entrenar(estacion[i]);
-    }
-    return true;
-}
-
-/* Trabaja con patron y devuelve si acerto o no */
-bool Miniptron::trabajar(vector<float> patrones){
-    bool esCorrecto;
-
-    // entrenar_helper devuelve [ ydeseado - y ]
-    (entrenar_helper(patrones) == 0) ? esCorrecto = true : esCorrecto = false;
-
-    return esCorrecto;
-}
-
-/* Trabaja con patrones y devuelve % de aciertos */
-float Miniptron::estTrabajo(vector< vector<float> > &patrones){
-    int aciertos = 0, errores = 0;
-
-    for (unsigned int i=0; i<patrones.size(); i++) {
-        if ( trabajar( patrones[i] ) ) {
-            aciertos++;
-        } else {
-            errores++;
-        }
-    }
-    float porcentaje = (float(aciertos) / float(patrones.size()));
-
-    return porcentaje;
-}
-
-/* Realiza un entrenamiento hasta que el error sea menor que la tolerancia dada
-   y durante una cierta cantidad de epocas dadas por maxIt
-   El error es obtenido haciendo trabajar el Miniptron con datos que nunca vio */
-float Miniptron::entrenamiento(vector< vector<float> > &patrones, vector< vector<float> > &trabajos, unsigned int maxIt, float tol) {
-    float error = 100000;
-    for (unsigned int i = 0; i < maxIt ; i++) {
-        estEntrenamiento(patrones);
-        error = 1 - estTrabajo(trabajos);
-
-        if (error < tol) {
-            break;
-        }
-    }
-
-    return error;
-}
-
-float Miniptron::validacionCruzada(vector<conjuntoDatos> &V, unsigned int maxIt,float tol){
-    float err_promedio = 0;
-    unsigned int n = V.size();
-
-    for (unsigned int i = 0; i < n ; i++ ) {
-        entrenamiento(V.at(i).entrenamiento, V.at(i).control, maxIt, tol);
-        err_promedio += estTrabajo(V.at(i).prueba);
-        inicializar_neuronas();
-    }
-
-    err_promedio /= n;
-    return err_promedio;
 }
