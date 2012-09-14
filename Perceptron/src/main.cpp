@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     R.backward_pass(ydeseado);
 
 
-    for(int i=0;i<3000;i++){
+    for(int i=0;i<300;i++){
         R.forward_pass(p);
         R.backward_pass(ydeseado);
         R.actualizar_pesos();
@@ -41,6 +41,23 @@ int main(int argc, char **argv) {
     cout<<endl<<"****  Resultado Final foward: ****"<<endl;
     printVector<float>(a);
 
+    cout << "\n vieeeja pruebo aca yo \n";
+
+    //@Marcos, si queres ver como funciona, es sencillo, modifica los atributos de abajo y miralo un poquito
+    // Explicacion en la que me base: http://es.wikipedia.org/wiki/Validaci%C3%B3n_cruzada
+
+    int cuantos_push_back = 5;
+    short k = 2;
+
+    vector<vector<float> > probandoo;
+
+    for (int i = 0 ; i < cuantos_push_back ; i++) {
+        vector<float> am;
+        am.resize(3, i);
+        probandoo.push_back(am);
+    }
+
+    R.leave_k_out(probandoo, k);
 
 //    vector<float> d;
 //    d.push_back(1);

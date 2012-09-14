@@ -24,6 +24,8 @@ public:
     vector<float> yAnterior(short indiceCapa);
 
     void actualizar_pesos();
+
+    void leave_k_out(vector< vector<float> > &patrones, short k = 1);
 };
 
 #endif // RED_H

@@ -55,7 +55,7 @@ void printVector(std::vector<T> &v, char separator = ' ') {
 }
 
 template <class S>
-void printVectorVector(std::vector< std::vector<S> > &v, char separator = ' ', std::string newcase = "\n-------\n"){
+void printVectorVector(std::vector< std::vector<S> > &v, char separator = ' ', std::string newcase = ""){
     for (unsigned int i = 0; i < v.size(); i++){
 		printVector(v[i],separator);
 		std::cout<<newcase;

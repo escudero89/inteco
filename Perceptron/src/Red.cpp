@@ -81,3 +81,44 @@ void Red::actualizar_pesos() {
     }
 
 }
+
+/* Leave-Something-Out */
+void Red::leave_k_out(vector< vector<float> > &patrones, short k) {
+
+    unsigned int indice = 0, N = patrones.size();
+
+    while (indice + k - 1 < N) {
+
+        vector< vector<float> > entrenamiento;
+        vector< vector<float> > prueba;
+
+        for (unsigned int i = 0; i < N; i++) {
+            if (i == indice) {
+                vector< vector<float> >::const_iterator inicio = patrones.begin();
+                vector< vector<float> >::const_iterator first = patrones.begin() + i;
+                vector< vector<float> >::const_iterator last = patrones.begin() + (i + k);
+                vector< vector<float> >::const_iterator fin = patrones.end();
+
+                prueba = vector< vector <float> >(first, last);
+
+                entrenamiento = vector< vector <float> >(inicio, first);
+                entrenamiento.insert(entrenamiento.end(), last, fin);
+
+                /* DEBUG MODE ON ehh marcos :P */
+                cout << "\n-------------------------------\n";
+                cout << "\nEntrenamiento:\n";
+                printVectorVector(entrenamiento, ',', "");
+                cout << "\nPrueba:\n";
+                printVectorVector(prueba, ',', "");
+                /* DEBUG MODE OFF */
+
+                break;
+            }
+        }
+
+        /// Aca llamo a una funcion que entrene las neuronas
+        // entrenar(entrenamiento, prueba)
+
+        indice += k;
+    }
+}
