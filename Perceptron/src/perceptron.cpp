@@ -42,7 +42,7 @@ void Perceptron::inicializar_neuronas(float desvio, float media) {
 /* Funcion de activacion */
 float Perceptron::funcion_activacion(vector<float> &pesos, vector<float> &patrones, short tipo) {
     float retorno = 0,
-        producto_punto = dot<float>(pesos, patrones) - this->umbral;
+        producto_punto = dot<float>(pesos, patrones, "Perceptron::funcion_activacion") - this->umbral;
 
     switch(tipo) {
         default: // Lineal

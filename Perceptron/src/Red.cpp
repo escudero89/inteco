@@ -11,7 +11,7 @@ Red::Red(vector<short> &Capas, float tasa, int N) {
 
 	this->capas.resize(cant_capas);
 
-	Capa C(Capas[0], N, tasa);
+	Capa C(Capas[0], N, tasa, (cant_capas == 1) ? true : false);
 	capas[0] = C;
     //Creamos capas
     for(short i = 1; i < cant_capas - 1; i++) {
@@ -19,10 +19,11 @@ Red::Red(vector<short> &Capas, float tasa, int N) {
         capas[i] = C;
     }
     //Creamos la ultima capa
-    short neuronas_capa = (cant_capas - 2 < 0) ? N : Capas[cant_capas - 2];
 
-    Capa ultima(Capas[cant_capas - 1], neuronas_capa, tasa, true);
-    capas[cant_capas-1] = ultima;
+    if (cant_capas > 1) {
+        Capa ultima(Capas[cant_capas - 1], Capas[cant_capas - 2], tasa, true);
+        capas[cant_capas-1] = ultima;
+    }
 }
 
 vector<float> Red::forward_pass(vector<float> input){
@@ -32,11 +33,9 @@ vector<float> Red::forward_pass(vector<float> input){
 
     //Pasamos un input y la capa siguiente para que pueda sacar de alli los pesos para el backward
     for(short i=0; i<cant_capas-1; i++) {
-        cout<<"Capa: "<<i<<endl;
         input = capas[i].forward_pass(input, capas[i+1]);
     }
     //Hacemos el fowardpass con la ultima, (no le enviamos ninguna otra capa)
-    cout<<"Capa Ultima: "<<cant_capas-1<<endl;
     input = capas[cant_capas-1].forward_pass(input);
 
     return input;
@@ -67,8 +66,8 @@ vector<float> Red::yAnterior(short indiceCapa) {
         yAnterior = this->input;
     }
 
-    // Agregamos un -1 al final para el bias
-    yAnterior.push_back(-1);
+    // Agregamos un 1 al final para el bias
+    yAnterior.push_back(1);
 
     return yAnterior;
 }
@@ -79,15 +78,95 @@ void Red::actualizar_pesos() {
     for(short i = 0; i < cant_capas; i++) {
         this->capas[i].actualizar_pesos();
     }
+    /*
+    vector<vector<float> > D = capas[2].get_pesos();
+    printVectorVector<float>(D);
+    cout << "---------------------------\n";*/
+}
+
+/*Entrena/prueba la red con un solo patron. Se considera que en los
+ultimos elementos del patron viene el yDeseado.
+Si probar = true entonces prueba la red con los patrones pasados y devuelve
+TRUE si el resultado fue el correcto o FALSE si fue incorrecto
+Si probar = false, entonces entrena la red actualizando los pesos correspondientes*/
+bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referencia
+
+    vector <float> yDeseado;
+    float yDeseadoFloat = P.back();
+    P.pop_back();
+
+    yDeseado.resize(capas.back().get_cant_neuronas(), -1);
+    vector<float> salida = this->forward_pass(P);
+
+    bool acerto = false;
+    if(probar){
+
+       for(unsigned int i=0; i<salida.size(); i++){
+           float y = -1;
+
+           if (salida[i] > 0) {
+               yDeseado[i] = 1;
+               y = 1;
+           }
+
+           if(y * (i + 1) == yDeseadoFloat + 1){
+               acerto = true;
+               break;
+           }
+        }
+    }
+    else {
+        this->backward_pass(yDeseado);
+        this->actualizar_pesos();
+    }
+
+    return acerto;
 
 }
 
-/* Leave-Something-Out */
-void Red::leave_k_out(vector< vector<float> > &patrones, short k) {
+float Red::estEntrenamiento(vector< vector<float> > &P, bool probar, int cant){
 
-    unsigned int indice = 0, N = patrones.size();
+    int tam = P.size();
+
+    if(probar){
+        int aciertos = 0;
+
+        for(int i=0; i<tam; i++){
+
+            if( entrenarRed(P[i], true) ){
+                aciertos += 1;
+            }
+        }
+        return float(float(aciertos)/float(tam));
+    }
+
+    else{
+        for(int j=0; j<cant; j++){
+            for(int i=0; i<tam; i++){
+                entrenarRed(P[i]);
+            }
+        }
+        return 123.0;
+
+    } // fin else
+} //fin funcion
+
+/* Hace la validacion cruzada usando el leave-k-out */
+float Red::validacion_cruzada(string path, short k) {
+    vector< vector<float> > P;
+    parseCSV<float>(path, P);
+    return leave_k_out(P, k);
+}
+
+/* Leave-Something-Out */
+float Red::leave_k_out(vector< vector<float> > &patrones, short k) {
+
+    unsigned int indice = 0, contador = 0, N = patrones.size();
+    float error = 0;
 
     while (indice + k - 1 < N) {
+
+        contador++;
 
         vector< vector<float> > entrenamiento;
         vector< vector<float> > prueba;
@@ -105,11 +184,11 @@ void Red::leave_k_out(vector< vector<float> > &patrones, short k) {
                 entrenamiento.insert(entrenamiento.end(), last, fin);
 
                 /* DEBUG MODE ON ehh marcos :P */
-                cout << "\n-------------------------------\n";
+                /*cout << "\n-------------------------------\n";
                 cout << "\nEntrenamiento:\n";
                 printVectorVector(entrenamiento, ',', "");
                 cout << "\nPrueba:\n";
-                printVectorVector(prueba, ',', "");
+                printVectorVector(prueba, ',', "")*/;
                 /* DEBUG MODE OFF */
 
                 break;
@@ -117,8 +196,14 @@ void Red::leave_k_out(vector< vector<float> > &patrones, short k) {
         }
 
         /// Aca llamo a una funcion que entrene las neuronas
-        // entrenar(entrenamiento, prueba)
+        estEntrenamiento(entrenamiento);
+        float err = estEntrenamiento(prueba, true);
+        cout << err << endl;
+        error += pow(err, 2);
+        reinicializar_red();
 
         indice += k;
     }
+
+    return sqrt(error/contador);
 }

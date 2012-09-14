@@ -45,7 +45,7 @@ void parseCSV(std::string filename, std::vector<std::vector<T> > & X) {
 // Debo definir las funciones con templates en los headers porque sino no linkea
 
 template <class T>
-void printVector(std::vector<T> &v, char separator = ' ') {
+void printVector(const std::vector<T> &v, char separator = ' ') {
 	for (unsigned int i = 0; i < v.size(); i++){
 		std::cout << v[i];
 		if(i < v.size() - 1) //Si no es el ultimo caso
@@ -54,8 +54,8 @@ void printVector(std::vector<T> &v, char separator = ' ') {
 	std::cout << std::endl;
 }
 
-template <class S>
-void printVectorVector(std::vector< std::vector<S> > &v, char separator = ' ', std::string newcase = ""){
+template <class T>
+void printVectorVector(std::vector< std::vector<T> > &v, char separator = ' ', std::string newcase = ""){
     for (unsigned int i = 0; i < v.size(); i++){
 		printVector(v[i],separator);
 		std::cout<<newcase;
@@ -100,7 +100,7 @@ void genPlot2D_helper(std::vector< std::vector<T> > &array, std::string filename
 
 // Es para hacer productos puntos entre vectores
 template <class T>
-T dot(std::vector<T> &V1, std::vector<T> &V2) {
+T dot(const std::vector<T> &V1, const std::vector<T> &V2, std::string where) {
     T sol = 0;
 
     if (V1.size() == V2.size()) {
@@ -108,7 +108,8 @@ T dot(std::vector<T> &V1, std::vector<T> &V2) {
             sol += V1[i] * V2[i];
         }
     } else {
-        std::cout << "Error haciendo el producto escalar, distinta longitud.\n";
+        std::cout << "\nError haciendo el producto escalar, distinta longitud.\n";
+        std::cout << where << std::endl;
         std::cout << "V1: " << V1.size() << std::endl;
         printVector(V1);
         std::cout << "\nV2: "<< V2.size() << std::endl;
@@ -117,6 +118,19 @@ T dot(std::vector<T> &V1, std::vector<T> &V2) {
     }
 
     return sol;
+}
+
+
+template<class T>
+T signo(T x){
+    if (x > 0) return T(1);
+    if (x < 0) return T(-1);
+    return T(0);
+}
+
+template<class T>
+T redondear(T x){
+    return float (int(x + signo(x) * 0.5));
 }
 
 /*

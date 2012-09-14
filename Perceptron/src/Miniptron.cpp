@@ -13,7 +13,8 @@ Miniptron::Miniptron(int N, float tasa, float a) {
 /* La funcion de inializacion de neuronas esta aparte para que sea mas sencillo reinicializarla */
 void Miniptron::inicializar_neuronas(float desvio, float media) {
 
-    pesos.reserve(N);
+    delta_anterior.resize(N);
+    pesos.resize(N);
 
     this->salida = 0;
 
@@ -23,7 +24,7 @@ void Miniptron::inicializar_neuronas(float desvio, float media) {
         if (i == N) {
             this -> umbral = r;
         } else {
-            pesos.push_back(r);
+            pesos[i] = r;
         }
     }
 }
@@ -33,6 +34,7 @@ float Miniptron::get_v(vector<float> patrones, bool pop) {
     if (pop) {
         patrones.pop_back();
     }
+
     this->salida = funcion_activacion(pesos, patrones, 's');
     return salida;
 }
@@ -40,28 +42,26 @@ float Miniptron::get_v(vector<float> patrones, bool pop) {
 /* A partir de un conjunto Delta W_ij, cambia los pesos */
 void Miniptron::actualizar_pesos(vector <float> &delta) {
 
-    /// Estoy considerando que el primer valor del delta es el W_ij que se le aplica al umbral.
-    /// Por lo que hay que revisar ese tema. La otra es poner el umbral dentro de pesos.
-    /// Analizar este tema no es un detalle menor (?).
     unsigned int i = 0;
 
     for ( ; i < pesos.size(); i ++) {
         pesos[i] = pesos[i] + delta[i];
     }
-
     this->umbral += delta[i];
+
+    this->delta_anterior = delta;
 }
 
 /* Funcion de activacion */
-float Miniptron::funcion_activacion(vector<float> &pesos, vector<float> &patrones, char tipo) {
+float Miniptron::funcion_activacion(const vector<float> &pesos, const vector<float> &patrones, char tipo) {
     float retorno = 0,
-        producto_punto = dot<float>(pesos, patrones) - this->umbral;
+        producto_punto = dot<float>(pesos, patrones, "Miniptron::funcion_activacion") - this->umbral;
 
     switch(tipo) {
 
         // sigmoidea
         case 's': // a es una constante cualquiera que define la empinacion
-            float eaz; eaz = exp(-a * producto_punto);
+            float eaz; eaz = exp(-30 * producto_punto);
             retorno = (1 - eaz) / (1 + eaz);
             break;
 

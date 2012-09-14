@@ -2,13 +2,14 @@
 #define CAPA_H
 
 #include <vector>
+#include <cassert>
 
 #include "Miniptron.h"
 
 class Capa {
 public:
     short cant_neuronas;
-    float tasa;
+    float tasa, alfa;
     bool es_ultima;
     vector<Miniptron> miniptrones;
     vector<float> output, gradiente_local;
@@ -31,8 +32,14 @@ public:
 		return *this;
 	}
 
-	vector<float> get_output() { return output; }
+    void reinicializar_capa() {
+        for (short i = 0; i < cant_neuronas; i++) {
+            miniptrones[i].inicializar_neuronas();
+        }
+    }
 
+	vector<float> get_output() { return output; }
+    int get_cant_neuronas() {return cant_neuronas;}
     // A partir de una entrada input, obtengo una salida modificada por pesos
     vector<float> forward_pass(vector<float> input, Capa &capa_siguiente);
     vector<float> forward_pass(vector<float> input);
@@ -42,6 +49,8 @@ public:
     vector<vector<float> > get_pesos();
 
     vector<float> get_iesimos_pesos(int i);
+
+    void set_alfa(float alfa) { this->alfa = alfa; }
 
     void actualizar_pesos();
 };

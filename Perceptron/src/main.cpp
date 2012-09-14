@@ -11,7 +11,21 @@
 using namespace std;
 
 int main(int argc, char **argv) {
+#if 1
+    vector<short> C;
+    C.push_back(2);
+    C.push_back(2);
+    C.push_back(2);
 
+
+    Red R(C,0.2,2);
+    R.set_alfa(0);
+
+    cout<<"Porcentaje de Aciertos: ";
+    cout<<R.validacion_cruzada("data/xor1000.csv",50) * 100<<" %"<<endl;
+#endif
+
+#if 0
     vector<float> p;
     p.push_back(1);
     p.push_back(1);
@@ -58,7 +72,7 @@ int main(int argc, char **argv) {
     }
 
     R.leave_k_out(probandoo, k);
-
+#endif
 //    vector<float> d;
 //    d.push_back(1);
 //    R.backward_pass(d);

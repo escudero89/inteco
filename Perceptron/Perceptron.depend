@@ -386,14 +386,15 @@
 	<vector>
 	"Capa.h"
 
-1347573009 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Capa.cpp
+1347662270 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Capa.cpp
 	"../include/Capa.h"
 
-1347573009 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Capa.h
+1347660348 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Capa.h
 	<vector>
+	<cassert>
 	"Miniptron.h"
 
-1347563786 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Miniptron.h
+1347661656 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Miniptron.h
 	<iostream>
 	<cstdlib>
 	<vector>
@@ -402,7 +403,7 @@
 	"utils.h"
 	"record.h"
 
-1347462959 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/utils.h
+1347661794 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/utils.h
 	<vector>
 	<sstream>
 	<fstream>
@@ -419,10 +420,10 @@
 	<iostream>
 	<ctime>
 
-1347572171 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Miniptron.cpp
+1347661911 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Miniptron.cpp
 	"../include/Miniptron.h"
 
-1347573152 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
+1347662134 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/main.cpp
 	<ctime>
 	<stdio.h>
 	<iostream>
@@ -442,13 +443,13 @@
 	"utils.h"
 	"record.h"
 
-1347573051 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Red.h
+1347660398 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Red.h
 	<iostream>
 	<cassert>
 	<vector>
 	"Capa.h"
 
-1347293683 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/perceptron.cpp
+1347662313 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/perceptron.cpp
 	"../include/perceptron.h"
 
 1347293638 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/record.cpp
@@ -460,7 +461,7 @@
 	<math.h>
 	<algorithm>
 
-1347573072 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Red.cpp
+1347662361 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Red.cpp
 	"../include/Red.h"
 
 1347584673 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Capa.cpp

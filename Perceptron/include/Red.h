@@ -18,6 +18,12 @@ class Red {
 public:
     Red(vector<short> &Capas, float tasa, int N);
 
+    void reinicializar_red() {
+        for (short i = 0; i < cant_capas; i++ ) {
+            capas[i].reinicializar_capa();
+        }
+    }
+
     vector<float> forward_pass(vector<float> input);
     void backward_pass(vector<float> ydeseado);
 
@@ -25,7 +31,19 @@ public:
 
     void actualizar_pesos();
 
-    void leave_k_out(vector< vector<float> > &patrones, short k = 1);
+    float validacion_cruzada(string path, short k = 1);
+
+    float leave_k_out(vector< vector<float> > &patrones, short k = 1);
+
+    bool entrenarRed(vector<float> P, bool probar = false);
+
+    float estEntrenamiento(vector< vector<float> > &P, bool probar = false, int cant = 1);
+
+    void set_alfa(float alfa) {
+        for (short i = 0; i < cant_capas; i++ ) {
+            capas[i].set_alfa(alfa);
+        }
+    }
 };
 
 #endif // RED_H
