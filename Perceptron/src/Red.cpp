@@ -66,9 +66,6 @@ vector<float> Red::yAnterior(short indiceCapa) {
         yAnterior = this->input;
     }
 
-    // Agregamos un 1 al final para el bias
-    yAnterior.push_back(1);
-
     return yAnterior;
 }
 

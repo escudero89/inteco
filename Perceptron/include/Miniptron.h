@@ -15,7 +15,7 @@ using namespace std;
 class Miniptron {
 
     int N;
-    float umbral, tasa, a, salida;
+    float tasa, a, salida;
     vector<float> pesos;	// W(i)
     vector<float> pesos_siguientes, delta_anterior;
 
@@ -60,6 +60,7 @@ public:
     float get_v(vector<float> patrones, bool pop = false);
 
     vector<float> get_delta_anterior() { return delta_anterior; }
+
     /* FUNCIONES DE ENTRENAMIENTO DE NEURONAS */
     float funcion_activacion(const vector<float> &pesos,const vector<float> &patrones, char tipo = 0);
 

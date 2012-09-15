@@ -464,14 +464,15 @@
 1347662361 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Red.cpp
 	"../include/Red.h"
 
-1347584673 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Capa.cpp
+1347680974 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Capa.cpp
 	"../include/Capa.h"
 
-1347584673 /media/Cristian/Repositorios/inteco/Perceptron/include/Capa.h
+1347680974 /media/Cristian/Repositorios/inteco/Perceptron/include/Capa.h
 	<vector>
+	<cassert>
 	"Miniptron.h"
 
-1347584673 /media/Cristian/Repositorios/inteco/Perceptron/include/Miniptron.h
+1347681018 /media/Cristian/Repositorios/inteco/Perceptron/include/Miniptron.h
 	<iostream>
 	<cstdlib>
 	<vector>
@@ -480,7 +481,7 @@
 	"utils.h"
 	"record.h"
 
-1347593034 /media/Cristian/Repositorios/inteco/Perceptron/include/utils.h
+1347680974 /media/Cristian/Repositorios/inteco/Perceptron/include/utils.h
 	<vector>
 	<sstream>
 	<fstream>
@@ -489,7 +490,7 @@
 	<cstdlib>
 	<cassert>
 
-1347284486 /media/Cristian/Repositorios/inteco/Perceptron/include/record.h
+1347680888 /media/Cristian/Repositorios/inteco/Perceptron/include/record.h
 	<cassert>
 	<string>
 	<fstream>
@@ -497,10 +498,10 @@
 	<iostream>
 	<ctime>
 
-1347584673 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Miniptron.cpp
+1347681018 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Miniptron.cpp
 	"../include/Miniptron.h"
 
-1347592977 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
+1347680974 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
 	<ctime>
 	<stdio.h>
 	<iostream>
@@ -511,7 +512,7 @@
 	"../include/record.h"
 	"../include/Red.h"
 
-1347284486 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
+1347680974 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
 	<iostream>
 	<cstdlib>
 	<ctime>
@@ -520,24 +521,24 @@
 	"utils.h"
 	"record.h"
 
-1347592551 /media/Cristian/Repositorios/inteco/Perceptron/include/Red.h
+1347680974 /media/Cristian/Repositorios/inteco/Perceptron/include/Red.h
 	<iostream>
 	<cassert>
 	<vector>
 	"Capa.h"
 
-1347284486 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
+1347680974 source:/media/Cristian/Repositorios/inteco/Perceptron/src/perceptron.cpp
 	"../include/perceptron.h"
 
-1347284486 source:/media/Cristian/Repositorios/inteco/Perceptron/src/record.cpp
+1347680889 source:/media/Cristian/Repositorios/inteco/Perceptron/src/record.cpp
 	"../include/record.h"
 
-1347284486 source:/media/Cristian/Repositorios/inteco/Perceptron/src/utils.cpp
+1347680889 source:/media/Cristian/Repositorios/inteco/Perceptron/src/utils.cpp
 	"../include/utils.h"
 	<vector>
 	<math.h>
 	<algorithm>
 
-1347593080 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Red.cpp
+1347681063 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Red.cpp
 	"../include/Red.h"
 
