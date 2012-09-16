@@ -27,12 +27,13 @@ vector<float> Capa::forward_pass(vector<float> input, Capa &capaSiguiente) {
         ///seguir viendo aca
 		 //Me guardo en cada neurona los pesos "siguientes" para el backwardpass
 		 miniptrones[i].set_pesos_siguientes(capaSiguiente.get_iesimos_pesos(i));
-            cout<<"Gradiente Local: "<<endl;
-            printVector<float>(gradiente_local);
-            cout<<"Fin Gradiente local"<<endl<<endl;
 		 // Para debug, si es la ultima (no deberia serlo) tira error
 		 assert(!es_ultima);
 	}
+
+    cout << "Output: " << endl;
+    printVector<float>(output);
+    cout << endl;
 
     return output;
 }
@@ -43,14 +44,17 @@ vector<float> Capa::forward_pass(vector<float> input){
 	for (short i = 0; i < cant_neuronas ; i++ ){
         output[i] = miniptrones[i].get_v(input);
 	}
+
+	cout << "Output: " << endl;
+    printVector<float>(output);
+    cout << endl;
+
     return output;
 }
 
 vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior) {
     float y, alfa_delta;
     /// SEGUIR ANALIZANDO ACA
-   // gradiente_local.resize(cant_neuronas);
-    // variacion_pesos.resize(cant_neuronas);
 
     for (short i = 0; i < cant_neuronas ; i++ ) {
 		y = miniptrones[i].get_salida();
@@ -59,11 +63,11 @@ vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior
             vector <float> pesos_siguientes;
             // El ouput aca es el gradiente local de la capa siguiente
             pesos_siguientes = miniptrones[i].get_pesos_siguientes();
-            gradiente_local[i] = 0.5 * (1 + y) * (1 - y) * dot<float> (pesos_siguientes, output, "Capa::backward_pass");
+            gradiente_local[i] = (1 + y) * (1 - y) * dot<float> (pesos_siguientes, output, "Capa::backward_pass");
 
         } else {
             // Basada en la sigmoidea derivada de la diapositiva, el ouput es ydeseado
-            gradiente_local[i] = 0.5 * (output[i] - y) * (1 + y) * (1 - y);
+            gradiente_local[i] = (output[i] - y) * (1 + y) * (1 - y);
         }
 
         // Guardamos la variacion de los pesos para luego actualizarlos
@@ -75,6 +79,14 @@ vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior
             variacion_pesos[i][j] = alfa_delta + tasa * gradiente_local[i] * yAnterior[j]; //acomodar ese y
 		}
 	}
+
+    cout<<"Gradiente Local (backwardpass [output:" << es_ultima << "]): "<<endl;
+    printVector<float>(gradiente_local);
+
+    if (!es_ultima) {
+        cout << "\n------------------------------------------------\n";
+        getchar();
+    }
 
 	return gradiente_local;
 }
@@ -107,6 +119,8 @@ vector<float> Capa::get_iesimos_pesos(int i) {
 void Capa::actualizar_pesos() {
 
     for(short i = 0; i < cant_neuronas; i++) {
+        cout << "Variacion de pesos: ";
+        printVector<float>(variacion_pesos[i]); cout << endl;
         this->miniptrones[i].actualizar_pesos(variacion_pesos[i]);
     }
 

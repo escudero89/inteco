@@ -26,13 +26,6 @@ Red::Red(vector<short> &Capas, float tasa, int N) {
         Capa ultima(Capas[cant_capas - 1], Capas[cant_capas - 2], tasa, 0, true);
         capas[cant_capas-1] = ultima;
     }
-
-    for(int i=0;i<cant_capas;i++){
-        cout<<capas[i].cant_neuronas<<endl;
-        cout<<capas[i].gradiente_local.size()<<endl;
-        cout<<capas[i].variacion_pesos.size()<<endl;
-
-    }
 }
 
 vector<float> Red::forward_pass(vector<float> input){
@@ -58,7 +51,7 @@ void Red::backward_pass(vector<float> ydeseado){
     vector<float> old_grad;
 
 	old_grad = capas[ultimo].backward_pass(ydeseado, yAnterior(ultimo - 1));
-    printVector(old_grad);
+
     for (short i = ultimo - 1 ; i >= 0 ; i--) {
         old_grad = capas[i].backward_pass(old_grad, yAnterior(i - 1));
     }
@@ -141,8 +134,9 @@ bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referenc
         printVector<float>(salida);
         cout<<"Patron Real (segun archivo): "<<endl;
         printVector<float>(P);
-        cout<<"Clase real (segun archivo): "<<yDeseadoFloat<<endl;
+        cout<<"Clase real (segun archivo): "<<yDeseadoFloat<<" (acerto: " << acerto << ")"<<endl;
         cout<<"____________________"<<endl;
+        getchar();
 
     }
     else {
