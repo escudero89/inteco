@@ -16,7 +16,7 @@ public:
     vector< vector<float> > variacion_pesos;
 
 public:
-    Capa(short cant_neuronas, int N, float tasa = 0.1, bool es_ultima=false);
+    Capa(short cant_neuronas, int N, float tasa = 0.1, int cant_neur_siguientes = 0, bool es_ultima=false);
     Capa(){};
 
 	Capa& operator=(const Capa &rhs) {
@@ -24,9 +24,13 @@ public:
 		if (this != &rhs) {
 			this->cant_neuronas = rhs.cant_neuronas;
 			this->tasa = rhs.tasa;
+			this->alfa = rhs.alfa;
+			this->es_ultima = rhs.es_ultima;
 			this->miniptrones = rhs.miniptrones;
 			this->output = rhs.output;
-			this->es_ultima = rhs.es_ultima;
+			this->gradiente_local = rhs.gradiente_local;
+			this->variacion_pesos = rhs.variacion_pesos;
+
 		}
 
 		return *this;

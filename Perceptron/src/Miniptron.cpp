@@ -1,12 +1,12 @@
 #include "../include/Miniptron.h"
 
-Miniptron::Miniptron(int N, float tasa, float a) {
+Miniptron::Miniptron(int N, float tasa, int cant_neur_siguientes, float a) {
 
     this -> N = N;
     this -> tasa = tasa;
 	this -> a = a;
-
     delta_anterior.resize(N);
+    pesos_siguientes.resize(cant_neur_siguientes);
     inicializar_neuronas();
 
 }
@@ -21,7 +21,7 @@ void Miniptron::inicializar_neuronas(float desvio, float media) {
 
     /// Uno extra para el umbral. Nada de ponerlo aparte.
     for (int i = 0; i <= N; i++) {
-        float r = ( rand() % 1001 * 0.002 - 1) * desvio + media;
+        float r =( rand() % 1001 * 0.002 - 1) * desvio + media;
         pesos[i] = r;
     }
 }
@@ -51,13 +51,14 @@ void Miniptron::actualizar_pesos(vector <float> &delta) {
 float Miniptron::funcion_activacion(const vector<float> &pesos, const vector<float> &patrones, char tipo) {
     float retorno = 0,
         producto_punto = dot<float>(pesos, patrones, "Miniptron::funcion_activacion");
-
+    float b = 10;
     switch(tipo) {
 
         // sigmoidea
         case 's': // a es una constante cualquiera que define la empinacion
-            float eaz; eaz = exp(producto_punto);
-            retorno = (1 - eaz) / (1 + eaz);
+            float eaz;
+            eaz = exp(-b * producto_punto);
+            retorno = (2 /(1+eaz)) - 1;
             break;
 
         default: // Lineal

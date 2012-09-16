@@ -15,14 +15,20 @@ int main(int argc, char **argv) {
     vector<short> C;
     C.push_back(2);
     C.push_back(2);
-    C.push_back(2);
-
 
     Red R(C,0.2,2);
     R.set_alfa(0);
 
-    cout<<"Porcentaje de Aciertos: ";
-    cout<<R.validacion_cruzada("data/xor1000.csv",50) * 100<<" %"<<endl;
+   vector<vector<float> > P_entrenamiento, P_prueba;
+
+   parseCSV<float>("data/xor100a.csv",P_entrenamiento);
+   parseCSV<float>("data/xor100a.csv",P_prueba);
+
+   R.estEntrenamiento(P_entrenamiento,false,4);
+   cout<<R.estEntrenamiento(P_prueba,true) * 100<<" %";
+
+    //cout<<"Porcentaje de Aciertos: ";
+    //cout<<R.validacion_cruzada("data/xor600a.csv",50) * 100<<" %"<<endl;
 #endif
 
 #if 0

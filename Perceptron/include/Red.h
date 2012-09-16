@@ -10,10 +10,10 @@
 using namespace std;
 
 class Red {
+public:
     short cant_capas;
     vector<Capa> capas;
     vector<float> input;
-    vector< vector< vector<float> > > pesos; //esto queda horriblemente mal, pero pasa por no hacer un buen disenio desde el principio
 
 public:
     Red(vector<short> &Capas, float tasa, int N);

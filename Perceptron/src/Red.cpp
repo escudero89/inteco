@@ -9,20 +9,29 @@ Red::Red(vector<short> &Capas, float tasa, int N) {
     this->cant_capas = Capas.size();
 	srand(time(NULL));
 
-	this->capas.resize(cant_capas);
+    this->input.resize(N);
 
-	Capa C(Capas[0], N, tasa, (cant_capas == 1) ? true : false);
+	this->capas.resize(cant_capas);
+	Capa C(Capas[0], N, tasa, (cant_capas == 1) ? 0 : Capas[1],(cant_capas == 1) ? true : false);
 	capas[0] = C;
+
     //Creamos capas
     for(short i = 1; i < cant_capas - 1; i++) {
-        Capa C(Capas[i], Capas[i-1], tasa);
+        Capa C(Capas[i], Capas[i-1], tasa, Capas[i+1]);
         capas[i] = C;
     }
     //Creamos la ultima capa
 
     if (cant_capas > 1) {
-        Capa ultima(Capas[cant_capas - 1], Capas[cant_capas - 2], tasa, true);
+        Capa ultima(Capas[cant_capas - 1], Capas[cant_capas - 2], tasa, 0, true);
         capas[cant_capas-1] = ultima;
+    }
+
+    for(int i=0;i<cant_capas;i++){
+        cout<<capas[i].cant_neuronas<<endl;
+        cout<<capas[i].gradiente_local.size()<<endl;
+        cout<<capas[i].variacion_pesos.size()<<endl;
+
     }
 }
 
@@ -31,7 +40,8 @@ vector<float> Red::forward_pass(vector<float> input){
 
     this->input = input;
 
-    //Pasamos un input y la capa siguiente para que pueda sacar de alli los pesos para el backward
+    /*Pasamos un input y la capa siguiente para que pueda sacar de alli los
+     pesos para el backward*/
     for(short i=0; i<cant_capas-1; i++) {
         input = capas[i].forward_pass(input, capas[i+1]);
     }
@@ -48,7 +58,7 @@ void Red::backward_pass(vector<float> ydeseado){
     vector<float> old_grad;
 
 	old_grad = capas[ultimo].backward_pass(ydeseado, yAnterior(ultimo - 1));
-
+    printVector(old_grad);
     for (short i = ultimo - 1 ; i >= 0 ; i--) {
         old_grad = capas[i].backward_pass(old_grad, yAnterior(i - 1));
     }
@@ -89,28 +99,51 @@ Si probar = false, entonces entrena la red actualizando los pesos correspondient
 bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referencia
 
     vector <float> yDeseado;
-    float yDeseadoFloat = P.back();
+    unsigned int yDeseadoFloat = int(P.back()); //Casteo
+
     P.pop_back();
 
     yDeseado.resize(capas.back().get_cant_neuronas(), -1);
     vector<float> salida = this->forward_pass(P);
+    vector<float> salida2 = salida;
+    yDeseado[yDeseadoFloat] = 1;
 
     bool acerto = false;
+    bool yaSeActivoUna = false;
     if(probar){
 
        for(unsigned int i=0; i<salida.size(); i++){
-           float y = -1;
 
            if (salida[i] > 0) {
-               yDeseado[i] = 1;
-               y = 1;
+               salida[i] = 1;
+           }
+           else{
+                salida[i]=0;
            }
 
-           if(y * (i + 1) == yDeseadoFloat + 1){
-               acerto = true;
-               break;
-           }
+            if(salida[i] == 1){//Si se activo una neurona
+                if(yaSeActivoUna){ //Pregunto si ya se habia activado otra
+                    acerto = false; //Si ya se activo otra, entonces hay un error y devuelvo false
+                    break;
+                }
+
+                yaSeActivoUna = true;
+
+                if(i == yDeseadoFloat){ //si la que se activa es la que se tenia q activar
+                    acerto = true;
+                }
+            }
         }
+
+        cout<<"Salida de la red: "<<endl;
+        printVector<float>(salida2);
+        cout<<"Salida NORMALIZADA de la red: "<<endl;
+        printVector<float>(salida);
+        cout<<"Patron Real (segun archivo): "<<endl;
+        printVector<float>(P);
+        cout<<"Clase real (segun archivo): "<<yDeseadoFloat<<endl;
+        cout<<"____________________"<<endl;
+
     }
     else {
         this->backward_pass(yDeseado);
@@ -127,10 +160,8 @@ float Red::estEntrenamiento(vector< vector<float> > &P, bool probar, int cant){
 
     if(probar){
         int aciertos = 0;
-
         for(int i=0; i<tam; i++){
-
-            if( entrenarRed(P[i], true) ){
+            if(entrenarRed(P[i], true)){
                 aciertos += 1;
             }
         }

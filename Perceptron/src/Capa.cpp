@@ -1,6 +1,6 @@
 #include "../include/Capa.h"
 
-Capa::Capa(short cant_neuronas, int N, float tasa, bool es_ultima) {
+Capa::Capa(short cant_neuronas, int N, float tasa, int cant_neur_siguientes,bool es_ultima) {
     this->tasa = tasa;
     this->es_ultima = es_ultima;
 
@@ -8,11 +8,12 @@ Capa::Capa(short cant_neuronas, int N, float tasa, bool es_ultima) {
     this->miniptrones.reserve(cant_neuronas);
 
     this->output.resize(cant_neuronas);
-
+    this->gradiente_local.resize(cant_neuronas);
+    this->variacion_pesos.resize(cant_neuronas);
     this->cant_neuronas = cant_neuronas;
 
     for (short i = 0; i < cant_neuronas; i++) {
-        Miniptron P(N, tasa);
+        Miniptron P(N, tasa, cant_neur_siguientes);
         this->miniptrones.push_back(P);
     }
 }
@@ -23,10 +24,12 @@ vector<float> Capa::forward_pass(vector<float> input, Capa &capaSiguiente) {
     for (short i = 0; i < cant_neuronas ; i++ ) {
 		 //Obtengo salida de cada neurona y la guardo en el vector output
 		 output[i] = miniptrones[i].get_v(input);
-
+        ///seguir viendo aca
 		 //Me guardo en cada neurona los pesos "siguientes" para el backwardpass
 		 miniptrones[i].set_pesos_siguientes(capaSiguiente.get_iesimos_pesos(i));
-
+            cout<<"Gradiente Local: "<<endl;
+            printVector<float>(gradiente_local);
+            cout<<"Fin Gradiente local"<<endl<<endl;
 		 // Para debug, si es la ultima (no deberia serlo) tira error
 		 assert(!es_ultima);
 	}
@@ -44,22 +47,20 @@ vector<float> Capa::forward_pass(vector<float> input){
 }
 
 vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior) {
-
     float y, alfa_delta;
-
-    gradiente_local.resize(cant_neuronas);
-    variacion_pesos.resize(cant_neuronas);
+    /// SEGUIR ANALIZANDO ACA
+   // gradiente_local.resize(cant_neuronas);
+    // variacion_pesos.resize(cant_neuronas);
 
     for (short i = 0; i < cant_neuronas ; i++ ) {
 		y = miniptrones[i].get_salida();
         vector<float> delta_anterior = miniptrones[i].get_delta_anterior();
-
         if (!es_ultima) {
             vector <float> pesos_siguientes;
-
             // El ouput aca es el gradiente local de la capa siguiente
             pesos_siguientes = miniptrones[i].get_pesos_siguientes();
             gradiente_local[i] = 0.5 * (1 + y) * (1 - y) * dot<float> (pesos_siguientes, output, "Capa::backward_pass");
+
         } else {
             // Basada en la sigmoidea derivada de la diapositiva, el ouput es ydeseado
             gradiente_local[i] = 0.5 * (output[i] - y) * (1 + y) * (1 - y);

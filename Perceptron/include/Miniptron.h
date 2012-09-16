@@ -13,7 +13,7 @@
 using namespace std;
 
 class Miniptron {
-
+public:
     int N;
     float tasa, a, salida;
     vector<float> pesos;	// W(i)
@@ -23,7 +23,7 @@ public:
 
     /* FUNCIONES DE INICIALIZACION */
 
-    Miniptron(int N, float tasa=1.5, float a = 1);
+    Miniptron(int N, float tasa=1.5, int cant_neur_siguientes=0, float a = 1);
 
     void inicializar_neuronas(float desvio=0.5, float media=0);
 
@@ -63,6 +63,23 @@ public:
 
     /* FUNCIONES DE ENTRENAMIENTO DE NEURONAS */
     float funcion_activacion(const vector<float> &pesos,const vector<float> &patrones, char tipo = 0);
+
+
+    Miniptron& operator=(const Miniptron &rhs) {
+
+		if (this != &rhs) {
+			this->N = rhs.N;
+            this->tasa = rhs.tasa;
+            this->a = rhs.a;
+            this->salida = rhs.salida;
+            this->pesos = rhs.pesos;
+            this->pesos_siguientes = rhs.pesos_siguientes;
+            this->delta_anterior = rhs.delta_anterior;
+
+		}
+
+		return *this;
+	}
 
 };
 
