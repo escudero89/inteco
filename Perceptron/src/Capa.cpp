@@ -71,7 +71,9 @@ vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior
         }
 
         // Guardamos la variacion de los pesos para luego actualizarlos
-        yAnterior.push_back(1);
+        cout << "Tamanio yAnterior: " << yAnterior.size() << endl;
+        cout << "Tamanio gradiente_local: " << gradiente_local.size() << endl;
+
 		unsigned int N = yAnterior.size();
 		variacion_pesos[i].resize(N);
 
@@ -90,7 +92,7 @@ vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior
 
     if (!es_ultima) {
         cout << "\n------------------------------------------------\n";
-        getchar();
+        //getchar();
     }
 
 	return gradiente_local;

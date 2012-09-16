@@ -22,7 +22,7 @@ void Miniptron::inicializar_neuronas(float desvio, float media) {
     /// Uno extra para el umbral. Nada de ponerlo aparte.
     for (int i = 0; i <= N; i++) {
         float r =( rand() % 1001 * 0.002 - 1) * desvio + media;
-        r = 0.5;
+        //r = 0.5;
         pesos[i] = r;
     }
 }
@@ -33,18 +33,18 @@ float Miniptron::get_v(vector<float> patrones, bool pop) {
         patrones.pop_back();
     }
     /// Agrego un valor extra para el umbral
-    patrones.push_back(-1);
+    patrones.push_back(1);
 
-    cout << "MINIPTRON {BEGIN}\n";
+        cout << "MINIPTRON {BEGIN}\n";
 
-    printVector<float>(pesos);
-    printVector<float>(patrones);
+        printVector<float>(pesos);
+        printVector<float>(patrones);
 
     this->salida = funcion_activacion(pesos, patrones, 's');
 
-    cout << "MINIPTRON {END}\n\n";
+        cout << "MINIPTRON {END}\n\n";
 
-    cout << "Salida: " << salida << endl << endl;
+        cout << "Salida: " << salida << endl << endl;
 
     return salida;
 }

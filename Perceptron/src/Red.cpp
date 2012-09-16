@@ -69,6 +69,8 @@ vector<float> Red::yAnterior(short indiceCapa) {
         yAnterior = this->input;
     }
 
+    yAnterior.push_back(1);
+
     return yAnterior;
 }
 
@@ -136,7 +138,7 @@ bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referenc
         printVector<float>(P);
         cout<<"Clase real (segun archivo): "<<yDeseadoFloat<<" (acerto: " << acerto << ")"<<endl;
         cout<<"____________________"<<endl;
-        getchar();
+        //getchar();
 
     }
     else {
