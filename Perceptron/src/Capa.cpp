@@ -71,6 +71,7 @@ vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior
         }
 
         // Guardamos la variacion de los pesos para luego actualizarlos
+        yAnterior.push_back(1);
 		unsigned int N = yAnterior.size();
 		variacion_pesos[i].resize(N);
 
@@ -78,6 +79,10 @@ vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior
             alfa_delta = this->alfa * delta_anterior[j];
             variacion_pesos[i][j] = alfa_delta + tasa * gradiente_local[i] * yAnterior[j]; //acomodar ese y
 		}
+
+		cout << "Matriz variacion pesos:\n";
+		printVectorVector<float>(variacion_pesos);
+		cout << endl;
 	}
 
     cout<<"Gradiente Local (backwardpass [output:" << es_ultima << "]): "<<endl;
