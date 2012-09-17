@@ -30,11 +30,11 @@ vector<float> Capa::forward_pass(vector<float> input, Capa &capaSiguiente) {
 		 // Para debug, si es la ultima (no deberia serlo) tira error
 		 assert(!es_ultima);
 	}
-
+/*
     cout << "Output: " << endl;
     printVector<float>(output);
     cout << endl;
-
+*/
     return output;
 }
 //Sobrecargo foward pass para cuando es la ultima capa
@@ -44,11 +44,11 @@ vector<float> Capa::forward_pass(vector<float> input){
 	for (short i = 0; i < cant_neuronas ; i++ ){
         output[i] = miniptrones[i].get_v(input);
 	}
-
+/*
 	cout << "Output: " << endl;
     printVector<float>(output);
     cout << endl;
-
+*/
     return output;
 }
 
@@ -70,7 +70,6 @@ vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior
             gradiente_local[i] = (output[i] - y) * (1 + y) * (1 - y);
         }
 
-        // Guardamos la variacion de los pesos para luego actualizarlos
 		unsigned int N = yAnterior.size();
 		variacion_pesos[i].resize(N);
 
@@ -78,18 +77,6 @@ vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior
             alfa_delta = this->alfa * delta_anterior[j];
             variacion_pesos[i][j] = alfa_delta + tasa * gradiente_local[i] * yAnterior[j]; //acomodar ese y
 		}
-
-	}
-
-    cout<<"Gradiente Local (backwardpass [output:" << es_ultima << "]): "<<endl;
-    printVector<float>(gradiente_local);
-
-    cout << "Variacion Pesos:" << endl;
-    printVectorVector<float>(variacion_pesos);
-
-    if (!es_ultima) {
-        cout << "\n------------------------------------------------\n";
-        //getchar();
     }
 
 	return gradiente_local;

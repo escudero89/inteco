@@ -15,6 +15,7 @@ public:
     vector<Capa> capas;
     vector<float> input;
     vector<float> clases;
+    vector<float> errores;
 
 public:
     Red(vector<short> &Capas, float tasa, int N);
@@ -47,6 +48,8 @@ public:
             capas[i].set_alfa(alfa);
         }
     }
+
+    float entrenar(vector<vector<float> > &E,vector<vector<float> > &P, int maxit, float tol);
 
     /* Necesito una funcion que me devuelva un vector con las clases que asigno a cada valor */
     vector<float> get_clases() {

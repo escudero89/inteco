@@ -67,7 +67,6 @@ void Miniptron::actualizar_pesos(vector <float> &delta) {
 float Miniptron::funcion_activacion(const vector<float> &pesos, const vector<float> &patrones, char tipo) {
     float retorno = 0,
         producto_punto = dot<float>(pesos, patrones, "Miniptron::funcion_activacion");
-    cout << "Producto punto: " << producto_punto << endl;
 
     switch(tipo) {
 

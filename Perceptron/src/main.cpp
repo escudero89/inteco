@@ -12,6 +12,44 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
+# if 0
+    vector<vector<float> > P_entrenamiento, P_prueba;
+   parseCSV<float>("data/xor600a.csv",P_entrenamiento);
+   parseCSV<float>("data/xor100a.csv",P_prueba);
+    vector<short> C;
+    C.push_back(2);
+    C.push_back(2);
+
+    Red R(C,0.1,2);
+    R.set_alfa(0);
+
+    R.entrenar(P_entrenamiento,P_prueba,100,0.1);
+    //R.estEntrenamiento(P_entrenamiento,false,50);
+    //cout<<R.estEntrenamiento(P_prueba,true,1);
+
+# endif
+
+#if 1
+    vector<short> C;
+    C.push_back(2);
+    C.push_back(2);
+
+    Red R(C,0.1,2);
+    R.set_alfa(0);
+
+   vector<vector<float> > P_entrenamiento, P_prueba;
+
+   parseCSV<float>("data/xor600a.csv",P_entrenamiento);
+   parseCSV<float>("data/xor100a.csv",P_prueba);
+
+   R.estEntrenamiento(P_entrenamiento,false,50);
+   cout<<R.estEntrenamiento(P_prueba,true) * 100<<" %";
+
+    //cout<<"Porcentaje de Aciertos: ";
+    //cout<<R.validacion_cruzada("data/xor600a.csv",50) * 100<<" %"<<endl;
+#endif
+
+
 // VALORES GENERALES //
     float tasa = 0.2;
     vector<vector<float> > patrones;

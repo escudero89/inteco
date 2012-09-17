@@ -200,21 +200,12 @@ bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referenc
                     clases[clases.size() - 1] = i;
                 }
             }
+
         }
 
         if (!acerto) {
             clases[clases.size() - 1] = -1;
         }
-
-        cout<<"Salida de la red: "<<endl;
-        printVector<float>(salida2);
-        cout<<"Salida NORMALIZADA de la red: "<<endl;
-        printVector<float>(salida);
-        cout<<"Patron Real (segun archivo): "<<endl;
-        printVector<float>(P);
-        cout<<"Clase real (segun archivo): "<<yDeseadoFloat<<" (acerto: " << acerto << ")"<<endl;
-        cout<<"____________________"<<endl;
-        //getchar();
 
     }
     else {
@@ -283,14 +274,6 @@ float Red::leave_k_out(vector< vector<float> > &patrones, short k, unsigned int 
                 entrenamiento = vector< vector <float> >(inicio, first);
                 entrenamiento.insert(entrenamiento.end(), last, fin);
 
-                /* DEBUG MODE ON ehh marcos :P */
-                /*cout << "\n-------------------------------\n";
-                cout << "\nEntrenamiento:\n";
-                printVectorVector(entrenamiento, ',', "");
-                cout << "\nPrueba:\n";
-                printVectorVector(prueba, ',', "")*/;
-                /* DEBUG MODE OFF */
-
                 break;
             }
         }
@@ -306,6 +289,27 @@ float Red::leave_k_out(vector< vector<float> > &patrones, short k, unsigned int 
     }
 
     return sqrt(error/contador);
+}
+
+float Red::entrenar(vector<vector<float> > &E,vector<vector<float> > &P, int maxit, float tol){
+    float error = 0;
+    cout<<"Entrenando..."<<endl;
+    for(int i = 0;i <maxit; i++){
+        cout<<"Iteracion: "<<i<<endl;
+        estEntrenamiento(E, false, 1); //Entreno
+        error = 1 - estEntrenamiento(P,true);//Pruebo
+        cout<<error;
+        if(error<tol){
+            cout<<"Salio porque el error es menor a la tolerancia."<<endl;
+            cout<<"Iteracion numero: "<<i<<endl;
+            return error;
+        }
+
+    }
+
+    cout<<"Salio por Maximo de iteraciones "<<endl;
+    cout<<"Error: "<<error;
+    return error;
 }
 
 /// FUNCIONES DE VALIDACION DE ERRORES ///
