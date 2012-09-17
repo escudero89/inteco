@@ -231,3 +231,23 @@ float Red::leave_k_out(vector< vector<float> > &patrones, short k) {
 
     return sqrt(error/contador);
 }
+
+float Red::entrenar(vector<vector<float> > &E,vector<vector<float> > &P, int maxit, float tol){
+    float error = 0;
+    cout<<"Entrenando..."<<endl;
+    for(int i = 0;i <maxit; i++){
+        cout<<"Iteracion: "<<i<<endl;
+        estEntrenamiento(E, false, 1); //Entreno
+        error = 1 - estEntrenamiento(P,true);//Pruebo
+        if(error<tol){
+            cout<<"Salio porque el error es menor a la tolerancia."<<endl;
+            cout<<"Iteracion numero: "<<i<<endl;
+            return error;
+        }
+
+    }
+
+    cout<<"Salio por Maximo de iteraciones "<<endl;
+    cout<<"Error: "<<error;
+    return error;
+}

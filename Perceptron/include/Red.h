@@ -44,6 +44,8 @@ public:
             capas[i].set_alfa(alfa);
         }
     }
+
+    float entrenar(vector<vector<float> > &E,vector<vector<float> > &P, int maxit, float tol);
 };
 
 #endif // RED_H
