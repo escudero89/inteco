@@ -531,13 +531,13 @@
 1347839085 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Red.cpp
 	"../include/Red.h"
 
-1347837886 /media/Cristian/Repositorios/inteco/Perceptron/include/Red.h
+1347840550 /media/Cristian/Repositorios/inteco/Perceptron/include/Red.h
 	<iostream>
 	<cassert>
 	<vector>
 	"Capa.h"
 
-1347838775 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
+1347842624 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
 	<ctime>
 	<stdio.h>
 	<iostream>

@@ -1,31 +1,42 @@
 #! /usr/bin/octave -qf
 
 # Le paso un CSV, con una serie de patrones, y teniendo dos clases para separar
-function plot_patrones(A, imprimir = false)
+function plot_patrones(A, clases = [-1, 0, 1], imprimir = false)
     
     # Ordenamos la matriz en base a la columna de clases
     A = sortrows(A, 3);
     
     N = size(A)(1);
     
-    for i = 1 : N
-        # Recorre hasta encontrar un uno
-        if (A(i, 3) == 1)
-            break;
-        end
-    end
+    cero = 0;
+    uno = 0;
     
+    colores = ['r', 'g', 'b', 'm'];
     
-    # IMPRESION #
-    
-    # Parte basica de impresion
     clf;
-    hold on;
+    hold on;    
+
+    old_i = 1;
     
-    plot(A(1 : i-1, 1), A(1 : i-1, 2), 'or');
-    plot(A(i+1 : N, 1), A(i+1 : N, 2), 'xb');
+    for clase = clases
+
+        for i = old_i : N
+                
+            if (A(i, 3) != clase | i == N)
+                ['o' colores(clase + 2)]
+                size(A(old_i : i-1, :))
+                plot(A(old_i : i-1, 1), A(old_i : i-1, 2), ['o' colores(clase + 2)]);
+                old_i = i;
+                pause
+                break;
+            end
+        end
     
-    hold off;
+    end
+
+    hold off;    
+    
+    # TEXTO IMPRESION #
     
     # para que imprima los titulos y comentarios en los ejes
     labels = true; 

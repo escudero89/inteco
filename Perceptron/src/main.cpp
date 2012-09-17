@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 
 /// /////////////////////////////////////////////////////////////////////// ///
 
-#if 0
+#if 1
 
 // EJERCICIO 3 //
 
@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
 
     cout << "(3a) Porcentaje de aciertos: " << aciertos << endl;
 
-#if 0
+#if 1
 
 // EJERCICIO 3a //
 

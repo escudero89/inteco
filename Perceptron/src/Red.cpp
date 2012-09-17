@@ -202,7 +202,7 @@ bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referenc
             }
         }
 
-        if (yaSeActivoUna) {
+        if (!acerto) {
             clases[clases.size() - 1] = -1;
         }
 
