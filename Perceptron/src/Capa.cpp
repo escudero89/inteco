@@ -30,11 +30,11 @@ vector<float> Capa::forward_pass(vector<float> input, Capa &capaSiguiente) {
 		 // Para debug, si es la ultima (no deberia serlo) tira error
 		 assert(!es_ultima);
 	}
-
+/*
     cout << "Output: " << endl;
     printVector<float>(output);
     cout << endl;
-
+*/
     return output;
 }
 //Sobrecargo foward pass para cuando es la ultima capa
@@ -44,11 +44,11 @@ vector<float> Capa::forward_pass(vector<float> input){
 	for (short i = 0; i < cant_neuronas ; i++ ){
         output[i] = miniptrones[i].get_v(input);
 	}
-
+/*
 	cout << "Output: " << endl;
     printVector<float>(output);
     cout << endl;
-
+*/
     return output;
 }
 
@@ -70,10 +70,10 @@ vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior
             gradiente_local[i] = (output[i] - y) * (1 + y) * (1 - y);
         }
 
-        // Guardamos la variacion de los pesos para luego actualizarlos
+  /*      // Guardamos la variacion de los pesos para luego actualizarlos
         cout << "Tamanio yAnterior: " << yAnterior.size() << endl;
         cout << "Tamanio gradiente_local: " << gradiente_local.size() << endl;
-
+   */
 		unsigned int N = yAnterior.size();
 		variacion_pesos[i].resize(N);
 
@@ -81,17 +81,17 @@ vector<float> Capa::backward_pass(vector<float> &output, vector<float> yAnterior
             alfa_delta = this->alfa * delta_anterior[j];
             variacion_pesos[i][j] = alfa_delta + tasa * gradiente_local[i] * yAnterior[j]; //acomodar ese y
 		}
-
+        /*
 		cout << "Matriz variacion pesos:\n";
 		printVectorVector<float>(variacion_pesos);
 		cout << endl;
-	}
+	*/}
 
-    cout<<"Gradiente Local (backwardpass [output:" << es_ultima << "]): "<<endl;
+    /*cout<<"Gradiente Local (backwardpass [output:" << es_ultima << "]): "<<endl;
     printVector<float>(gradiente_local);
-
+*/
     if (!es_ultima) {
-        cout << "\n------------------------------------------------\n";
+      //  cout << "\n------------------------------------------------\n";
         //getchar();
     }
 
@@ -126,8 +126,8 @@ vector<float> Capa::get_iesimos_pesos(int i) {
 void Capa::actualizar_pesos() {
 
     for(short i = 0; i < cant_neuronas; i++) {
-        cout << "Variacion de pesos: ";
-        printVector<float>(variacion_pesos[i]); cout << endl;
+     /*   cout << "Variacion de pesos: ";
+        printVector<float>(variacion_pesos[i]); cout << endl;*/
         this->miniptrones[i].actualizar_pesos(variacion_pesos[i]);
     }
 

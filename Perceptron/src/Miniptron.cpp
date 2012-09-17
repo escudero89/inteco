@@ -34,18 +34,18 @@ float Miniptron::get_v(vector<float> patrones, bool pop) {
     }
     /// Agrego un valor extra para el umbral
     patrones.push_back(1);
-
+/*
         cout << "MINIPTRON {BEGIN}\n";
 
         printVector<float>(pesos);
         printVector<float>(patrones);
-
+*/
     this->salida = funcion_activacion(pesos, patrones, 's');
-
+/*
         cout << "MINIPTRON {END}\n\n";
 
         cout << "Salida: " << salida << endl << endl;
-
+*/
     return salida;
 }
 
@@ -55,12 +55,12 @@ void Miniptron::actualizar_pesos(vector <float> &delta) {
     for ( unsigned int i = 0; i < pesos.size(); i ++) {
         pesos[i] = pesos[i] + delta[i];
     }
-
+/*
     cout << "Nuevos Pesos y Delta usado:\n";
     printVector<float>(pesos);
     printVector<float>(delta);
     cout << endl;
-
+*/
     this->delta_anterior = delta;
 }
 

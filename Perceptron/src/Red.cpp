@@ -129,7 +129,7 @@ bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referenc
                 }
             }
         }
-
+/*
         cout<<"Salida de la red: "<<endl;
         printVector<float>(salida2);
         cout<<"Salida NORMALIZADA de la red: "<<endl;
@@ -139,7 +139,7 @@ bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referenc
         cout<<"Clase real (segun archivo): "<<yDeseadoFloat<<" (acerto: " << acerto << ")"<<endl;
         cout<<"____________________"<<endl;
         //getchar();
-
+*/
     }
     else {
         this->backward_pass(yDeseado);
@@ -239,6 +239,7 @@ float Red::entrenar(vector<vector<float> > &E,vector<vector<float> > &P, int max
         cout<<"Iteracion: "<<i<<endl;
         estEntrenamiento(E, false, 1); //Entreno
         error = 1 - estEntrenamiento(P,true);//Pruebo
+        cout<<error;
         if(error<tol){
             cout<<"Salio porque el error es menor a la tolerancia."<<endl;
             cout<<"Iteracion numero: "<<i<<endl;

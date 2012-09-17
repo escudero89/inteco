@@ -253,7 +253,7 @@
 	<cstdlib>
 	<cassert>
 
-1347840962 source:c:\users\marcos\workspace\inteco\perceptron\src\main.cpp
+1347844703 source:c:\users\marcos\workspace\inteco\perceptron\src\main.cpp
 	<ctime>
 	<stdio.h>
 	<iostream>
@@ -514,7 +514,7 @@
 	<vector>
 	"Capa.h"
 
-1347825398 source:c:\users\marcos\workspace\inteco\perceptron\src\miniptron.cpp
+1347843402 source:c:\users\marcos\workspace\inteco\perceptron\src\miniptron.cpp
 	"../include/Miniptron.h"
 
 1347821447 c:\users\marcos\workspace\inteco\perceptron\include\miniptron.h
@@ -531,10 +531,10 @@
 	<cassert>
 	"Miniptron.h"
 
-1347823542 source:c:\users\marcos\workspace\inteco\perceptron\src\capa.cpp
+1347843402 source:c:\users\marcos\workspace\inteco\perceptron\src\capa.cpp
 	"../include/Capa.h"
 
-1347841040 source:c:\users\marcos\workspace\inteco\perceptron\src\red.cpp
+1347843507 source:c:\users\marcos\workspace\inteco\perceptron\src\red.cpp
 	"../include/Red.h"
 
 1347840962 c:\users\marcos\workspace\inteco\perceptron\include\red.h
