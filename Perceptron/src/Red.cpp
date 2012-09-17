@@ -278,7 +278,10 @@ float Red::leave_k_out(vector< vector<float> > &patrones, short k, unsigned int 
         indice += k;
     }
 
-    return sqrt(error/contador);
+    error = sqrt(error/contador);
+    errores.push_back(error);
+
+    return error;
 }
 
 float Red::entrenar(vector<vector<float> > &E,vector<vector<float> > &P, int maxit, float tol){
