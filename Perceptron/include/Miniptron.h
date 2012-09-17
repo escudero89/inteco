@@ -75,7 +75,6 @@ public:
             this->pesos = rhs.pesos;
             this->pesos_siguientes = rhs.pesos_siguientes;
             this->delta_anterior = rhs.delta_anterior;
-
 		}
 
 		return *this;

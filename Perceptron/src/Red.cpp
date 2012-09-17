@@ -20,8 +20,8 @@ Red::Red(vector<short> &Capas, float tasa, int N) {
         Capa C(Capas[i], Capas[i-1], tasa, Capas[i+1]);
         capas[i] = C;
     }
-    //Creamos la ultima capa
 
+    //Creamos la ultima capa
     if (cant_capas > 1) {
         Capa ultima(Capas[cant_capas - 1], Capas[cant_capas - 2], tasa, 0, true);
         capas[cant_capas-1] = ultima;
@@ -86,6 +86,72 @@ void Red::actualizar_pesos() {
     cout << "---------------------------\n";*/
 }
 
+float Red::entrenarRed_2(vector<float> patrones, bool probar) {
+
+    float yDeseadoTemp = patrones.back();
+    patrones.pop_back();
+
+    // Este yDeseado = [ -1, -1, -1 ] => [ -1,  1, -1 ] si yDeseadoTemp = 1
+
+    vector<float> yDeseado(patrones.size(), -1),
+        salidaRed;
+
+    yDeseado[yDeseadoTemp] = 1;
+
+
+    // Ejecutamos el forward_pass
+
+    salidaRed = this->forward_pass(patrones);
+
+    float salidaRedFloat = -1;
+
+    if (!probar) {
+
+        this->backward_pass(salidaRed);
+        this->actualizar_pesos();
+
+    } else {
+        // Medimos el error cuadratico
+
+        float suma = 0;
+
+        for (unsigned int i = 0, N = salidaRed.size(); i < N; i++ ) {
+            suma += pow(yDeseado[i] - salidaRed[i], 2);
+        }
+
+        salidaRedFloat = sqrt(suma) / 2;
+    }
+
+    return salidaRedFloat;
+}
+
+float Red::estEntrenamiento_2(vector< vector<float> > &P, unsigned int maxit, float tol) {
+
+    float error_total = -1;
+
+    for (unsigned int i = 0; i < maxit ; i++) {
+
+        error_total = 0;
+
+        unsigned int N = P.size();
+
+        for (unsigned int j = 0; j < N; j++ ) {
+            entrenarRed_2(P[i]);
+            error_total += entrenarRed_2(P[i], true);
+        }
+
+        error_total /= N;
+
+        if (error_total < tol) {
+            cout << "[[ Error menor que la tolerancia. ]]\n";
+            break;
+        }
+    }
+
+    return error_total;
+}
+
+
 /*Entrena/prueba la red con un solo patron. Se considera que en los
 ultimos elementos del patron viene el yDeseado.
 Si probar = true entonces prueba la red con los patrones pasados y devuelve
@@ -94,7 +160,7 @@ Si probar = false, entonces entrena la red actualizando los pesos correspondient
 bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referencia
 
     vector <float> yDeseado;
-    unsigned int yDeseadoFloat = int(P.back()); //Casteo
+    float yDeseadoFloat = P.back(); //Casteo
 
     P.pop_back();
 
@@ -103,20 +169,25 @@ bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referenc
     vector<float> salida2 = salida;
     yDeseado[yDeseadoFloat] = 1;
 
-    bool acerto = false;
-    bool yaSeActivoUna = false;
+    bool acerto = false,
+        yaSeActivoUna = false;
+
     if(probar){
+
+        clases.push_back(-1);
 
        for(unsigned int i=0; i<salida.size(); i++){
 
+            // DEBUG
            if (salida[i] > 0) {
                salida[i] = 1;
            }
            else{
                 salida[i]=0;
            }
+           // END DEBUG
 
-            if(salida[i] == 1){//Si se activo una neurona
+            if(salida[i] > 0) {//Si se activo una neurona
                 if(yaSeActivoUna){ //Pregunto si ya se habia activado otra
                     acerto = false; //Si ya se activo otra, entonces hay un error y devuelvo false
                     break;
@@ -126,8 +197,13 @@ bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referenc
 
                 if(i == yDeseadoFloat){ //si la que se activa es la que se tenia q activar
                     acerto = true;
+                    clases[clases.size() - 1] = i;
                 }
             }
+        }
+
+        if (yaSeActivoUna) {
+            clases[clases.size() - 1] = -1;
         }
 
         cout<<"Salida de la red: "<<endl;
@@ -176,14 +252,14 @@ float Red::estEntrenamiento(vector< vector<float> > &P, bool probar, int cant){
 } //fin funcion
 
 /* Hace la validacion cruzada usando el leave-k-out */
-float Red::validacion_cruzada(string path, short k) {
+float Red::validacion_cruzada(string path, short k, unsigned int cant_iteraciones) {
     vector< vector<float> > P;
     parseCSV<float>(path, P);
-    return leave_k_out(P, k);
+    return leave_k_out(P, k, cant_iteraciones);
 }
 
 /* Leave-Something-Out */
-float Red::leave_k_out(vector< vector<float> > &patrones, short k) {
+float Red::leave_k_out(vector< vector<float> > &patrones, short k, unsigned int cant_iteraciones) {
 
     unsigned int indice = 0, contador = 0, N = patrones.size();
     float error = 0;
@@ -220,7 +296,7 @@ float Red::leave_k_out(vector< vector<float> > &patrones, short k) {
         }
 
         /// Aca llamo a una funcion que entrene las neuronas
-        estEntrenamiento(entrenamiento);
+        estEntrenamiento(entrenamiento, false, cant_iteraciones);
         float err = estEntrenamiento(prueba, true);
         cout << err << endl;
         error += pow(err, 2);
@@ -230,4 +306,30 @@ float Red::leave_k_out(vector< vector<float> > &patrones, short k) {
     }
 
     return sqrt(error/contador);
+}
+
+/// FUNCIONES DE VALIDACION DE ERRORES ///
+
+float Red::get_error() {
+    float error = 0;
+    unsigned int N = errores.size();
+
+    for (unsigned int i = 0; i < N; i++) {
+        error += errores[i];
+    }
+
+    return error/N;
+}
+
+void Red::get_err_desvio(float &media, float &desvio) {
+    desvio = 0;
+    media = get_error();
+
+    unsigned int N = errores.size();
+
+    for (unsigned int i = 0; i < N; i++) {
+        desvio += pow(media - errores[i], 2);
+    }
+
+    desvio = sqrt(desvio/(N - 1));
 }

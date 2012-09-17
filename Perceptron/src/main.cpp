@@ -11,173 +11,124 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-#if 1
-    vector<short> C;
-    C.push_back(2);
-    C.push_back(2);
 
-    Red R(C,0.2,2);
-    R.set_alfa(0);
+// VALORES GENERALES //
+    float tasa = 0.2;
+    vector<vector<float> > patrones;
 
-   vector<vector<float> > P_entrenamiento, P_prueba;
-
-   parseCSV<float>("data/xor100a.csv",P_entrenamiento);
-   parseCSV<float>("data/xor100a.csv",P_prueba);
-
-   R.estEntrenamiento(P_entrenamiento,false,4);
-   cout<<R.estEntrenamiento(P_prueba,true) * 100<<" %";
-
-    //cout<<"Porcentaje de Aciertos: ";
-    //cout<<R.validacion_cruzada("data/xor600a.csv",50) * 100<<" %"<<endl;
-#endif
+/// /////////////////////////////////////////////////////////////////////// ///
 
 #if 0
-    vector<float> p;
-    p.push_back(1);
-    p.push_back(1);
-    p.push_back(1);
 
-    vector<short> c;
-    c.push_back(3);
-    c.push_back(2);
-    c.push_back(1);
+// EJERCICIO 3 //
 
-    Red R(c,0.2,3);
+    // Inicializacion de valores
+    vector<short> Neuronas_per_Capa;  //
 
-    vector<float> ydeseado;
-    ydeseado.push_back(3);
+    Neuronas_per_Capa.push_back(2);
+    Neuronas_per_Capa.push_back(2);
 
-    vector<float> a = R.forward_pass(p);
-    R.backward_pass(ydeseado);
+    parseCSV<float>("data/concent.csv", patrones);
 
+    int N = 2,                             // Cantidad de patrones
+        maxit = 5;                        // Cantidad de iteraciones
 
-    for(int i=0;i<300;i++){
-        R.forward_pass(p);
-        R.backward_pass(ydeseado);
-        R.actualizar_pesos();
-    }
+    // Trabajando con la red
+    Red R(Neuronas_per_Capa, tasa, N);
 
-    a = R.forward_pass(p);
-    cout<<endl<<"****  Resultado Final foward: ****"<<endl;
-    printVector<float>(a);
+    R.estEntrenamiento(patrones, false, maxit);
+    float aciertos = R.estEntrenamiento(patrones, true);
 
-    cout << "\n vieeeja pruebo aca yo \n";
+    cout << "(3a) Porcentaje de aciertos: " << aciertos << endl;
 
-    //@Marcos, si queres ver como funciona, es sencillo, modifica los atributos de abajo y miralo un poquito
-    // Explicacion en la que me base: http://es.wikipedia.org/wiki/Validaci%C3%B3n_cruzada
+#if 0
 
-    int cuantos_push_back = 5;
-    short k = 2;
+// EJERCICIO 3a //
 
-    vector<vector<float> > probandoo;
+    /// MOMENTO DE GUARDAR PARA PLOTEAR ///
 
-    for (int i = 0 ; i < cuantos_push_back ; i++) {
-        vector<float> am;
-        am.resize(3, i);
-        probandoo.push_back(am);
-    }
-
-    R.leave_k_out(probandoo, k);
-#endif
-//    vector<float> d;
-//    d.push_back(1);
-//    R.backward_pass(d);
-//    printVector<float>(p);
-
-//    p = R.forward_pass(p);
-
-
-
-
-
-/******************************************************************************
-
-    /// Para guardar
-
-    bool is_recording = false, // pasar a falso si no queremos crear archivo
-        is_ploting = false;
-
-    Record myRecord;
-    myRecord.start(is_recording);
+    vector<float> clases = R.get_clases();
 
     stringstream ss;
 
-    #if 1 /// Ejercicio 1a
+    for (unsigned int i = 0, M = patrones.size(); i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            ss << patrones[i][j] << ",";
+        }
+        // Para el ultimo valor de ss le pongo mi 'y' de la red, no mi 'yDeseado'
+        ss << clases[i] << endl;
+    }
 
-        //---------- Problema OR ---------//
+    // Lo guardo en un archivo
+    Record MyRecord("ejercicio3a.log");
+    MyRecord.add_record(ss);
 
-        //Creamos perceptron
-        Perceptron A(3, 0.5, is_recording);
-        A.set_ploting(is_ploting);
+#endif /// EJERCICIO 3a
 
-        //Cargamos los datos
-        vector< vector<float> > vec_entrenamiento;
-        vector< vector<float> > vec_control;
-        vector< vector<float> > vec_prueba;
-        parseCSV("data/700datos_entrenamiento.csv",vec_entrenamiento);
-        parseCSV("data/200datos_prueba.csv",vec_prueba);
-        parseCSV("data/100datos_control.csv",vec_control);
+#if 0
 
-        //Entrenamos Perceptron
-        A.entrenamiento(vec_entrenamiento,vec_control,500,0.1);
+// EJERCICIO 3b //
 
-        //Probamos perceptron y visualizamos porcentaje de aciertos
-        ss << "Porcentaje de aciertos OR: " << A.estTrabajo(vec_prueba) * 100 << "%" << endl;
+    float alfa = 1;
 
-    #endif
+    R.set_alfa(alfa);
 
-    #if 0 /// Ejercicio 1b
+    /// Una vez seteado el alfa, tengo que volver a entrenar/probar
+    R.estEntrenamiento(patrones, false, maxit);
+    float aciertos = R.estEntrenamiento(patrones, true);
 
-        //---------- Problema XOR ---------//
+    cout << "(3b) Porcentaje de aciertos: " << aciertos << endl;
 
-        //Creamos perceptron
-        Perceptron A(3, 0.5, is_recording);
+    /// Analizar la convergencia
 
-        //Cargamos los datos
-        vector< vector<float> > vec_entrenamiento;
-        vector< vector<float> > vec_control;
-        vector< vector<float> > vec_prueba;
-        parseCSV("data/xor700.csv",vec_entrenamiento);
-        parseCSV("data/xor200.csv",vec_prueba);
-        parseCSV("data/xor100.csv",vec_control);
+    // ...
 
-        //Entrenamos Perceptron
-        A.entrenamiento(vec_entrenamiento,vec_control,500,0.3);
+#endif /// EJERCICIO 3b
 
-        //Probamos perceptron y visualizamos porcentaje de aciertos
-        ss<<"Porcentaje de aciertos: "<<A.estTrabajo(vec_prueba) * 100 <<"%"<<endl;
+#endif // EJERCICIO 3
 
-    #endif
+/// /////////////////////////////////////////////////////////////////////// ///
 
-    #if 0 /// Ejercicio 2 a
-        Perceptron A(4, 0.1, is_recording);
+#if 0
 
-    //Creacion de Vector con conjuntos de particiones de datos
-          vector<conjuntoDatos> V1;
-          V1 = particionar("data/eje2a.csv",10,70,20,10);
+// EJERCICIO 4 //
 
-        ss<<"Porcentaje de aciertos: "<<A.validacionCruzada(V1,900,0.16) * 100 <<"%"<<endl;
-    #endif
+    // Inicializacion de valores
+    vector<short> Neuronas_per_Capa;  //
 
-    #if 0 /// Ejercicio 2 b
-        Perceptron A(4, 0.9, is_recording);
-        vector<conjuntoDatos> V1;
+    Neuronas_per_Capa.push_back(8);
+    Neuronas_per_Capa.push_back(2);
 
-        V1 = particionar("data/eje2b_10.csv",5,70,20,10);
-        ss<<"Porcentaje de aciertos (10%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
+    parseCSV<float>("data/iris.csv", patrones);
 
-        V1 = particionar("data/eje2b_50.csv",5,70,20,10);
-        ss<<"Porcentaje de aciertos (50%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
+    int N = 2,                             // Cantidad de patrones
+        maxit = 5,                         // Cantidad de iteraciones
+        k = 1;                             // Cantidad de conjutos k
 
-        V1 = particionar("data/eje2b_70.csv",5,70,20,10);
-        ss<<"Porcentaje de aciertos (70%): "<<A.validacionCruzada(V1) * 100 <<"%"<<endl;
+    // Trabajando con la red
+    Red R(Neuronas_per_Capa, tasa, N);
 
-    #endif
+    // Leave-one-out
+    R.validacion_cruzada("data/iris.csv", 1, maxit);
 
-        myRecord.add_record(ss, is_recording);
-        myRecord.finish(is_recording);
+    float error, desvio;
 
-******************************************************************************/
+    cout << "LEAVE-ONE-OUT:\n";
+
+    R.get_err_desvio(error, desvio);
+    cout << "Error promedio: " << error << endl;
+    cout << "Desvío promedio: " << desvio << endl;
+
+    // Leave-k-out
+    R.validacion_cruzada("data/iris.csv", k, maxit);
+
+    cout << "LEAVE-K-OUT con k=" << k << ":\n";
+
+    R.get_err_desvio(error, desvio);
+    cout << "Error promedio: " << error << endl;
+    cout << "Desvío promedio: " << desvio << endl;
+
+#endif // EJERCICIO 4
 
     return 0;
 }
