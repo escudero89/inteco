@@ -80,10 +80,6 @@ void Red::actualizar_pesos() {
     for(short i = 0; i < cant_capas; i++) {
         this->capas[i].actualizar_pesos();
     }
-    /*
-    vector<vector<float> > D = capas[2].get_pesos();
-    printVectorVector<float>(D);
-    cout << "---------------------------\n";*/
 }
 
 float Red::entrenarRed_2(vector<float> patrones, bool probar) {
@@ -151,7 +147,6 @@ float Red::estEntrenamiento_2(vector< vector<float> > &P, unsigned int maxit, fl
     return error_total;
 }
 
-
 /*Entrena/prueba la red con un solo patron. Se considera que en los
 ultimos elementos del patron viene el yDeseado.
 Si probar = true entonces prueba la red con los patrones pasados y devuelve
@@ -175,17 +170,12 @@ bool Red::entrenarRed(vector<float> P, bool probar){//NO pasar el P por referenc
     if(probar){
 
         clases.push_back(-1);
-
-       for(unsigned int i=0; i<salida.size(); i++){
-
-            // DEBUG
-           if (salida[i] > 0) {
-               salida[i] = 1;
-           }
-           else{
-                salida[i]=0;
-           }
-           // END DEBUG
+/*
+        cout << "Prueba: ";
+        printVector<float>(P);
+        printVector<float>(salida);
+*/
+       for (unsigned int i=0; i<salida.size(); i++){
 
             if(salida[i] > 0) {//Si se activo una neurona
                 if(yaSeActivoUna){ //Pregunto si ya se habia activado otra

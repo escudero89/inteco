@@ -16,6 +16,24 @@ function plot_patrones(A, clases = [-1, 0, 1], imprimir = false)
     clf;
     hold on;    
 
+    # TEXTO IMPRESION #
+    
+    # para que imprima los titulos y comentarios en los ejes
+    labels = true; 
+
+    title_name = "Distribucion de clases dada por el Perceptron Multicapa (concent.csv)";
+    xlabel_name = "x1";
+    ylabel_name = "x2";
+
+     # Extra decoracion
+    
+    title(title_name);
+    xlabel(xlabel_name);
+    ylabel(ylabel_name);
+    
+    grid;
+    axis("square");
+
     old_i = 1;
     
     for clase = clases
@@ -34,25 +52,7 @@ function plot_patrones(A, clases = [-1, 0, 1], imprimir = false)
     
     end
 
-    hold off;    
-    
-    # TEXTO IMPRESION #
-    
-    # para que imprima los titulos y comentarios en los ejes
-    labels = true; 
-
-    title_name = "Distribucion de clases dada por el Perceptron Multicapa (concent.csv)";
-    xlabel_name = "x1";
-    ylabel_name = "x2";
-
-     # Extra decoracion
-    
-    title(title_name);
-    xlabel(xlabel_name);
-    ylabel(ylabel_name);
-    
-    grid;
-    axis("square");
+    hold off;   
     
     if (imprimir)
         print("prints/patrones.png");

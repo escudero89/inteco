@@ -60,6 +60,15 @@ public:
     float get_error();
     void get_err_desvio(float &media, float &desvio);
 
+    void show_pesos() {
+        for (short i = 0; i < cant_capas; i++) {
+            vector<vector<float> > pesos = capas[i].get_pesos();
+            cout << "Capa [" << i << "]\n";
+            printVectorVector<float>(pesos);
+        }
+        cout << endl;
+    }
+
 };
 
 #endif // RED_H
