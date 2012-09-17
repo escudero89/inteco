@@ -11,7 +11,7 @@ function plot_patrones(A, clases = [-1, 0, 1], imprimir = false)
     cero = 0;
     uno = 0;
     
-    colores = ['r', 'g', 'b', 'm'];
+    colores = ['k', 'g', 'b', 'm'];
     
     clf;
     hold on;    
