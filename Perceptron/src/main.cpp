@@ -98,13 +98,13 @@ int main(int argc, char **argv) {
 
     Neuronas_per_Capa.push_back(8);
     Neuronas_per_Capa.push_back(5);
-    Neuronas_per_Capa.push_back(2);
+    Neuronas_per_Capa.push_back(3);
 
     parseCSV<float>("data/iris.csv", patrones);
 
     int N = 4,                             // Cantidad de patrones
         maxit = 5,                         // Cantidad de iteraciones
-        k = 1;                             // Cantidad de conjutos k
+        k = 10;                             // Cantidad de conjutos k
 
     // Trabajando con la red
     Red R(Neuronas_per_Capa, tasa, N);
@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
 
     R.get_err_desvio(error, desvio);
     cout << "Error promedio: " << error << endl;
-    cout << "Desvío promedio: " << desvio << endl;
+    cout << "Desvío promedio: " << desvio << endl << endl;
 
     // Leave-k-out
     R.validacion_cruzada("data/iris.csv", k, maxit);

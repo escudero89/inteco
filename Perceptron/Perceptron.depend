@@ -601,7 +601,7 @@
 1347849734 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Miniptron.cpp
 	"../include/Miniptron.h"
 
-1347850569 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Red.cpp
+1347853726 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Red.cpp
 	"../include/Red.h"
 
 1347850139 /media/Cristian/Repositorios/inteco/Perceptron/include/Red.h
@@ -610,7 +610,7 @@
 	<vector>
 	"Capa.h"
 
-1347851084 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
+1347853442 source:/media/Cristian/Repositorios/inteco/Perceptron/src/main.cpp
 	<ctime>
 	<stdio.h>
 	<iostream>

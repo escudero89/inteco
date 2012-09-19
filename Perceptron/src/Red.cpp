@@ -270,16 +270,35 @@ float Red::leave_k_out(vector< vector<float> > &patrones, short k, unsigned int 
 
         /// Aca llamo a una funcion que entrene las neuronas
         estEntrenamiento(entrenamiento, false, cant_iteraciones);
-        float err = estEntrenamiento(prueba, true);
-        cout << err << endl;
-        error += pow(err, 2);
+
+        /// Medimos el error
+        float suma = 0;
+        error = 0;
+
+        for (unsigned int j = 0, eN = entrenamiento.size(); j < eN; j++) {
+
+            //entrenarRed(entrenamiento[j]);
+
+             // Medimos el error cuadratico
+
+            float yDeseado = entrenamiento[j].back();
+
+            entrenamiento[j].pop_back();
+
+            vector<float> salidaRed(forward_pass(entrenamiento[j]));
+
+            for (unsigned int i = 0, N = salidaRed.size(); i < N; i++ ) {
+                suma += pow(yDeseado - salidaRed[i], 2);
+            }
+
+            error = sqrt(suma) / 2;
+            errores.push_back(error);
+        }
+
         reinicializar_red();
 
         indice += k;
     }
-
-    error = sqrt(error/contador);
-    errores.push_back(error);
 
     return error;
 }
