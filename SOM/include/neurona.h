@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "../../utils/utils.h"
+
 using namespace std;
 
 class Neurona {

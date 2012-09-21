@@ -11,13 +11,13 @@ using namespace std;
 int main() {
 
     // cant_x | cant_y | N | tasa | varianza
-    SOM Som(10, 10, 2, 0.1, 5);
+    SOM Som(5, 5, 2, 0.1, 5);
 
     vector<vector<float> > datos;
 
-    parseCSV<float>("data/rectangle.csv", datos);
+    parseCSV<float>("data/circle.csv", datos);
 
-    Som.sampling(datos, 500*100);
+    Som.sampling(datos, 15500); // mas o menos 500xcant_neuronas
 
     datos = Som.get_pesos();
 

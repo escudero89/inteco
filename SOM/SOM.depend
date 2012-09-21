@@ -1,25 +1,26 @@
 # depslib dependency file v1.0
-1348120803 source:/media/Cristian/Repositorios/inteco/SOM/src/main.cpp
+1348244712 source:/media/Cristian/Repositorios/inteco/SOM/src/main.cpp
 	<iostream>
 	<vector>
 	"../include/neurona.h"
 	"../include/som.h"
 	"../../utils/utils.h"
 
-1348121522 source:/media/Cristian/Repositorios/inteco/SOM/src/neurona.cpp
+1348245143 source:/media/Cristian/Repositorios/inteco/SOM/src/neurona.cpp
 	"../include/neurona.h"
 
-1348121077 /media/Cristian/Repositorios/inteco/SOM/include/neurona.h
+1348244635 /media/Cristian/Repositorios/inteco/SOM/include/neurona.h
 	<cmath>
 	<iostream>
 	<vector>
 	<stdlib.h>
 	<stdio.h>
+	"../../utils/utils.h"
 
-1348120970 source:/media/Cristian/Repositorios/inteco/SOM/src/som.cpp
+1348245131 source:/media/Cristian/Repositorios/inteco/SOM/src/som.cpp
 	"../include/som.h"
 
-1348121438 /media/Cristian/Repositorios/inteco/SOM/include/som.h
+1348123162 /media/Cristian/Repositorios/inteco/SOM/include/som.h
 	<iostream>
 	<vector>
 	"neurona.h"

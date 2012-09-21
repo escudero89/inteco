@@ -27,6 +27,7 @@ void SOM::inicializar_som() {
 // Se encarga de llamar varias epocas de sampling
 void SOM::sampling(const vector<vector<float> > &samples, unsigned int maxit) {
 	for (unsigned int it = 0; it < maxit; it++) {
+	    updating_som(it);
 		sampling(samples);
 	}
 }
@@ -38,8 +39,6 @@ void SOM::sampling(const vector<vector<float> > &samples) {
 	// En cada iteracion, ingresamos una sola muestra
 	for (unsigned int muestra = 0, cnt = samples.size(); muestra < cnt; muestra++) {
 
-		updating_som(muestra);
-
 		// Obtenemos el primer valor como minimo
 		float min = neuronas[0].get_distancia(samples[muestra]);
 		unsigned int idx = 0;
@@ -48,7 +47,7 @@ void SOM::sampling(const vector<vector<float> > &samples) {
 		// Recorro cada neurona, y voy buscando la minima distancia
 		for (unsigned int j = 1; j < cant; j++) {
 
-			float distancia = neuronas[j].get_distancia(samples[j]);
+			float distancia = neuronas[j].get_distancia(samples[muestra]);
 
 			// El idx me indica cual neurona tiene el minimo
 			if (min > distancia) {

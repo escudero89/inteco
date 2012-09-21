@@ -54,7 +54,7 @@ class SOM {
 	float distancia_neuronal(unsigned int j, unsigned int i);
 
 	float topologic_neigh(unsigned int j, unsigned int i) {
-		return exp(-distancia_neuronal(j, i)/(2 * var_n));
+		return exp(-distancia_neuronal(j, i)/(2 * pow(var_n, 2)));
 	}
 
 	vector<vector<float> > get_pesos() {
