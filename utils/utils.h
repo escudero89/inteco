@@ -42,6 +42,36 @@ void parseCSV(std::string filename, std::vector<std::vector<T> > & X) {
     file.close();
 }
 
+/*
+Entrada: Vector de vector <T> con el contenido a guardar en un archivo CSV
+Salida: Archivo guardado CSV
+*/
+template <class T>
+void printCSV(std::vector<std::vector<T> > & X, std::string filename) {
+	std::ofstream file;
+	file.open(filename.c_str());
+
+	assert(file.is_open()); //muestra error si no se pudo abrir el archivo
+
+	std::stringstream ss;
+
+	for (unsigned int k = 0, N = X.size(); k < N; k++) {
+
+		unsigned int M = X[k].size();
+
+		for (unsigned int j = 0; j < M - 1; j++) {
+			ss << X[k][j] << ",";
+		}
+		ss << X[k][M-1] << std::endl;
+
+	}
+
+	file << ss.str();
+
+    file.close();
+}
+
+
 // Debo definir las funciones con templates en los headers porque sino no linkea
 
 template <class T>
