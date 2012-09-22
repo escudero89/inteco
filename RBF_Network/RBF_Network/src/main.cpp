@@ -25,7 +25,15 @@ int main(int argc, char **argv) {
     }
 
 
-    out = R.k_means(in,4,0.1);
+    out = R.k_means(in,4,0.01);
+    //Anda bastante bien, por ahi tira nan, hay q ver si es xq chupa basura o xq arranca mal
+    //Ver tambien el tema de la varianza
+    for(int i=0; i<4;i++){
+        for(int j = 0; j<2; j++){
+        cout<<out[0][i].coordenadas[j]<<endl;
+        }
+        cout<<endl;
+    }
 
 return 0;
 }

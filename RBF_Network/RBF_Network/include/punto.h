@@ -9,7 +9,7 @@ using namespace std;
 
 class punto
 {
-    private:
+    public:
         vector<float> coordenadas;
     public:
         punto(int dimension, float desvio = 0.5, float media = 0);

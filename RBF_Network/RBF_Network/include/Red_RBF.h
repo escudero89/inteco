@@ -4,6 +4,8 @@
 #include <vector>
 #include <time.h>
 #include <algorithm>
+#include <stdio.h>
+#include <iostream>
 
 #include "../include/neurona_RBF.h"
 #include "../include/neurona.h"

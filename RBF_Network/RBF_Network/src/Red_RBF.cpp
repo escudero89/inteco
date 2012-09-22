@@ -26,7 +26,6 @@ vector< vector<punto> > Red_RBF::k_means(vector<punto> V, int k, float toleranci
     }
     /**   ------   FIN creacion medias aleatoriamente   ------  **/
 
-
     /**   ------   Creo Subconjuntos   ------  **/
     int tamV = V.size();
     vector< vector<punto> > subConjuntos;
@@ -37,22 +36,22 @@ vector< vector<punto> > Red_RBF::k_means(vector<punto> V, int k, float toleranci
     do {
     residuo = 0;
     subConjuntos.clear();
+    subConjuntos.resize(k);
     /* Recorro todos los puntos */
     for(int i=0; i<tamV; i++){
 
         /* calculo las distancias de todas las medias al punto V[i] y las guardo en aux*/
         for(int j=0; j<k; j++){
-
             aux[j] = V[i].distancia(medias[j]);
-
         }
 
         /* Busco el minimo y me guardo la posicion en la que esta ese minimo*/
         vector<float>::iterator p = min_element(aux.begin(), aux.end());
-        int posicion = distance(p, aux.begin());
+        int posicion = distance(aux.begin(),p);
 
         /* Pusheo el punto en el subconjunto correspondiente dado por posicion*/
         subConjuntos[posicion].push_back(V[i]);
+
     }
 
     /**   ------  FIN Creacion Subconjuntos   ------  **/
@@ -69,16 +68,17 @@ vector< vector<punto> > Red_RBF::k_means(vector<punto> V, int k, float toleranci
         vector<float> acum; acum.resize(this->N,0);
         punto nuevoCentroide(acum);
 
-        for(int j=0; j<tamSubConj; j++){
+       for(int j=0; j<tamSubConj; j++){
 
             nuevoCentroide = subConjuntos[i][j] + nuevoCentroide;
         }
 
         nuevoCentroide = nuevoCentroide / subConjuntos[i].size();
 
-        medias[k] = nuevoCentroide;
+        medias[i] = nuevoCentroide;
 
     }
+
 
     /**   ------  FIN Calcular Nuenvos Centroides   ------  **/
 
@@ -94,6 +94,7 @@ vector< vector<punto> > Red_RBF::k_means(vector<punto> V, int k, float toleranci
     residuo = sqrt(residuo);
 
     } while(residuo > tolerancia);
+
 
     /* Ahora calculamos los desvios para esas medias */
     vector<float> vectorCero; vectorCero.resize(this->N,0);
