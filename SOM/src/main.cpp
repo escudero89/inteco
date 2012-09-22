@@ -19,24 +19,38 @@ int main() {
     vector<vector<float> > datos;
 
     // rectangle.csv, circle.csv, T.csv
-    string trabajar = "circle";
+    string trabajar = "rectangle";
 
     parseCSV<float>("data/" + trabajar + ".csv", datos);
 
+// Segun diapositiva
+
     /// ORDENAMIENTO GLOBAL [diapos p29 SOM]
     // datos, tasa, varianza, maxit, tasa_fija
-    Som.adaptation(datos, 0.8, 10, 750);
+    Som.adaptation(datos, 0.8, 5, 1000);
 
     /// TRANSICION
     Som.adaptation(datos, 0.2, 3, 1000);
 
     /// CONVERGENCIA
-    Som.adaptation(datos, 0.1, 0, 3000, true);
+    Som.adaptation(datos, 0.1, 1, 3000, true);
 
     datos = Som.get_pesos();
 
-    printCSV<float>(datos, "logs/" + trabajar + "_retorno_2.csv");
+    printCSV<float>(datos, "logs/" + trabajar + "_diapos.csv");
 
+/*
+// Segun hayken
+    /// ORDENAMIENTO
+    Som.adaptation(datos, 0.1, 5, 1000);
+
+    /// CONVERGENCIA
+    Som.adaptation(datos, 0.01, 1, 12500, true);
+
+    datos = Som.get_pesos();
+
+    printCSV<float>(datos, "logs/" + trabajar + "_hayken.csv");
+*/
 #endif
 
 #if 1
@@ -51,19 +65,34 @@ int main() {
 
     parseCSV<float>("data/" + trabajar + ".csv", datos);
 
+// Segun diapositiva
+
     /// ORDENAMIENTO GLOBAL [diapos p29 SOM]
     // datos, tasa, varianza, maxit, tasa_fija
-    Som.adaptation(datos, 0.8, 10, 750);
+    Som.adaptation(datos, 0.8, 5, 750);
 
     /// TRANSICION
     Som.adaptation(datos, 0.2, 3, 1000);
 
     /// CONVERGENCIA
-    Som.adaptation(datos, 0.1, 0, 3000, true);
+    Som.adaptation(datos, 0.1, 1, 3000, true);
 
     datos = Som.get_pesos();
 
-    printCSV<float>(datos, "logs/" + trabajar + "_single_2.csv");
+    printCSV<float>(datos, "logs/" + trabajar + "_diapos_single.csv");
+
+/*
+// Segun hayken
+    /// ORDENAMIENTO
+    Som.adaptation(datos, 0.1, 5, 1000);
+
+    /// CONVERGENCIA
+    Som.adaptation(datos, 0.01, 1, 12500, true);
+
+    datos = Som.get_pesos();
+
+    printCSV<float>(datos, "logs/" + trabajar + "_hayken_single.csv");
+*/
 
 #endif
 

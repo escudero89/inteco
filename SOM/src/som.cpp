@@ -40,8 +40,8 @@ void SOM::adaptation(const vector<vector<float> > &samples, float tasa, float va
 void SOM::sampling(const vector<vector<float> > &samples, unsigned int maxit) {
 	for (unsigned int it = 0; it < maxit; it++) {
 
-	    // Diapositiva p29 (SOM)
-        if (!tasa_fija) {
+	    // Diapositiva p29 (SOM), asi actualiza al menos una vez
+        if (!tasa_fija || it == 0) {
             updating_som(it);
         }
 
@@ -98,10 +98,13 @@ void SOM::updating(const vector<float> &samples, unsigned int idx) {
 // Actualizamos algunas "variables" del SOM para que vayan "decreciendo"
 void SOM::updating_som(unsigned int iteration) {
 
-    float n = iteration; // es necesario castearlo
+    float n = iteration, // es necesario castearlo
+          gamma;
+
+    gamma = (tao_1 != 0) ? -n/tao_1 : 0;
 
 	// Disminuimos el ancho que cubre a los vecinos
-    var_n = varianza * exp(-n / tao_1);
+    var_n = varianza * exp(gamma);
     tasa_n = tasa * exp(-n / tao_2);
 
 }
