@@ -40,7 +40,7 @@ int main() {
     printCSV<float>(datos, "logs/" + trabajar + "_diapos.csv");
 
 /*
-// Segun hayken
+// Segun haykin
     /// ORDENAMIENTO
     Som.adaptation(datos, 0.1, 5, 1000);
 
@@ -49,7 +49,7 @@ int main() {
 
     datos = Som.get_pesos();
 
-    printCSV<float>(datos, "logs/" + trabajar + "_hayken.csv");
+    printCSV<float>(datos, "logs/" + trabajar + "_haykin.csv");
 */
 #endif
 
@@ -82,7 +82,7 @@ int main() {
     printCSV<float>(datos, "logs/" + trabajar + "_diapos_single.csv");
 
 /*
-// Segun hayken
+// Segun haykin
     /// ORDENAMIENTO
     Som.adaptation(datos, 0.1, 5, 1000);
 
@@ -91,7 +91,7 @@ int main() {
 
     datos = Som.get_pesos();
 
-    printCSV<float>(datos, "logs/" + trabajar + "_hayken_single.csv");
+    printCSV<float>(datos, "logs/" + trabajar + "_haykin_single.csv");
 */
 
 #endif
