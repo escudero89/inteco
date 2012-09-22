@@ -2,10 +2,6 @@
 
 void SOM::inicializar_som() {
 
-	// Estas son constantes de tiempo que usare en formulas mas adelante
-	tao_1 = 1000 * (log(varianza));	// Haykin, pag452
-	tao_2 = 1000;					// Haykin, pag453
-
 	float pos_x = 0,
 		  pos_y = 0;
 
@@ -24,10 +20,31 @@ void SOM::inicializar_som() {
 	}
 }
 
+/// Hay dos Fases en el proceso adaptativo: ordenamiento y convergencia (p452)
+// En el ordenamiento, la tasa suele ser mas alta, y descender en el tiempo
+void SOM::adaptation(const vector<vector<float> > &samples, float tasa, float var,
+                   unsigned int maxit, bool tasa_fija) {
+
+    this->tasa = tasa;
+    this->varianza = var;
+
+    this->tasa_fija = tasa_fija;
+
+    this->tao_1 = 1000 * (log(varianza));   // Haykin, pag452;
+    this->tao_2 = 1000;
+
+    sampling(samples, maxit);
+}
+
 // Se encarga de llamar varias epocas de sampling
 void SOM::sampling(const vector<vector<float> > &samples, unsigned int maxit) {
 	for (unsigned int it = 0; it < maxit; it++) {
-	    updating_som(it);
+
+	    // Diapositiva p29 (SOM)
+        if (!tasa_fija) {
+            updating_som(it);
+        }
+
 		sampling(samples);
 	}
 }
@@ -84,8 +101,8 @@ void SOM::updating_som(unsigned int iteration) {
     float n = iteration; // es necesario castearlo
 
 	// Disminuimos el ancho que cubre a los vecinos
-	var_n = varianza * exp(-n / tao_1);
-	tasa_n = tasa * exp(-n / tao_2);
+    var_n = varianza * exp(-n / tao_1);
+    tasa_n = tasa * exp(-n / tao_2);
 
 }
 

@@ -13,8 +13,8 @@ int main() {
 
 #if 0
 
-    // cant_x | cant_y | N | tasa | varianza
-    SOM Som(5, 5, 2, 0.1, 5);
+    // cant_x | cant_y | N
+    SOM Som(5, 5, 2);
 
     vector<vector<float> > datos;
 
@@ -23,18 +23,26 @@ int main() {
 
     parseCSV<float>("data/" + trabajar + ".csv", datos);
 
-    Som.sampling(datos, 12500); // mas o menos 500xcant_neuronas
+    /// ORDENAMIENTO GLOBAL [diapos p29 SOM]
+    // datos, tasa, varianza, maxit, tasa_fija
+    Som.adaptation(datos, 0.8, 10, 750);
+
+    /// TRANSICION
+    Som.adaptation(datos, 0.2, 3, 1000);
+
+    /// CONVERGENCIA
+    Som.adaptation(datos, 0.1, 0, 3000, true);
 
     datos = Som.get_pesos();
 
-    printCSV<float>(datos, "logs/" + trabajar + "_retorno.csv");
+    printCSV<float>(datos, "logs/" + trabajar + "_retorno_2.csv");
 
 #endif
 
 #if 1
 
     // cant_x | cant_y | N | tasa | varianza
-    SOM Som(25, 1, 2, 0.1, 5);
+    SOM Som(25, 1, 2);
 
     vector<vector<float> > datos;
 
@@ -43,11 +51,19 @@ int main() {
 
     parseCSV<float>("data/" + trabajar + ".csv", datos);
 
-    Som.sampling(datos, 12500); // mas o menos 500xcant_neuronas
+    /// ORDENAMIENTO GLOBAL [diapos p29 SOM]
+    // datos, tasa, varianza, maxit, tasa_fija
+    Som.adaptation(datos, 0.8, 10, 750);
+
+    /// TRANSICION
+    Som.adaptation(datos, 0.2, 3, 1000);
+
+    /// CONVERGENCIA
+    Som.adaptation(datos, 0.1, 0, 3000, true);
 
     datos = Som.get_pesos();
 
-    printCSV<float>(datos, "logs/" + trabajar + "_single.csv");
+    printCSV<float>(datos, "logs/" + trabajar + "_single_2.csv");
 
 #endif
 

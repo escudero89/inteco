@@ -16,6 +16,8 @@ using namespace std;
 
 class SOM {
 
+    bool tasa_fija;        // La tasa cambia por epoca?
+
 	unsigned int cant,
 				 cant_x,
 				 cant_y,
@@ -34,9 +36,8 @@ class SOM {
 
 	// Cantidad de neuronas a lo largo del eje x/y, cantidad de inputs, tasa de
 	// aprendizaje, y varianza
-	SOM(unsigned int cant_x, unsigned int cant_y, unsigned int N,
-			float tasa, float var):
-		cant_x(cant_x), cant_y(cant_y), N(N), tasa(tasa), varianza(var) {
+	SOM(unsigned int cant_x, unsigned int cant_y, unsigned int N):
+		cant_x(cant_x), cant_y(cant_y), N(N) {
 			cant = cant_x * cant_y;
 			neuronas.resize(cant);
 			inicializar_som();
@@ -44,10 +45,15 @@ class SOM {
 
 	void inicializar_som();
 
+    void adaptation(const vector<vector<float> > &samples, float tasa, float var,
+                   unsigned int maxit, bool tasa_fija = false);
+
 	void sampling(const vector<vector<float> > &samples, unsigned int maxit);
 
 	void sampling(const vector<vector<float> > &samples);
 	void updating(const vector<float> &samples, unsigned int idx);
+
+    // Funcionalidades extras
 
 	void updating_som(unsigned int iteration);
 
