@@ -1,0 +1,47 @@
+# depslib dependency file v1.0
+1348292662 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\neurona_rbf.cpp
+	"../include/neurona_RBF.h"
+
+1348293634 c:\users\marcos\workspace\inteco\rbf_network\rbf_network\include\neurona_rbf.h
+	<vector>
+
+1348294875 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\punto.cpp
+	"../include/punto.h"
+
+1348297024 c:\users\marcos\workspace\inteco\rbf_network\rbf_network\include\punto.h
+	<vector>
+	<cstdlib>
+	<math.h>
+
+1348293434 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\neurona.cpp
+	"../include/neurona.h"
+
+1348293417 c:\users\marcos\workspace\inteco\rbf_network\rbf_network\include\neurona.h
+
+1348295233 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\red_rbf.cpp
+	"../include/Red_RBF.h"
+
+1348295153 c:\users\marcos\workspace\inteco\rbf_network\rbf_network\include\red_rbf.h
+	<vector>
+	<time.h>
+	<algorithm>
+	"../include/neurona_RBF.h"
+	"../include/neurona.h"
+	"../include/punto.h"
+
+1348297326 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\main.cpp
+	"../include/Red_RBF.h"
+	"../include/neurona.h"
+	"../include/neurona_RBF.h"
+	"../include/punto.h"
+	"../../../utils/utils.h"
+
+1348258805 c:\users\marcos\workspace\inteco\utils\utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
