@@ -6,13 +6,19 @@ Red_RBF::Red_RBF(int N, vector<short> neuronas, float tasa)
     this->N = N;
     this->tasa = tasa;
 
-    this->capa_0.resize(neuronas[0]);
-    this->capa_1.resize(neuronas[1]);
+    neurona_RBF porDefecto_0(N);
+    neurona porDefecto_1(N, tasa);
+
+    this->capa_0.resize(neuronas[0], porDefecto_0);
+    this->capa_1.resize(neuronas[1], porDefecto_1);
 
 }
 
 
-vector< vector<punto> > Red_RBF::k_means(vector<punto> V, int k, float tolerancia, float desvio, float media){
+vector< vector<punto> > Red_RBF::k_means(vector<punto> V,
+                                          int k,
+                                           float tolerancia,
+                                            float desvio, float media){
 
      /**   ------   Inicio k medias aleatoriamente   ------  **/
     vector<punto> medias;
@@ -37,6 +43,7 @@ vector< vector<punto> > Red_RBF::k_means(vector<punto> V, int k, float toleranci
     residuo = 0;
     subConjuntos.clear();
     subConjuntos.resize(k);
+
     /* Recorro todos los puntos */
     for(int i=0; i<tamV; i++){
 
@@ -50,34 +57,53 @@ vector< vector<punto> > Red_RBF::k_means(vector<punto> V, int k, float toleranci
         int posicion = distance(aux.begin(),p);
 
         /* Pusheo el punto en el subconjunto correspondiente dado por posicion*/
+
         subConjuntos[posicion].push_back(V[i]);
 
     }
 
     /**   ------  FIN Creacion Subconjuntos   ------  **/
 
+    /** Pregunto si se encontraron las medias, sino, relanzo el k-means**/
+        for(int i=0; i<k; i++){
 
-    /**   ------  Calcular Nuenvos Centroides   ------  **/
+            if(subConjuntos[i].size()== 0){
+                cout<<"No se pudieron encontrar las "<<k<<" medias."<<endl;
+                cout<<"Presione cualquier tecla para relanzar..."<<endl;
+                getchar();
+                return this->k_means(V,k,tolerancia,desvio,media);
+                break;
+            }
+
+        }
+    /** FIN verificacion**/
+
+
+    /**   ------  Calcular Nuevos Centroides   ------  **/
     /* Itero por los subconjuntos y calculo nuevos centroides */
     /* Me guardo las medias anteriores para medir el error */
 
     medias_old = medias;
+
     for(int i=0; i<k; i++){
 
         int tamSubConj = subConjuntos[i].size();
         vector<float> acum; acum.resize(this->N,0);
         punto nuevoCentroide(acum);
 
+
        for(int j=0; j<tamSubConj; j++){
 
             nuevoCentroide = subConjuntos[i][j] + nuevoCentroide;
         }
 
-        nuevoCentroide = nuevoCentroide / subConjuntos[i].size();
+        nuevoCentroide = nuevoCentroide / tamSubConj;
 
         medias[i] = nuevoCentroide;
 
     }
+
+
 
 
     /**   ------  FIN Calcular Nuenvos Centroides   ------  **/
@@ -104,7 +130,7 @@ vector< vector<punto> > Red_RBF::k_means(vector<punto> V, int k, float toleranci
 
     for(int i = 0; i<k; i++){
 
-        for(int j=0; j<subConjuntos[i].size(); j++){
+        for(unsigned int j=0; j<subConjuntos[i].size(); j++){
 
             desvios[i] = (subConjuntos[i][j] - medias[i]).pow2() + desvios[i];
         }
@@ -119,3 +145,62 @@ vector< vector<punto> > Red_RBF::k_means(vector<punto> V, int k, float toleranci
 return media_y_desvio; // y tambien los sigmas por referencia!!
 
 }
+
+
+void Red_RBF::entrenarCapa0(vector<punto> patrones, int k){
+    vector< vector<punto> > out;
+
+    out = k_means(patrones, k);
+
+    for(int i = 0; i<capa_0.size(); i++){
+
+        capa_0[i].set_media(out[0][i]);
+        capa_0[i].set_desvio(out[1][i]);
+
+    }
+
+
+}
+
+vector<float> Red_RBF::probarCapa0(punto P){
+     int tam = capa_0.size();
+     vector<float> salida;
+     salida.resize(tam);
+
+     for(int i = 0; i <tam; i++){
+        salida[i] = capa_0[i].funcionDeActivacion(P);
+     }
+
+    return salida;
+}
+
+void Red_RBF::entrenarCapa1(vector<punto> patrones, vector<float> yDeseado){
+
+    vector<float> salidas;
+
+    for(int i = 0; i<patrones.size(); i++){
+
+        salidas = probarCapa0(patrones[i]);
+        salidas.push_back(yDeseado[i]);
+
+        //Entreno cada neurona de la capa 1
+        for(int j = 0; j<capa_1.size(); j++){
+
+                capa_1[j].entrenar(salidas);
+        }
+
+
+    }
+
+}
+
+
+float Red_RBF::probarRed(vector< vector<float> > V){
+
+    float error = 0;
+
+
+return error;
+}
+
+

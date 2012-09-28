@@ -100,3 +100,27 @@ punto punto::raizCuadrada(){
 
     return punto(V);
 }
+
+void punto::printPunto(){
+
+    for(int i = 0; i<this->coordenadas.size(); i++){
+
+        cout<<this->coordenadas[i]<<" -- ";
+
+    }
+    cout<<endl;
+
+}
+
+
+float punto::sum(){
+
+    float acum = 0;
+    for(int i = 0; i<coordenadas.size(); i++){
+
+        acum += coordenadas[i];
+
+    }
+
+    return acum;
+}
