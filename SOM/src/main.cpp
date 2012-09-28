@@ -24,27 +24,27 @@ int main() {
     vector<vector<float> > datos;
 
     // rectangle.csv, circle.csv, T.csv
-    string trabajar = "T";
+    string trabajar = "rectangle";
 
     parseCSV<float>("data/" + trabajar + ".csv", datos);
 
 // Segun diapositiva
-/*
+
     /// ORDENAMIENTO GLOBAL [diapos p29 SOM]
     // datos, tasa, varianza, maxit, tasa_fija
-    Som.adaptation(datos, 0.8, 5, 1000);
+    Som.adaptation(datos, 0.8, 2.5, 1000);
 
     /// TRANSICION
-    Som.adaptation(datos, 0.2, 3, 1000);
+    Som.adaptation(datos, 0.2, 0.01, 1000, true);
 
     /// CONVERGENCIA
-    Som.adaptation(datos, 0.1, 1, 3000, true);
+   // Som.adaptation(datos, 0.1, 0.5, 3000, true);
 
     datos = Som.get_pesos();
 
     printCSV<float>(datos, "logs/" + trabajar + "_diapos.csv");
-*/
 
+/*
 // Segun haykin
     /// ORDENAMIENTO
     Som.adaptation(datos, 0.1, 5, 1000);
@@ -55,7 +55,7 @@ int main() {
     datos = Som.get_pesos();
 
     printCSV<float>(datos, "logs/" + trabajar + "_haykin.csv");
-
+*/
 #endif
 
 #if 0

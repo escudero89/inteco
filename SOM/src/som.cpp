@@ -30,7 +30,7 @@ void SOM::adaptation(const vector<vector<float> > &samples, float tasa, float va
 
     this->tasa_fija = tasa_fija;
 
-    this->tao_1 = 1000 * (log(varianza));   // Haykin, pag452;
+    this->tao_1 = 1000 / (log(varianza));   // Haykin, pag452;
     this->tao_2 = 1000;
 
     sampling(samples, maxit);
@@ -44,15 +44,16 @@ void SOM::sampling(const vector<vector<float> > &samples, unsigned int maxit) {
         if (!tasa_fija || it == 0) {
             updating_som(it);
         }
-
-		sampling(samples);
-
         // Si esta activado printCSV, guardo cada 20 iteraciones los pesos (o 200, si es convergencia)
-		if (is_printingCSV && it%( (tasa_fija)? 5 : 20) == 0 && (!tasa_fija || it < 500)) {
-		    cout << it << " . ";
+		//if (is_printingCSV && it%( (tasa_fija)? 5 : 1) == 0 && (!tasa_fija || it < 200)) {
+        if (is_printingCSV && it%20 == 0) {
+		    cout << it << " . "; cout << "[" << var_n << "]" << endl;
 		    vector<vector<float> > datos(get_pesos());
             printCSV<float> (datos, "logs/buffer.csv", true);
 		}
+
+		sampling(samples);
+
 	}
 	cout << "\n";
 }

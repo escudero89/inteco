@@ -40,6 +40,7 @@ class SOM {
 	// aprendizaje, y varianza
 	SOM(unsigned int cant_x, unsigned int cant_y, unsigned int N):
 		cant_x(cant_x), cant_y(cant_y), N(N) {
+		    srand(time(NULL));
 			cant = cant_x * cant_y;
 			neuronas.resize(cant);
 			is_printingCSV = false;

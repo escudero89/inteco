@@ -9,7 +9,7 @@ function print_buffer(cant_x, cant_y, title_label = "")
 		
 		A_sub = A(1 + cant * (it - 1) : cant * it, :);
 
-		plot_pattern(A_sub, cant_x, cant_y, title_label);
+		plot_pattern(A_sub, cant_x, cant_y, [title_label "[" num2str(it) "]"]);
 		
 		xlim([-1 1]);
 		ylim([-1 1]);

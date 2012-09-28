@@ -45,3 +45,49 @@
 	<iostream>
 	<ctime>
 
+1348841837 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/SOM/src/main.cpp
+	<iostream>
+	<vector>
+	"../include/neurona.h"
+	"../include/som.h"
+	"../../Perceptron/include/record.h"
+	"../../utils/utils.h"
+
+1348838462 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/SOM/include/neurona.h
+	<cmath>
+	<iostream>
+	<vector>
+	<stdlib.h>
+	<stdio.h>
+	"../../utils/utils.h"
+
+1348807475 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/utils/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1348843189 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/SOM/include/som.h
+	<cassert>
+	<iostream>
+	<vector>
+	"neurona.h"
+	"../../utils/utils.h"
+
+1348807472 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/record.h
+	<cassert>
+	<string>
+	<fstream>
+	<sstream>
+	<iostream>
+	<ctime>
+
+1348842650 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/SOM/src/som.cpp
+	"../include/som.h"
+
+1348839990 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/SOM/src/neurona.cpp
+	"../include/neurona.h"
+

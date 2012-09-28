@@ -15,9 +15,10 @@ void Neurona::inicializar_pesos(float desvio, float media) {
 
     /// Inicializamos los pesos al azar con valores chicos
     for (unsigned int i = 0; i < N; i++) {
-        float r = (rand() % 1001 * 0.002 - 1 ) * desvio + media;
+        float r = (rand() % 1001 * 0.002 - 1) * desvio + media;
         pesos[i] = r;
     }
+
 }
 
 // Me actualiza los pesos de la neurona usando la formula 9.13 (Haykin, p451)

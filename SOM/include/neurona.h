@@ -30,7 +30,7 @@ public:
 		this->pos_y = cpy.pos_y;
 	}
 
-	void inicializar_pesos(float desvio = 1, float media = 0);
+	void inicializar_pesos(float desvio = 0.5, float media = 0);
 
 	void update(const vector<float> &patron, float delta);
 

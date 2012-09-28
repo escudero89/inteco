@@ -52,3 +52,56 @@
 	<cstdlib>
 	<cassert>
 
+1348807473 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/Red_RBF.cpp
+	"../include/Red_RBF.h"
+
+1348807473 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/include/Red_RBF.h
+	<vector>
+	<time.h>
+	<algorithm>
+	<stdio.h>
+	<iostream>
+	"../include/neurona_RBF.h"
+	"../include/neurona.h"
+	"../include/punto.h"
+
+1348807473 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/include/neurona_RBF.h
+	<vector>
+	"../include/punto.h"
+
+1348807473 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/include/punto.h
+	<vector>
+	<cstdlib>
+	<math.h>
+	<iostream>
+
+1348807473 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/include/neurona.h
+	<vector>
+	<stdlib.h>
+	"../../../utils/utils.h"
+
+1348807475 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/utils/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1348835306 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/main.cpp
+	"../include/Red_RBF.h"
+	"../include/neurona.h"
+	"../include/neurona_RBF.h"
+	"../include/punto.h"
+	"../../../utils/utils.h"
+
+1348807473 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/neurona.cpp
+	"../include/neurona.h"
+
+1348807473 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/neurona_RBF.cpp
+	"../include/neurona_RBF.h"
+
+1348807473 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/punto.cpp
+	"../include/punto.h"
+
