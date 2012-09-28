@@ -4,7 +4,7 @@
 #include <sstream>
 #include "../include/Capa.h"
 #include "../include/perceptron.h"
-#include "../include/utils.h"
+#include "../../utils/utils.h"
 #include "../include/record.h"
 #include "../include/Red.h"
 
@@ -13,38 +13,42 @@ using namespace std;
 int main(int argc, char **argv) {
 
 // VALORES GENERALES //
-    float tasa = 0.2;
+    float tasa = 0.01;
     vector<vector<float> > patrones;
 
 /// /////////////////////////////////////////////////////////////////////// ///
 
-#if 0
 
+#if 0
 // EJERCICIO 3 //
 
     // Inicializacion de valores
     vector<short> Neuronas_per_Capa;  //
 
-    Neuronas_per_Capa.push_back(2);
+    Neuronas_per_Capa.push_back(5);
+    Neuronas_per_Capa.push_back(3);
     Neuronas_per_Capa.push_back(2);
 
     parseCSV<float>("data/concent.csv", patrones);
 
-    int N = 2,                             // Cantidad de patrones
-        maxit = 5;                        // Cantidad de iteraciones
+    int N = 2,                             // Dimension de patrones
+        maxit = 500;                        // Cantidad de iteraciones
 
     // Trabajando con la red
     Red R(Neuronas_per_Capa, tasa, N);
 
-    R.estEntrenamiento(patrones, false, maxit);
-    float aciertos = R.estEntrenamiento(patrones, true);
+    //R.estEntrenamiento(patrones, false, maxit);
+    R.entrenar(patrones, patrones, maxit, 0.1);
+//    float aciertos = R.estEntrenamiento(patrones, true);
 
-    cout << "(3a) Porcentaje de aciertos: " << aciertos << endl;
+  //  cout << "(3a) Porcentaje de aciertos: " << aciertos * 100<<" %"<< endl;
 
-#if 0
+
+#endif
 
 // EJERCICIO 3a //
 
+#if 0
     /// MOMENTO DE GUARDAR PARA PLOTEAR ///
 
     vector<float> clases = R.get_clases();
@@ -63,10 +67,11 @@ int main(int argc, char **argv) {
     Record MyRecord("ejercicio3a.log");
     MyRecord.add_record(ss);
 
-#endif /// EJERCICIO 3a
+ /// EJERCICIO 3a
+
+#endif
 
 #if 0
-
 // EJERCICIO 3b //
 
     float alfa = 1;
@@ -83,14 +88,13 @@ int main(int argc, char **argv) {
 
     // ...
 
-#endif /// EJERCICIO 3b
-
-#endif // EJERCICIO 3
+/// EJERCICIO 3b
+#endif
 
 /// /////////////////////////////////////////////////////////////////////// ///
 
-#if 1
 
+#if 1
 // EJERCICIO 4 //
 
     // Inicializacion de valores
@@ -129,7 +133,7 @@ int main(int argc, char **argv) {
     cout << "Error promedio: " << error << endl;
     cout << "Desvío promedio: " << desvio << endl;
 
-#endif // EJERCICIO 4
-
+// EJERCICIO 4
+#endif
     return 0;
 }
