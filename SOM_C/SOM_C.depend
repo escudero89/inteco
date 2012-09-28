@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1348785497 source:/media/Cristian/Repositorios/inteco/SOM/src/main.cpp
+1348797891 source:/media/Cristian/Repositorios/inteco/SOM_C/src/main.cpp
 	<iostream>
 	<vector>
 	"../include/neurona.h"
@@ -7,25 +7,12 @@
 	"../../Perceptron/include/record.h"
 	"../../utils/utils.h"
 
-1348245143 source:/media/Cristian/Repositorios/inteco/SOM/src/neurona.cpp
-	"../include/neurona.h"
-
-1348244635 /media/Cristian/Repositorios/inteco/SOM/include/neurona.h
+1348796846 /media/Cristian/Repositorios/inteco/SOM_C/include/neurona.h
 	<cmath>
 	<iostream>
 	<vector>
 	<stdlib.h>
 	<stdio.h>
-	"../../utils/utils.h"
-
-1348785289 source:/media/Cristian/Repositorios/inteco/SOM/src/som.cpp
-	"../include/som.h"
-
-1348797166 /media/Cristian/Repositorios/inteco/SOM/include/som.h
-	<cassert>
-	<iostream>
-	<vector>
-	"neurona.h"
 	"../../utils/utils.h"
 
 1348781703 /media/Cristian/Repositorios/inteco/utils/utils.h
@@ -37,6 +24,13 @@
 	<cstdlib>
 	<cassert>
 
+1348797287 /media/Cristian/Repositorios/inteco/SOM_C/include/som.h
+	<cassert>
+	<iostream>
+	<vector>
+	"neurona.h"
+	"../../utils/utils.h"
+
 1347811641 /media/Cristian/Repositorios/inteco/Perceptron/include/record.h
 	<cassert>
 	<string>
@@ -44,4 +38,10 @@
 	<sstream>
 	<iostream>
 	<ctime>
+
+1348798020 source:/media/Cristian/Repositorios/inteco/SOM_C/src/neurona.cpp
+	"../include/neurona.h"
+
+1348796938 source:/media/Cristian/Repositorios/inteco/SOM_C/src/som.cpp
+	"../include/som.h"
 

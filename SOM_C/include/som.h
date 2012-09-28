@@ -81,6 +81,8 @@ class SOM {
         is_printingCSV = print;
     }
 
+    void set_labels(const vector<vector<float> > &samples);
+
 };
 
 #endif // SOM_H

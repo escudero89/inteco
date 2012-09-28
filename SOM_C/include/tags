@@ -1,0 +1,38 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+N	neurona.h	/^    int N;$/;"	m	class:Neurona	access:private
+N	som.h	/^	short cant, N;$/;"	m	class:SOM	access:private
+NEURONA_H	neurona.h	2;"	d
+Neurona	neurona.h	/^	Neurona() {};$/;"	f	class:Neurona	access:public	signature:()
+Neurona	neurona.h	/^	Neurona(const Neurona &cpy) {$/;"	f	class:Neurona	access:public	signature:(const Neurona &cpy)
+Neurona	neurona.h	/^    Neurona(int N);$/;"	p	class:Neurona	access:public	signature:(int N)
+Neurona	neurona.h	/^class Neurona {$/;"	c
+Neurona::N	neurona.h	/^    int N;$/;"	m	class:Neurona	access:private
+Neurona::Neurona	neurona.h	/^	Neurona() {};$/;"	f	class:Neurona	access:public	signature:()
+Neurona::Neurona	neurona.h	/^	Neurona(const Neurona &cpy) {$/;"	f	class:Neurona	access:public	signature:(const Neurona &cpy)
+Neurona::Neurona	neurona.h	/^    Neurona(int N);$/;"	p	class:Neurona	access:public	signature:(int N)
+Neurona::get_distancia	neurona.h	/^	float get_distancia(const vector<float> &patron);$/;"	p	class:Neurona	access:public	signature:(const vector<float> &patron)
+Neurona::inicializar_pesos	neurona.h	/^	void inicializar_pesos(float desvio = 0.5, float media = 0);$/;"	p	class:Neurona	access:public	signature:(float desvio = 0.5, float media = 0)
+Neurona::pesos	neurona.h	/^    vector<float> pesos;$/;"	m	class:Neurona	access:private
+Neurona::set_pesos	neurona.h	/^	void set_pesos(const vector<float> &pesos) {$/;"	f	class:Neurona	access:public	signature:(const vector<float> &pesos)
+SOM	som.h	/^    SOM(short cant, short N) : cant(cant), N(N) {$/;"	f	class:SOM	access:public	signature:(short cant, short N)
+SOM	som.h	/^class SOM {$/;"	c
+SOM::N	som.h	/^	short cant, N;$/;"	m	class:SOM	access:private
+SOM::SOM	som.h	/^    SOM(short cant, short N) : cant(cant), N(N) {$/;"	f	class:SOM	access:public	signature:(short cant, short N)
+SOM::cant	som.h	/^	short cant, N;$/;"	m	class:SOM	access:private
+SOM::inicializar_som	som.h	/^	void inicializar_som();$/;"	p	class:SOM	access:public	signature:()
+SOM::neuronas	som.h	/^	vector<Neurona> neuronas;$/;"	m	class:SOM	access:private
+SOM::sampling	som.h	/^	void sampling(vector<vector<float> > &samples);$/;"	p	class:SOM	access:public	signature:(vector<vector<float> > &samples)
+SOM_H	som.h	2;"	d
+cant	som.h	/^	short cant, N;$/;"	m	class:SOM	access:private
+get_distancia	neurona.h	/^	float get_distancia(const vector<float> &patron);$/;"	p	class:Neurona	access:public	signature:(const vector<float> &patron)
+inicializar_pesos	neurona.h	/^	void inicializar_pesos(float desvio = 0.5, float media = 0);$/;"	p	class:Neurona	access:public	signature:(float desvio = 0.5, float media = 0)
+inicializar_som	som.h	/^	void inicializar_som();$/;"	p	class:SOM	access:public	signature:()
+neuronas	som.h	/^	vector<Neurona> neuronas;$/;"	m	class:SOM	access:private
+pesos	neurona.h	/^    vector<float> pesos;$/;"	m	class:Neurona	access:private
+sampling	som.h	/^	void sampling(vector<vector<float> > &samples);$/;"	p	class:SOM	access:public	signature:(vector<vector<float> > &samples)
+set_pesos	neurona.h	/^	void set_pesos(const vector<float> &pesos) {$/;"	f	class:Neurona	access:public	signature:(const vector<float> &pesos)
