@@ -46,7 +46,15 @@ void SOM::sampling(const vector<vector<float> > &samples, unsigned int maxit) {
         }
 
 		sampling(samples);
+
+        // Si esta activado printCSV, guardo cada 20 iteraciones los pesos (o 200, si es convergencia)
+		if (is_printingCSV && it%( (tasa_fija)? 5 : 20) == 0 && (!tasa_fija || it < 500)) {
+		    cout << it << " . ";
+		    vector<vector<float> > datos(get_pesos());
+            printCSV<float> (datos, "logs/buffer.csv", true);
+		}
 	}
+	cout << "\n";
 }
 
 // Voy tomando de a vectores x, que representa el patron de activacion que se

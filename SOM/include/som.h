@@ -1,6 +1,7 @@
 #ifndef SOM_H
 #define SOM_H
 
+#include <cassert>
 #include <iostream>
 #include <vector>
 
@@ -16,7 +17,8 @@ using namespace std;
 
 class SOM {
 
-    bool tasa_fija;        // La tasa cambia por epoca?
+    bool tasa_fija,        // La tasa cambia por epoca?
+         is_printingCSV;        // Imprimo CSV por buffer?
 
 	unsigned int cant,
 				 cant_x,
@@ -70,6 +72,13 @@ class SOM {
 		}
 		return pesos;
 	}
+
+    void set_print(bool print) {
+        if (!remove("logs/buffer.csv")) {
+            cout << "Borrado antiguo 'buffer.csv'!\n";
+        }
+        is_printingCSV = print;
+    }
 
 };
 

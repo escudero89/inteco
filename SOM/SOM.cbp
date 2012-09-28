@@ -38,6 +38,7 @@
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/neurona.cpp" />
 		<Unit filename="src/som.cpp" />
+		<Unit filename="../utils/utils.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

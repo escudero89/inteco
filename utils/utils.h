@@ -43,13 +43,18 @@ void parseCSV(std::string filename, std::vector<std::vector<T> > & X) {
 }
 
 /*
-Entrada: Vector de vector <T> con el contenido a guardar en un archivo CSV
+Entrada: Vector de vector <T> con el contenido a guardar en un archivo CSV (append : no sobreescribir)
 Salida: Archivo guardado CSV
 */
 template <class T>
-void printCSV(std::vector<std::vector<T> > & X, std::string filename) {
+void printCSV(std::vector<std::vector<T> > & X, std::string filename, bool append = false) {
 	std::ofstream file;
-	file.open(filename.c_str());
+
+	if (append) {
+        file.open(filename.c_str(), std::ios::out | std::ios::app);
+	} else {
+	    file.open(filename.c_str(), std::ios::out | std::ios::trunc);
+	}
 
 	assert(file.is_open()); //muestra error si no se pudo abrir el archivo
 
