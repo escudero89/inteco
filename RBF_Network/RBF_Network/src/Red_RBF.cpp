@@ -7,7 +7,7 @@ Red_RBF::Red_RBF(int N, vector<short> neuronas, float tasa)
     this->tasa = tasa;
 
     neurona_RBF porDefecto_0(N);
-    neurona porDefecto_1(N, tasa);
+    neurona porDefecto_1(neuronas[0], tasa);
 
     this->capa_0.resize(neuronas[0], porDefecto_0);
     this->capa_1.resize(neuronas[1], porDefecto_1);
@@ -174,19 +174,18 @@ vector<float> Red_RBF::probarCapa0(punto P){
     return salida;
 }
 
-void Red_RBF::entrenarCapa1(vector<punto> patrones, vector<float> yDeseado){
+void Red_RBF::entrenarCapa1(vector<punto> patrones, vector< vector<float> > yDeseado){
 
     vector<float> salidas;
 
     for(int i = 0; i<patrones.size(); i++){
 
         salidas = probarCapa0(patrones[i]);
-        salidas.push_back(yDeseado[i]);
 
         //Entreno cada neurona de la capa 1
         for(int j = 0; j<capa_1.size(); j++){
 
-                capa_1[j].entrenar(salidas);
+                capa_1[j].entrenar(salidas, yDeseado[i][j]);
         }
 
 
@@ -195,12 +194,100 @@ void Red_RBF::entrenarCapa1(vector<punto> patrones, vector<float> yDeseado){
 }
 
 
-float Red_RBF::probarRed(vector< vector<float> > V){
+float Red_RBF::probarCapa1(vector<punto> patrones, vector< vector<float> > yDeseado){
 
-    float error = 0;
+    vector<float> salidas;
+    salidas.resize(capa_0.size());
+    int aciertos = 0;
 
+    /* Recorro cada patron */
+    for(int i = 0; i<patrones.size(); i++){
 
-return error;
+        /* Obtengo la salida de la capa 0 */
+        salidas = probarCapa0(patrones[i]);
+        bool acerto = true;
+
+        /* Recorro cada neurona de la capa 1 */
+        for(int j=0; j<capa_1.size(); j++){
+
+                if( !capa_1[j].probar(salidas, yDeseado[i][j]) )
+                {
+                    acerto = false;
+                }
+        }
+
+        aciertos += acerto;
+    }
+
+    return float(aciertos)/float(patrones.size());
 }
 
+void Red_RBF::entrenarRed(vector< vector<float> > V, int maxit){
+
+    vector<float> yDeseado;
+    yDeseado.resize(V.size());
+
+    vector<punto> VP;
+    VP.resize(V.size());
+
+    for(int i = 0; i < V.size(); i++){
+
+        yDeseado[i] = V[i].back();
+        V[i].pop_back();
+
+        punto P(V[i]);
+        VP[i] = P;
+    }
+
+    /* Normalizacion del yDeseado */
+    vector<vector<float> > yDeseadoNormalizado;
+    yDeseadoNormalizado.resize(yDeseado.size());
+
+    for(int i = 0; i < yDeseado.size(); i++){
+        yDeseadoNormalizado[i].resize(capa_1.size(),-1);
+        yDeseadoNormalizado[i][int(yDeseado[i])] = 1;
+    }
+    /* FIN normalizacion yDeseado*/
+
+    entrenarCapa0(VP, this->capa_0.size());
+
+    for(int i = 0; i < maxit; i++){
+
+        entrenarCapa1(VP, yDeseadoNormalizado);
+
+    }
+
+}
+
+
+float Red_RBF::probarRed(vector< vector<float> > V){
+
+    vector<float> yDeseado;
+    yDeseado.resize(V.size());
+
+    vector<punto> VP;
+    VP.resize(V.size());
+
+    for(int i = 0; i < V.size(); i++){
+
+        yDeseado[i] = V[i].back();
+        V[i].pop_back();
+
+        punto P(V[i]);
+        VP[i] = P;
+    }
+        /* Normalizacion del yDeseado */
+    vector<vector<float> > yDeseadoNormalizado;
+    yDeseadoNormalizado.resize(yDeseado.size());
+
+    for(int i = 0; i < yDeseado.size(); i++){
+        yDeseadoNormalizado[i].resize(capa_1.size(),-1);
+        yDeseadoNormalizado[i][int(yDeseado[i])] = 1;
+    }
+    /* FIN normalizacion yDeseado*/
+
+    /*devuelvo el porcentaje de aciertos*/
+    return probarCapa1(VP, yDeseadoNormalizado);
+
+}
 

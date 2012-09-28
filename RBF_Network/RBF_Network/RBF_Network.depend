@@ -15,18 +15,18 @@
 	<math.h>
 	<iostream>
 
-1348794562 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\neurona.cpp
+1348805186 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\neurona.cpp
 	"../include/neurona.h"
 
-1348794562 c:\users\marcos\workspace\inteco\rbf_network\rbf_network\include\neurona.h
+1348805186 c:\users\marcos\workspace\inteco\rbf_network\rbf_network\include\neurona.h
 	<vector>
 	<stdlib.h>
 	"../../../utils/utils.h"
 
-1348796645 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\red_rbf.cpp
+1348806504 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\red_rbf.cpp
 	"../include/Red_RBF.h"
 
-1348796621 c:\users\marcos\workspace\inteco\rbf_network\rbf_network\include\red_rbf.h
+1348806504 c:\users\marcos\workspace\inteco\rbf_network\rbf_network\include\red_rbf.h
 	<vector>
 	<time.h>
 	<algorithm>
@@ -36,14 +36,14 @@
 	"../include/neurona.h"
 	"../include/punto.h"
 
-1348796826 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\main.cpp
+1348807057 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\main.cpp
 	"../include/Red_RBF.h"
 	"../include/neurona.h"
 	"../include/neurona_RBF.h"
 	"../include/punto.h"
 	"../../../utils/utils.h"
 
-1348258805 c:\users\marcos\workspace\inteco\utils\utils.h
+1348797934 c:\users\marcos\workspace\inteco\utils\utils.h
 	<vector>
 	<sstream>
 	<fstream>

@@ -17,7 +17,7 @@ using namespace std;
 class Red_RBF
 {
     private:
-        int N;
+        int N; /* dimension de los datos de entrada */
         float tasa;
         vector<neurona_RBF> capa_0;
         vector<neurona> capa_1;
@@ -27,7 +27,9 @@ class Red_RBF
         vector< vector<punto> > k_means(vector<punto> V, int k, float tolerancia = 0.01, float desvio=0.5, float media=0);
         void entrenarCapa0(vector<punto> patrones, int k);
         vector<float> probarCapa0(punto P);
-        void entrenarCapa1(vector<punto> patrones, vector<float> yDeseado);
+        void entrenarCapa1(vector<punto> patrones, vector< vector<float> > yDeseado);
+        float probarCapa1(vector<punto> patrones, vector< vector<float> > yDeseado);
+        void entrenarRed(vector< vector<float> > V, int maxit = 1);
         float probarRed(vector< vector<float> > V);
 };
 

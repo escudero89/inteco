@@ -30,17 +30,26 @@ float neurona::funcionDeActivacion(vector<float> entradas){
     return retorno;
 }
 
-void neurona::entrenar(vector<float> entrada){
-
-    float ydeseado = entrada.back();
-    entrada.pop_back();
+void neurona::entrenar(vector<float> entrada, float yDeseado){
 
     entrada.push_back(1); //para el umbral;
 
     float y = funcionDeActivacion(entrada);
 
     for(int i=0; i<pesos.size(); i++){
-        pesos[i] = pesos[i] + tasa * (ydeseado - y) * entrada[i];
+        pesos[i] = pesos[i] + tasa * (yDeseado - y) * entrada[i];
     }
 
+}
+
+bool neurona::probar(vector<float> entrada, float yDeseado){
+
+    entrada.push_back(1); //para el umbral;
+
+    float y = funcionDeActivacion(entrada);
+
+    if(y == yDeseado)
+        return true;
+    else
+        return false;
 }

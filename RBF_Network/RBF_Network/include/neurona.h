@@ -21,7 +21,8 @@ class neurona
         neurona(){}; ///Ojo! constructor vacio
         void inicializar(float media = 0, float desvio = 0.5);
         float funcionDeActivacion(vector<float> entradas);
-        void entrenar(vector<float> entrada);
+        void entrenar(vector<float> entrada, float yDeseado);
+        bool probar(vector<float> entrada, float yDeseado);
 };
 
 #endif // NEURONA_H

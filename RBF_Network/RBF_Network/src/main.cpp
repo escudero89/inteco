@@ -7,41 +7,39 @@
 using namespace std;
 
 int main(int argc, char **argv) {
+#if 0 /* Problema XOR */
     vector<short> neuronas;
     neuronas.push_back(4);
     neuronas.push_back(2);
 
-    Red_RBF R(4,neuronas,0.05);
-    vector<vector<float> > V;
-    parseCSV<float>("data/or700.csv",V);
-    vector<punto> in;
-    vector<vector<punto> >out;
-    in.resize(V.size());
-    vector<float> yDeseado;
-    for(unsigned int i=0; i< V.size(); i++){
-        yDeseado.push_back(V[i].back());
-        V[i].pop_back();
-        punto P(V[i]);
-        in[i] = P;
-    }
+    Red_RBF R(2,neuronas,0.05);
+    vector<vector<float> > Ve;
+    vector<vector<float> > Vp;
+    parseCSV<float>("data/xor600a.csv",Ve);
+    parseCSV<float>("data/xor100a.csv",Vp);
 
+    R.entrenarRed(Ve,10);
+    cout<<"Porcentaje de aciertos: "<<endl;
+    cout<<R.probarRed(Vp) * 100<<" %";
 
-        R.entrenarCapa0(in,4);
-        R.entrenarCapa1(in, yDeseado);
+#endif
 
-//
-//    out = R.k_means(in,4,0.0001);
-//    //Anda bastante bien, por ahi tira nan, hay q ver si es xq chupa basura o xq arranca mal
-//    //Ver tambien el tema de la varianza
-//    for(int i=0; i<4;i++){
-//        for(int j = 0; j<2; j++){
-//        cout<<"Coordenada: "<<endl;
-//        cout<<out[0][i].coordenadas[j]<<endl;
-//        cout<<"Desvio: "<<endl;
-//        cout<<out[1][i].coordenadas[j]<<endl;
-//        }
-//        cout<<endl;
-//    }
+#if 1
+    vector<short> neuronas;
+    neuronas.push_back(1);
+    neuronas.push_back(2);
 
+    Red_RBF R(2,neuronas,0.05);
+
+    vector<vector<float> > Ve;
+    vector<vector<float> > Vp;
+    parseCSV<float>("data/concent2000.csv",Ve);
+    parseCSV<float>("data/concent500.csv",Vp);
+
+    R.entrenarRed(Ve,10);
+    cout<<"Porcentaje de aciertos: "<<endl;
+    cout<<R.probarRed(Vp) * 100<<" %";
+
+#endif
 return 0;
 }
