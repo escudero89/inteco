@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstdlib>
 #include <math.h>
+#include <iostream>
 
 using namespace std;
 
@@ -21,7 +22,8 @@ class punto
         float distancia(punto A);
         punto pow2();
         punto raizCuadrada();
-
+        void printPunto();
+        float sum();
        /* punto operator=(const punto& other){
         this->coordenadas = other.coordenadas;
 
