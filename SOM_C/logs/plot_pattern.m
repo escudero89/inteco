@@ -1,5 +1,5 @@
 # Supone que hay dos pesos en cada fila de A
-function plot_pattern(A, cant_x, cant_y, titlelabel = "")
+function plot_pattern(A, cant_x, cant_y, titlelabel = "", clases = [])
 #{
 0 1 2 
 3 4 5
@@ -34,7 +34,12 @@ function plot_pattern(A, cant_x, cant_y, titlelabel = "")
 	plot_pattern_helper(A_col, cant_x, cant_y);
 	
 	# Ahora ploteo las neuronas
-	plot(A(:, 1), A(:, 2), 'xr');
+	color = ['xr' 'om' 'xb' 'oc' 'xg'];
+	M = length(clases);
+	
+	for h = 1 : M
+		plot(A(h, 1), A(h, 2), [color((clases(h) + 1)*2 - 1) color((clases(h) + 1)*2)]);
+	end
 	
 	title(titlelabel);
 	grid;

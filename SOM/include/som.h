@@ -27,6 +27,7 @@ class SOM {
 
 	float tasa,				// tasa de aprendizaje
 		  tasa_n,			// tasa de aprendizaje variable
+		  tasa_old,         // tasa de aprendizaje en la que termino
 		  varianza,
 		  var_n,			// varianza variable
 		  tao_1,
@@ -54,12 +55,12 @@ class SOM {
 
 	void sampling(const vector<vector<float> > &samples, unsigned int maxit);
 
-	void sampling(const vector<vector<float> > &samples);
-	void updating(const vector<float> &samples, unsigned int idx);
+	void sampling(const vector<vector<float> > &samples, float n, float maxit);
+	void updating(const vector<float> &samples, unsigned int idx, float n, float maxit);
 
     // Funcionalidades extras
 
-	void updating_som(unsigned int iteration);
+	void updating_som(unsigned int iteration, float maxit);
 
 	float distancia_neuronal(unsigned int j, unsigned int i);
 

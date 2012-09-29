@@ -23,10 +23,12 @@ class SOM {
 	unsigned int cant,
 				 cant_x,
 				 cant_y,
-				 N;
+				 N,
+				 cant_clases;
 
 	float tasa,				// tasa de aprendizaje
 		  tasa_n,			// tasa de aprendizaje variable
+		  tasa_old,         // tasa de aprendizaje en la que termino
 		  varianza,
 		  var_n,			// varianza variable
 		  tao_1,
@@ -34,12 +36,15 @@ class SOM {
 
 	vector<Neurona> neuronas;
 
+	vector<float> clases;
+
 	public:
 
 	// Cantidad de neuronas a lo largo del eje x/y, cantidad de inputs, tasa de
 	// aprendizaje, y varianza
-	SOM(unsigned int cant_x, unsigned int cant_y, unsigned int N):
-		cant_x(cant_x), cant_y(cant_y), N(N) {
+	SOM(unsigned int cant_x, unsigned int cant_y, unsigned int N, unsigned int cant_clases):
+		cant_x(cant_x), cant_y(cant_y), N(N), cant_clases(cant_clases) {
+		    srand(time(NULL));
 			cant = cant_x * cant_y;
 			neuronas.resize(cant);
 			is_printingCSV = false;
@@ -53,12 +58,17 @@ class SOM {
 
 	void sampling(const vector<vector<float> > &samples, unsigned int maxit);
 
-	void sampling(const vector<vector<float> > &samples);
-	void updating(const vector<float> &samples, unsigned int idx);
+	void sampling(const vector<vector<float> > &samples, float it, float maxit);
+	void updating(const vector<float> &samples, unsigned int idx, unsigned int muestra, float it, float maxit);
+
+    // Modificaciones con respecto al otro
+
+    void save_labels(vector<vector<float> > &samples);
+    void set_labels(const vector<vector<float> > &samples);
 
     // Funcionalidades extras
 
-	void updating_som(unsigned int iteration);
+	void updating_som(unsigned int iteration, float maxit);
 
 	float distancia_neuronal(unsigned int j, unsigned int i);
 
@@ -80,8 +90,6 @@ class SOM {
         }
         is_printingCSV = print;
     }
-
-    void set_labels(const vector<vector<float> > &samples);
 
 };
 

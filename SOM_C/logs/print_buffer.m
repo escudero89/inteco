@@ -1,4 +1,4 @@
-function print_buffer(cant_x, cant_y, title_label = "")
+function print_buffer(cant_x, cant_y, title_label = "", clases = [])
 
 	A = csvread("buffer.csv");
 
@@ -9,10 +9,10 @@ function print_buffer(cant_x, cant_y, title_label = "")
 		
 		A_sub = A(1 + cant * (it - 1) : cant * it, :);
 
-		plot_pattern(A_sub, cant_x, cant_y, title_label);
+		plot_pattern(A_sub, cant_x, cant_y, [title_label " [" num2str(it) "]"], clases);
 		
-		xlim([-1 1]);
-		ylim([-1 1]);
+		xlim([-2 3]);
+		ylim([-2 3]);
 		
 		print(["buffer/" title_label "_it_" padding_zeros(it) ".png"]);
 
