@@ -157,6 +157,19 @@ void Red_RBF::entrenarCapa0(vector<punto> patrones, int k, float tol, float desv
         capa_0[i].set_media(out[0][i]);
         capa_0[i].set_desvio(out[1][i]);
 
+        /*
+        cout<<" - - - - - - - - - - - - - - - -"<<endl;
+        cout<<"Media "<<i<<" : ";
+        out[0][i].printPunto();
+        cout<<endl;
+        cout<<"desvio "<<i<<" : ";
+        out[1][i].printPunto();
+        cout<<" - - - - - - - - - - - - - - - -"<<endl;
+        cout<<endl<<endl;
+        getchar();
+        */
+
+
     }
 
 
