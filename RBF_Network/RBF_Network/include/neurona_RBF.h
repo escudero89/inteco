@@ -15,7 +15,7 @@ class neurona_RBF
 
     public:
         neurona_RBF(int N);
-        neurona_RBF(){} /// OJO! constructor vacio
+        //neurona_RBF(){} /// OJO! constructor vacio
         void set_media(punto media){this->media = media;}
         void set_desvio(punto desvio){this->desvio = desvio;}
         float funcionDeActivacion(punto x);
