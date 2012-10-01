@@ -11,13 +11,13 @@
 #include "../../../Perceptron/include/perceptron.h"
 #include "../../../Perceptron/include/Red.h"
 #include "../../../Perceptron/include/Miniptron.h"
-#include "../../../Perceptron/include/Record.h"
+#include "../../../Perceptron/include/record.h"
 
 #include "../../../Perceptron/src/Capa.cpp"
 #include "../../../Perceptron/src/perceptron.cpp"
 #include "../../../Perceptron/src/Red.cpp"
 #include "../../../Perceptron/src/Miniptron.cpp"
-#include "../../../Perceptron/src/Record.cpp"
+#include "../../../Perceptron/src/record.cpp"
 
 using namespace std;
 
@@ -26,6 +26,8 @@ int main(int argc, char **argv) {
 #if 0 /** Problema XOR **/
 
     /* ---- Con RBF network ---- */
+    /* 2 iteraciones -- 98% de aciertos */
+
     vector<short> neuronas;
     neuronas.push_back(4);
     neuronas.push_back(2);
@@ -44,6 +46,8 @@ int main(int argc, char **argv) {
     getchar();
 
     /* ---- Con Perceptron multicapa----  */
+    /* 6 iteraciones -- 100% aciertos  */
+
     vector<short> neuronasPorCapa;
     neuronasPorCapa.push_back(2);
     neuronasPorCapa.push_back(2);
@@ -99,6 +103,7 @@ int main(int argc, char **argv) {
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if 0   /** Problema IRIS **/
+    /*A veces 91% en 5 iteraciones; desvio = 1*/
     vector<short> neuronas;
     neuronas.push_back(3);
     neuronas.push_back(3);
@@ -113,13 +118,15 @@ int main(int argc, char **argv) {
     random_shuffle(Ve.begin(),Ve.end());
 
 
-    R1.entrenarRed(Ve, 1000, 0.001, 0.1, 5, 0.5);
+    R1.entrenarRed(Ve, 10000, 0.001, 0.09, 5, 0.5);
     cout<<"Porcentaje de aciertos: "<<endl;
     cout<<R1.probarRed(Vp) * 100<<" %";
+    getchar();
 
 #endif
 
 #if 0 /* ---- Con Perceptron multicapa----  */
+    /* ---- 112 iteraciones con 95% de aciertos----  */
     vector<short> neuronasPorCapa;
     neuronasPorCapa.push_back(5);
     neuronasPorCapa.push_back(3);
@@ -137,11 +144,12 @@ int main(int argc, char **argv) {
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if 0   /** Problema CLOUDS **/
+    /*75 % de aciertos con 50 iteraciones, varia dependiendo de como se inicializa */
     vector<short> neuronas;
     neuronas.push_back(3);
     neuronas.push_back(2);
 
-    Red_RBF R1(2, neuronas, 0.01);
+    Red_RBF R1(2, neuronas, 0.001);
 
     vector<vector<float> > Ve;
     vector<vector<float> > Vp;
@@ -150,15 +158,16 @@ int main(int argc, char **argv) {
     Ve = C[0].entrenamiento;
     Vp = C[0].prueba;
 
-
-    R1.entrenarRed(Ve, 200, 0.01, 0.2, 2, 0);
+    R1.entrenarRed(Ve, 200, 0.001, 0.2, 2, 0);
     cout<<"Porcentaje de aciertos: "<<endl;
     cout<<R1.probarRed(Vp) * 100<<" %";
 
+    getchar();
 #endif
 
 #if 0
  /* ---- Con Perceptron multicapa----  */
+ /* ----92% de aciertos con 300 iteraciones----  */
     vector<short> neuronasPorCapa;
     neuronasPorCapa.push_back(12);
     neuronasPorCapa.push_back(2);
@@ -177,9 +186,10 @@ int main(int argc, char **argv) {
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#if 0  /** Problema PHONEME **/
+#if 1  /** Problema PHONEME **/
+    /* 80% de aciertos en 100 iteraciones*/
     vector<short> neuronas;
-    neuronas.push_back(1);
+    neuronas.push_back(5);
     neuronas.push_back(2);
 
     Red_RBF R1(5,neuronas,0.01);
@@ -197,10 +207,12 @@ int main(int argc, char **argv) {
     cout<<"Porcentaje de aciertos: "<<endl;
     cout<<R1.probarRed(Vp) * 100<<" %";
 
+    getchar();
 #endif
 
 #if 0
  /* ---- Con Perceptron multicapa----  */
+ /* 84% de aciertos en 150 iteraciones */
     vector<short> neuronasPorCapa;
     neuronasPorCapa.push_back(6);
     neuronasPorCapa.push_back(3);

@@ -63,10 +63,10 @@
 	<cstdlib>
 	<cassert>
 
-1348807473 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/Red_RBF.cpp
+1349098485 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/Red_RBF.cpp
 	"../include/Red_RBF.h"
 
-1348807473 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/include/Red_RBF.h
+1349102238 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/include/Red_RBF.h
 	<vector>
 	<time.h>
 	<algorithm>
@@ -76,7 +76,7 @@
 	"../include/neurona.h"
 	"../include/punto.h"
 
-1348807473 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/include/neurona_RBF.h
+1349102239 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/include/neurona_RBF.h
 	<vector>
 	"../include/punto.h"
 
@@ -86,7 +86,7 @@
 	<math.h>
 	<iostream>
 
-1348807473 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/include/neurona.h
+1349102238 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/include/neurona.h
 	<vector>
 	<stdlib.h>
 	"../../../utils/utils.h"
@@ -100,17 +100,28 @@
 	<cstdlib>
 	<cassert>
 
-1348835306 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/main.cpp
+1349103325 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/main.cpp
 	"../include/Red_RBF.h"
 	"../include/neurona.h"
 	"../include/neurona_RBF.h"
 	"../include/punto.h"
 	"../../../utils/utils.h"
+	"../../../utils/utils.cpp"
+	"../../../Perceptron/include/Capa.h"
+	"../../../Perceptron/include/perceptron.h"
+	"../../../Perceptron/include/Red.h"
+	"../../../Perceptron/include/Miniptron.h"
+	"../../../Perceptron/include/record.h"
+	"../../../Perceptron/src/Capa.cpp"
+	"../../../Perceptron/src/perceptron.cpp"
+	"../../../Perceptron/src/Red.cpp"
+	"../../../Perceptron/src/Miniptron.cpp"
+	"../../../Perceptron/src/record.cpp"
 
 1348807473 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/neurona.cpp
 	"../include/neurona.h"
 
-1348807473 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/neurona_RBF.cpp
+1349103460 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/neurona_RBF.cpp
 	"../include/neurona_RBF.h"
 
 1348807473 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/RBF_Network/src/punto.cpp
@@ -184,4 +195,62 @@
 	<vector>
 	<math.h>
 	<algorithm>
+
+1349098488 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/utils/utils.cpp
+	"utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
+
+1348807472 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Capa.h
+	<vector>
+	<cassert>
+	"Miniptron.h"
+
+1349098485 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Miniptron.h
+	<iostream>
+	<cstdlib>
+	<vector>
+	<sstream>
+	<cmath>
+	"../../utils/utils.h"
+	"record.h"
+
+1348807472 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/record.h
+	<cassert>
+	<string>
+	<fstream>
+	<sstream>
+	<iostream>
+	<ctime>
+
+1349098485 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/perceptron.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+	<sstream>
+	"../../utils/utils.h"
+	"record.h"
+
+1348807472 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/include/Red.h
+	<iostream>
+	<cassert>
+	<vector>
+	"Capa.h"
+
+1348807473 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Capa.cpp
+	"../include/Capa.h"
+
+1348807473 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/perceptron.cpp
+	"../include/perceptron.h"
+
+1349098485 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Red.cpp
+	"../include/Red.h"
+
+1349098485 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/Miniptron.cpp
+	"../include/Miniptron.h"
+
+1348807473 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/Perceptron/src/record.cpp
+	"../include/record.h"
 

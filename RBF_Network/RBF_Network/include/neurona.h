@@ -18,7 +18,7 @@ class neurona
 
     public:
         neurona(int N, float tasa);
-        neurona(){}; ///Ojo! constructor vacio
+        //neurona(){}; ///Ojo! constructor vacio
         void inicializar(float media = 0, float desvio = 0.5);
         float funcionDeActivacion(vector<float> entradas);
         void entrenar(vector<float> entrada, float yDeseado);
