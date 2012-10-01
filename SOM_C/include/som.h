@@ -64,7 +64,7 @@ class SOM {
     // Modificaciones con respecto al otro
 
     void save_labels(vector<vector<float> > &samples);
-    void set_labels(const vector<vector<float> > &samples);
+    float set_labels(const vector<vector<float> > &samples);
 
     // Funcionalidades extras
 

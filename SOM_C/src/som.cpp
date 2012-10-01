@@ -163,7 +163,7 @@ void SOM::save_labels(vector<vector<float> > &samples) {
 }
 
 // Le pongo etiquetas a las neuronas
-void SOM::set_labels(const vector<vector<float> > &samples) {
+float SOM::set_labels(const vector<vector<float> > &samples) {
 
   //  cout << "[";
     // Recorro todas las neuronas, indicandole cual clase es la ganadora en cada una
@@ -197,8 +197,7 @@ void SOM::set_labels(const vector<vector<float> > &samples) {
 		}
 
 		// Ahora pregunto si le pego con la clase
-		cout << "[" << neuronas[idx].get_posx() << "|"<< neuronas[idx].get_posy() << "] ";
-		cout << neuronas[idx].get_clase() << " :: "<<clases[muestra] << " || " << (neuronas[idx].get_clase() == clases[muestra]) <<endl;
+
 		if (neuronas[idx].get_clase() == clases[muestra]) {
             aciertos++;
 		} else {
@@ -207,4 +206,6 @@ void SOM::set_labels(const vector<vector<float> > &samples) {
 	}
     cout << "\nIteraciones: " << (aciertos + errores) << endl;
     cout << "\nPorcentaje de aciertos: " << (aciertos / (aciertos + errores)) * 100 << "%\n";
+
+    return  (aciertos / (aciertos + errores));
 }

@@ -58,5 +58,5 @@ void Neurona::determinar_clase_ganadora() {
             clase_ganadora = i;
         }
     }
-    printVector<float>(clases);
+    // printVector<float>(clases);
 }
