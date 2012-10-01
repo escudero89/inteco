@@ -15,7 +15,7 @@
 	<math.h>
 	<iostream>
 
-1348870950 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\neurona.cpp
+1349051318 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\neurona.cpp
 	"../include/neurona.h"
 
 1348870950 c:\users\marcos\workspace\inteco\rbf_network\rbf_network\include\neurona.h
@@ -23,10 +23,10 @@
 	<stdlib.h>
 	"../../../utils/utils.h"
 
-1348870950 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\red_rbf.cpp
+1349051927 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\red_rbf.cpp
 	"../include/Red_RBF.h"
 
-1348870950 c:\users\marcos\workspace\inteco\rbf_network\rbf_network\include\red_rbf.h
+1349051854 c:\users\marcos\workspace\inteco\rbf_network\rbf_network\include\red_rbf.h
 	<vector>
 	<time.h>
 	<algorithm>
@@ -36,12 +36,13 @@
 	"../include/neurona.h"
 	"../include/punto.h"
 
-1348874861 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\main.cpp
+1349053997 source:c:\users\marcos\workspace\inteco\rbf_network\rbf_network\src\main.cpp
 	"../include/Red_RBF.h"
 	"../include/neurona.h"
 	"../include/neurona_RBF.h"
 	"../include/punto.h"
 	"../../../utils/utils.h"
+	"../../../utils/utils.cpp"
 	"../../../Perceptron/include/Capa.h"
 	"../../../Perceptron/include/perceptron.h"
 	"../../../Perceptron/include/Red.h"
@@ -169,7 +170,7 @@
 1348870944 c:\users\marcos\workspace\inteco\perceptron\src\perceptron.cpp
 	"../include/perceptron.h"
 
-1348870944 c:\users\marcos\workspace\inteco\perceptron\src\red.cpp
+1349033467 c:\users\marcos\workspace\inteco\perceptron\src\red.cpp
 	"../include/Red.h"
 
 1348872846 c:\users\marcos\workspace\inteco\perceptron\src\miniptron.cpp
@@ -177,4 +178,10 @@
 
 1348870944 c:\users\marcos\workspace\inteco\perceptron\src\record.cpp
 	"../include/record.h"
+
+1349040195 c:\users\marcos\workspace\inteco\utils\utils.cpp
+	"utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
 

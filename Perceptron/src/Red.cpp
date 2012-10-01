@@ -310,9 +310,9 @@ float Red::entrenar(vector<vector<float> > &E,vector<vector<float> > &P, int max
         cout<<"Iteracion: "<<i<<endl;
         estEntrenamiento(E, false, 1); //Entreno
         error = 1 - estEntrenamiento(P,true);//Pruebo
-        cout<<error;
+        cout<<"Error: "<<error<<" ";
         if(error<tol){
-            cout<<"Salio porque el error es menor a la tolerancia."<<endl;
+            cout<<endl<<"Salio porque el error es menor a la tolerancia."<<endl;
             cout<<"Iteracion numero: "<<i<<endl;
             return error;
         }
@@ -320,7 +320,7 @@ float Red::entrenar(vector<vector<float> > &E,vector<vector<float> > &P, int max
     }
 
     cout<<"Salio por Maximo de iteraciones "<<endl;
-    cout<<"Error: "<<error;
+    cout<<"Error: "<<error<<endl;
     return error;
 }
 

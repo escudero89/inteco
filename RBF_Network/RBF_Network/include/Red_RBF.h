@@ -25,11 +25,11 @@ class Red_RBF
     public:
         Red_RBF(int N, vector<short> neuronas, float tasa);
         vector< vector<punto> > k_means(vector<punto> V, int k, float tolerancia = 0.01, float desvio=0.5, float media=0);
-        void entrenarCapa0(vector<punto> patrones, int k);
+        void entrenarCapa0(vector<punto> patrones, int k, float tol=0.001, float desvio=0.5, float media=0);
         vector<float> probarCapa0(punto P);
         void entrenarCapa1(vector<punto> patrones, vector< vector<float> > yDeseado);
         float probarCapa1(vector<punto> patrones, vector< vector<float> > yDeseado);
-        void entrenarRed(vector< vector<float> > V, int maxit = 1);
+        void entrenarRed(vector< vector<float> > V, int maxit = 1, float tol1 = 0.001,float tol2 = 0.05, float desvio = 0.5, float media = 0);
         float probarRed(vector< vector<float> > V);
 };
 

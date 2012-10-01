@@ -28,7 +28,7 @@ vector< vector<punto> > Red_RBF::k_means(vector<punto> V,
 
     for(int i = 0; i<k; i++){
 
-        medias[i] = punto(this->N); //los puntos son de dimension N
+        medias[i] = punto(this->N, desvio, media); //los puntos son de dimension N
     }
     /**   ------   FIN creacion medias aleatoriamente   ------  **/
 
@@ -70,7 +70,7 @@ vector< vector<punto> > Red_RBF::k_means(vector<punto> V,
             if(subConjuntos[i].size()== 0){
                 cout<<"No se pudieron encontrar las "<<k<<" medias."<<endl;
                 cout<<"Presione cualquier tecla para relanzar..."<<endl;
-                getchar();
+               // getchar();
                 return this->k_means(V,k,tolerancia,desvio,media);
                 break;
             }
@@ -147,10 +147,10 @@ return media_y_desvio; // y tambien los sigmas por referencia!!
 }
 
 
-void Red_RBF::entrenarCapa0(vector<punto> patrones, int k){
+void Red_RBF::entrenarCapa0(vector<punto> patrones, int k, float tol, float desvio, float media){
     vector< vector<punto> > out;
 
-    out = k_means(patrones, k);
+    out = k_means(patrones, k, tol, desvio, media);
 
     for(int i = 0; i<capa_0.size(); i++){
 
@@ -222,7 +222,7 @@ float Red_RBF::probarCapa1(vector<punto> patrones, vector< vector<float> > yDese
     return float(aciertos)/float(patrones.size());
 }
 
-void Red_RBF::entrenarRed(vector< vector<float> > V, int maxit){
+void Red_RBF::entrenarRed(vector< vector<float> > V, int maxit, float tol1,float tol2, float desvio, float media){
 
     vector<float> yDeseado;
     yDeseado.resize(V.size());
@@ -249,11 +249,17 @@ void Red_RBF::entrenarRed(vector< vector<float> > V, int maxit){
     }
     /* FIN normalizacion yDeseado*/
 
-    entrenarCapa0(VP, this->capa_0.size());
+    entrenarCapa0(VP, this->capa_0.size(), tol1, desvio, media);
 
     for(int i = 0; i < maxit; i++){
-
+        cout<<endl<<"Iteracion: "<<i;
         entrenarCapa1(VP, yDeseadoNormalizado);
+        float aciertos = probarCapa1(VP,yDeseadoNormalizado);
+        cout<<" Error: "<<1 - aciertos<<endl;
+        if(1 - aciertos < tol2){
+            cout<<endl<<"Error menora la tolerancia."<<endl;
+            break;
+        }
 
     }
 
