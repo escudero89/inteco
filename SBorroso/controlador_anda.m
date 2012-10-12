@@ -1,8 +1,8 @@
 1;
 
-function [T_out] = get_temp(length_tt, tref = 20, delta = 10, frec = 1/360)
+function [T_out] = get_tout(length_tt, tref = 22)
 
-   T_out = ones(1, length_tt) * tref + delta * sign(sin(2 * pi * frec * [1 : length_tt]))  ;
+   T_out = ones(1, length_tt) * tref + 10 * sign(sin(2 * pi * 1/360 * [1 : length_tt]))  ;
 
 endfunction
 
@@ -50,15 +50,6 @@ function [a] = fuzzyfication(x, c, vu, vl)
 
 endfunction
 
-% Conjuntos de entrada
-function [ treferencia , var_tref_upper , var_tref_lower ] = set_treferencia(tref = 20, paso = 8)
-
-   % Muy Frio, Frio, Medio, Alto, Muy Alto
-   treferencia = [ tref - 2 * paso , tref - paso , tref , tref + paso , tref + 2 * paso ];
-   var_tref_upper = [ paso/2 2 2 2 paso/2 ];
-   var_tref_lower = [ paso paso paso paso paso ];
-
-endfunction
 
 ### Variables del sistema borroso ###
 # Matriz de Reglas
@@ -71,12 +62,19 @@ reglas = [
    4 1 2 ; 
    5 1 3 ];
 
+% Conjuntos de entrada
+% Muy Frio, Frio, Medio, Alto, Muy Alto
+tref = 20
+tinterno = [ tref - 20 , tref - 10 , tref , tref + 10 , tref + 20 ];
+var_tin_upper = [ 3 3 3 3 3 ];
+var_tin_lower = [ 10 10 10 10 10 ];
+
 % Estos son los conjuntos de salida normalizados de ambos (calef/refrig)
 entidades = [ 0 0.5 1 ];
 var_ent_upper = [ 1/6 1/6 1/6 ];
 var_ent_lower = [ 0.5 0.5 0.5 ];
 
-voltMax = 520;
+voltMax = 220;
 ampereMax = 0.38; % en base a un voltaje de 380V
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -87,8 +85,7 @@ tiempo_total = 1 : horas * 360;
 length_tt = length(tiempo_total); 
 
 puerta = ( rand(1, length_tt) < 1/360 );
-T_out = get_temp(length_tt);
-T_ref = get_temp(length_tt, 21, 1, 1/180);
+T_out = get_tout(length_tt);
 T_in = [20];
 T_in_sin_controlar = T_in;
 
@@ -106,9 +103,7 @@ k4_np = -0.0121;
 
 for n = 2 : length_tt
    
-   [treferencia, var_tref_upper, var_tref_lower] = set_treferencia(T_ref(n), 5);
-   
-   a = fuzzyfication(T_in(n-1), treferencia, var_tref_upper, var_tref_lower);
+   a = fuzzyfication(T_in(n-1), tinterno, var_tin_upper, var_tin_lower);
 
    yC = defuzzyfication(reglas(:,2), a, entidades, var_ent_upper, var_ent_lower) * ampereMax;
    yE = defuzzyfication(reglas(:,3), a, entidades, var_ent_upper, var_ent_lower) * voltMax;
@@ -128,14 +123,11 @@ end
 
 clf;
 hold on;
-plot(tiempo_total, T_ref, 'y');
 plot(tiempo_total, T_in_sin_controlar, 'oc');
 plot(tiempo_total, T_in, 'b');
 plot(tiempo_total, T_out, 'r');
 stem(tiempo_total, puerta.*16.5, 'k');
-title("Evolucion del Sistema de Control a traves del tiempo.");
-xlabel("tiempo [t * 10seg]");
-ylabel("grados [*C]");
+
 grid;
 ylim([8 32]);
 hold off;
