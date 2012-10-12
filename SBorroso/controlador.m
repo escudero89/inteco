@@ -57,7 +57,7 @@ function [ treferencia , var_tref_upper , var_tref_lower ] = set_treferencia(tre
    treferencia = [ tref - 2 * paso , tref - paso , tref , tref + paso , tref + 2 * paso ];
    var_tref_upper = [ paso/2 2 2 2 paso/2 ];
    var_tref_lower = [ paso paso paso paso paso ];
-
+   
 endfunction
 
 ### Variables del sistema borroso ###
