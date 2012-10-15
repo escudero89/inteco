@@ -72,7 +72,7 @@ int main() {
 
     /// VIGILAR VARIANZA SI CAMBIAS CANT_X/Y
     // cant_x | cant_y | N | cant_clases
-    SOM Som(10, 10, 5, 2);
+    SOM Som(5, 5, 5, 2);
 
     // Imprimo?
     if (false) {
@@ -98,7 +98,7 @@ int main() {
 
         float resultados = 0;
 
-        int N = 3; // cantidad de iteraciones
+        int N = 1; // cantidad de iteraciones
         vector<conjuntoDatos> conjDatos = particionar(a_trabajar, N, 80, 19, 1);
 
         for (int j = 0; j < N; j++) {
@@ -108,7 +108,7 @@ int main() {
 
             // Segun haykin
             /// ORDENAMIENTO
-            Som.adaptation(conjDatos[j].entrenamiento, 0.1, 3, 1000);
+            Som.adaptation(conjDatos[j].entrenamiento, 0.1, 2.25, 1000);
 
             /// CONVERGENCIA
             Som.adaptation(conjDatos[j].entrenamiento, 0.01, 1, 5000, true);

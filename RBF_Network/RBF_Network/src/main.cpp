@@ -118,10 +118,10 @@ int main(int argc, char **argv) {
     random_shuffle(Ve.begin(),Ve.end());
 
 
-    R1.entrenarRed(Ve, 10000, 0.001, 0.09, 5, 0.5);
-    cout<<"Porcentaje de aciertos: "<<endl;
-    cout<<R1.probarRed(Vp) * 100<<" %";
-    getchar();
+//    R1.entrenarRed(Ve, 1000, 0.001, 0.09, 5, 0.5);
+//    cout<<"Porcentaje de aciertos: "<<endl;
+//    cout<<R1.probarRed(Vp) * 100<<" %";
+//    getchar();
 
 #endif
 
@@ -158,11 +158,11 @@ int main(int argc, char **argv) {
     Ve = C[0].entrenamiento;
     Vp = C[0].prueba;
 
-    R1.entrenarRed(Ve, 200, 0.001, 0.2, 2, 0);
-    cout<<"Porcentaje de aciertos: "<<endl;
-    cout<<R1.probarRed(Vp) * 100<<" %";
+//    R1.entrenarRed(Ve, 200, 0.001, 0.2, 2, 0);
+//    cout<<"Porcentaje de aciertos: "<<endl;
+//    cout<<R1.probarRed(Vp) * 100<<" %";
 
-    getchar();
+//    getchar();
 #endif
 
 #if 0
@@ -186,7 +186,7 @@ int main(int argc, char **argv) {
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#if 1  /** Problema PHONEME **/
+#if 0  /** Problema PHONEME **/
     /* 80% de aciertos en 100 iteraciones*/
     vector<short> neuronas;
     neuronas.push_back(5);
