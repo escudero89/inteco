@@ -12,7 +12,7 @@ neurona_RBF::neurona_RBF(int N)
 
 float neurona_RBF::funcionDeActivacion(punto x){
 
-    float sigma = desvio.sum()/N; //Hago un promedio de los desvios
+    float sigma = 1;//desvio.sum()/N; //Hago un promedio de los desvios
 
     punto diff = x - media;
     diff = diff.pow2();
