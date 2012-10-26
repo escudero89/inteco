@@ -36,10 +36,8 @@
 		<Unit filename="include/particle.h" />
 		<Unit filename="include/swarm.h" />
 		<Unit filename="src/main.cpp" />
-		<Unit filename="../include/particle.h" />
-		<Unit filename="../include/swarm.h" />
-		<Unit filename="../src/particle.cpp" />
-		<Unit filename="../src/swarm.cpp" />
+		<Unit filename="src/particle.cpp" />
+		<Unit filename="src/swarm.cpp" />
 		<Unit filename="../utils/utils.h" />
 		<Extensions>
 			<code_completion />
