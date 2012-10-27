@@ -2,7 +2,7 @@
 #include "../../utils/utils.h"
 
 // Declaramos la funcion que vamos a usar en main
-double funciones (char, vector<double>);
+double funciones (vector<double>);
 
 /// INPUT: La dimension D del hiperspacio
 Particle::Particle(short D) {
@@ -23,20 +23,21 @@ Particle::Particle(short D) {
 
     }
 
+    // Para combinarlo con red, lo inicializamos alto
+    pbest = fitness_from_net = 99999;
 }
 
 /// Obtengo el valor de pbest al evaluar la particula, y lo retorno al swarm
 double Particle::EvaluarPbest(bool sin_pbest) {
 
-    double F = funciones(x);
     // Si no tengo un pbest asignado (primera iteracion), lo asigno
     // O si mi nuevo performance es mejor al anterior
-    if (sin_pbest || F < pbest) {
-        pbest = F;
+    if (sin_pbest || fitness_from_net < pbest) {
+        pbest = fitness_from_net;
         xpbest = x;
     }
 
-    return F;
+    return fitness_from_net;
 }
 
 /// Cambio el valor de velocidad y posicion de la particula

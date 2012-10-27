@@ -4,8 +4,8 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 
 #include "../../utils/utils.h"
 

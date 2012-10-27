@@ -80,6 +80,11 @@ public:
 		return *this;
 	}
 
+    /// Para SWARM
+    void forzar_pesos(vector<float> &nuevos_pesos) {
+        pesos = nuevos_pesos;
+    }
+
 };
 
 #endif // MINIPTRON_H
