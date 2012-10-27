@@ -7,7 +7,7 @@
 
 class Poblacion
 {
-    private:
+    public:
         vector<Individuo> individuos;
         float brecha_generacional;
         float prob_cruza;
@@ -21,6 +21,9 @@ class Poblacion
         void mutar(Individuo &I);
         float getProbCruza(){return prob_cruza;}
         float getProbMut(){return prob_mut;}
+        void evaluarFitness();
+        void actualizarFenotipo();
+        int getMejorIndividuo();
 
 };
 

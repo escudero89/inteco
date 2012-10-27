@@ -10,12 +10,14 @@ Individuo::Individuo(int tam_cromosoma, int tipo_codificacion, int fitness_funct
 
     for(int i=0; i<tam_cromosoma; i++){
 
-        cromosoma[i] = rand() % 2;
+        cromosoma[i] = (rand() % 2) + 48; //48 por el ascci del 0 y 1
     }
 
     actualizarFenotipo();
     evaluarFitness();
 }
+
+
 
 float Individuo::evaluarFitness(){
 
@@ -43,7 +45,10 @@ void Individuo::actualizarFenotipo(){
         float min_val = -512;
         float max_val = 512;
 
+        /*Decodificamos de binario a entero*/
         int v = strtol(cromosoma.c_str(), NULL, 2);
+
+        /*Decodificamos de entero a real*/
         float f = min_val + (max_val - min_val) * v / ( pow(2, cromosoma.size() ) -1 );
 
         vector<float> fen;
