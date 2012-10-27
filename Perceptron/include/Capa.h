@@ -57,6 +57,15 @@ public:
     void set_alfa(float alfa) { this->alfa = alfa; }
 
     void actualizar_pesos();
+
+    /// Para SWARM
+    void forzar_pesos(vector<vector<float> > &nuevos_pesos) {
+
+        for (short i = 0; i < cant_neuronas; i++) {
+            miniptrones[i].forzar_pesos(nuevos_pesos[i]);
+        }
+
+    };
 };
 
 #endif // CAPA_H

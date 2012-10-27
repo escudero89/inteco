@@ -1,3 +1,4 @@
+#include "../include/swarm.h"
 #include "../include/Red.h"
 /*
 aca hay q poner un vector P que va a tener los pesos de cada capa
@@ -6,6 +7,13 @@ Luego llamamos a backward con el dato q guardamos en red
 
 */
 Red::Red(vector<short> &Capas, float tasa, int N) {
+
+    this->N = N;
+    this->cant_neuronas = Capas[0];
+    for (unsigned int k = 1; k < Capas.size(); k++) {
+        cant_neuronas += Capas[k];
+    }
+
     this->cant_capas = Capas.size();
 	srand(time(NULL));
 
@@ -25,6 +33,14 @@ Red::Red(vector<short> &Capas, float tasa, int N) {
     if (cant_capas > 1) {
         Capa ultima(Capas[cant_capas - 1], Capas[cant_capas - 2], tasa, 0, true);
         capas[cant_capas-1] = ultima;
+    }
+
+    // Para combinarlo con SWARM
+    cant_pesos = 0;
+    for (short i = 0 ; i < cant_capas; i ++) {
+        for (short j = 0 ; j < capas[i].get_cant_neuronas(); j++) {
+            cant_pesos += capas[i].get_pesos()[j].size();
+        }
     }
 }
 
@@ -80,71 +96,6 @@ void Red::actualizar_pesos() {
     for(short i = 0; i < cant_capas; i++) {
         this->capas[i].actualizar_pesos();
     }
-}
-
-float Red::entrenarRed_2(vector<float> patrones, bool probar) {
-
-    float yDeseadoTemp = patrones.back();
-    patrones.pop_back();
-
-    // Este yDeseado = [ -1, -1, -1 ] => [ -1,  1, -1 ] si yDeseadoTemp = 1
-
-    vector<float> yDeseado(patrones.size(), -1),
-        salidaRed;
-
-    yDeseado[yDeseadoTemp] = 1;
-
-
-    // Ejecutamos el forward_pass
-
-    salidaRed = this->forward_pass(patrones);
-
-    float salidaRedFloat = -1;
-
-    if (!probar) {
-
-        this->backward_pass(salidaRed);
-        this->actualizar_pesos();
-
-    } else {
-        // Medimos el error cuadratico
-
-        float suma = 0;
-
-        for (unsigned int i = 0, N = salidaRed.size(); i < N; i++ ) {
-            suma += pow(yDeseado[i] - salidaRed[i], 2);
-        }
-
-        salidaRedFloat = sqrt(suma) / 2;
-    }
-
-    return salidaRedFloat;
-}
-
-float Red::estEntrenamiento_2(vector< vector<float> > &P, unsigned int maxit, float tol) {
-
-    float error_total = -1;
-
-    for (unsigned int i = 0; i < maxit ; i++) {
-
-        error_total = 0;
-
-        unsigned int N = P.size();
-
-        for (unsigned int j = 0; j < N; j++ ) {
-            entrenarRed_2(P[i]);
-            error_total += entrenarRed_2(P[i], true);
-        }
-
-        error_total /= N;
-
-        if (error_total < tol) {
-            cout << "[[ Error menor que la tolerancia. ]]\n";
-            break;
-        }
-    }
-
-    return error_total;
 }
 
 /*Entrena/prueba la red con un solo patron. Se considera que en los
@@ -311,19 +262,17 @@ float Red::entrenar(vector<vector<float> > &E,vector<vector<float> > &P, int max
     for(int i = 0;i <maxit; i++) {
         estEntrenamiento(E, false, 1); //Entreno
         error = 1 - estEntrenamiento(P, true); //Pruebo
-        cout << "Iteracion: " << i << " | Error: " << error << "\r";
+        cout << "Iteracion: \t" << i << " | Error: \t" << error << "\r";
         cout.flush();
 
-        if(error<tol){
-            cout << "\nSalio porque el error es menor a la tolerancia." << endl;
-            cout << "Iteracion numero: " << i << endl;
+     if(error<tol){
+            cout << "\n ... Salio porque el error es menor a la tolerancia [" << tol << "]." << endl;
             return error;
         }
 
     }
 
-    cout<<"Salio por Maximo de iteraciones "<<endl;
-    cout<<"Error: "<<error<<endl;
+    cout<<"\n... Salio por Maximo de iteraciones "<<endl;
     return error;
 }
 
@@ -351,4 +300,126 @@ void Red::get_err_desvio(float &media, float &desvio) {
     }
 
     desvio = sqrt(desvio/(N - 1));
+}
+
+/// FUNCION PARA EL SWARM ///
+
+// Esta funcion se encarga de recibir un vector de pesos de cant_neuronas * N,
+// y ordenarlos en subconjuntos de pesos para cada capa
+vector<vector<float> > Red::transmutar_pesos(vector<float> &pesos) {
+    vector<float> temp_pesos;
+    vector<vector<float> > nuevos_pesos;
+
+    short contador_pesos_convertidos = 0;
+
+    for (short i = 0; i < cant_capas; i++ ) {
+
+        for (short j = 0, cant = capas[i].get_cant_neuronas() * capas[i].get_pesos()[0].size(); j < cant; j++ ) {
+            temp_pesos.push_back(pesos[j]);
+            contador_pesos_convertidos++;
+        }
+
+        nuevos_pesos.push_back(temp_pesos);
+        temp_pesos.clear();
+
+        // Si no es el ultimo, borramos
+        if (i < cant_capas - 1) {
+            pesos.erase(pesos.begin(), pesos.begin() + contador_pesos_convertidos);
+        }
+    }
+
+    return nuevos_pesos;
+}
+
+// Fuerzas los pesos de la red, en vez de usar backpropagation
+void Red::forzar_pesos(vector<float> &pesos) {
+
+    vector<vector<float> > nuevos_pesos = transmutar_pesos(pesos);
+
+    for (short i = 0; i < cant_capas; i++ ) {
+        vector<vector<float> > pesos_por_capa;
+        vector<float> aux_pesos_por_capa;
+
+        short pesos_a_explorar = capas[i].get_pesos()[0].size();
+
+        for (unsigned int k = 0, kCant = nuevos_pesos[i].size(); k <= kCant; k++ ) {
+            if (k > 0 && k % pesos_a_explorar == 0) {
+                pesos_por_capa.push_back(aux_pesos_por_capa);
+                aux_pesos_por_capa.clear();
+            }
+
+            aux_pesos_por_capa.push_back(nuevos_pesos[i][k]);
+        }
+
+        capas[i].forzar_pesos(pesos_por_capa);
+
+    }
+}
+
+
+float Red::swarmEntrenar(vector<vector<float> > &E,vector<vector<float> > &P, int maxit, float tol) {
+
+    // Creo mi enjambre, cuya dimension va a ser cant_neuronas * cant_pesos_por_capa
+    short
+        dimension = cant_pesos,
+        particulas = 30;
+
+    double
+        error = 0,
+        best_value = 1;
+
+    vector <double> particlePosition;
+
+    cout << "\nCreando enjambre de [" << particulas
+         << "] particulas y de dimension [" << dimension << "]:\n"
+         << "Entrenando con enjambre...\n";
+
+    Swarm S(particulas, dimension);
+
+    for(int iteration = 0; iteration < maxit; iteration++) {
+
+        for (short kParticulas = 0; kParticulas < particulas; kParticulas++) {
+            particlePosition = S.GetPosition(kParticulas);
+
+            // Convierto mi vector<double> a vector<float>
+            vector<float> fParticlePosition(particlePosition.begin(), particlePosition.end());
+            // Fuerzo los pesos de la red a los nuevos obtenidos por el Swarm
+            forzar_pesos(fParticlePosition);
+
+            // "Entreno" la red, sin usar le backpropagation
+            error = 1 - estEntrenamiento(E, true);
+
+            // Uso el error como la funcion de aptitud
+            S.set_fitness_from_net(error, kParticulas);
+        }
+
+        /// Ahora fuerzo los pesos con la mejor particula y verifico
+        particlePosition = S.GetBestPosition();
+        vector<float> fParticlePosition(particlePosition.begin(), particlePosition.end());
+        forzar_pesos(fParticlePosition);
+
+        /// Es momento de verificar si los nuevos pesos son buenos
+        error = 1 - estEntrenamiento(P, true);
+
+        if (error < best_value) {
+            best_value = error;
+        }
+
+        cout << "Iteracion: \t" << iteration << " | Error: \t" << error
+             << " | Menor Error:\t" << best_value << endl;
+        //cout.flush();
+
+        if(error<tol){
+            cout << "\n ... Salio porque el error es menor a la tolerancia [" << tol << "]." << endl;
+            return error;
+        }
+
+        // Evaluo las particulas con sus nuevos pesos/posiciones y fitness
+        S.EvaluarParticulas();
+        S.ChangeVelPos(iteration, maxit);
+
+    }
+
+    cout<<"\n... Salio por Maximo de iteraciones "<<endl;
+    return error;
 }

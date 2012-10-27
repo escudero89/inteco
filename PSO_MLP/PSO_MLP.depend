@@ -1,0 +1,93 @@
+# depslib dependency file v1.0
+1351313731 source:/media/Cristian/Repositorios/inteco/PSO_MLP/src/main.cpp
+	<iostream>
+	<vector>
+	<cmath>
+	"../../utils/utils.h"
+	"../include/Red.h"
+
+1351314360 /media/Cristian/Repositorios/inteco/PSO_MLP/include/particle.h
+	<vector>
+
+1351315007 /media/Cristian/Repositorios/inteco/PSO_MLP/include/swarm.h
+	"particle.h"
+	<iostream>
+
+1348781703 /media/Cristian/Repositorios/inteco/utils/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1351314099 source:/media/Cristian/Repositorios/inteco/PSO_MLP/src/particle.cpp
+	"../include/particle.h"
+	"../../utils/utils.h"
+
+1351314262 source:/media/Cristian/Repositorios/inteco/PSO_MLP/src/swarm.cpp
+	"../include/swarm.h"
+
+1351309979 /media/Cristian/Repositorios/inteco/Perceptron/include/Capa.h
+	<vector>
+	<cassert>
+	"Miniptron.h"
+
+1351311713 /media/Cristian/Repositorios/inteco/Perceptron/include/Miniptron.h
+	<iostream>
+	<cstdlib>
+	<vector>
+	<sstream>
+	<cmath>
+	"../../utils/utils.h"
+	"record.h"
+
+1347811641 /media/Cristian/Repositorios/inteco/Perceptron/include/record.h
+	<cassert>
+	<string>
+	<fstream>
+	<sstream>
+	<iostream>
+	<ctime>
+
+1348892249 /media/Cristian/Repositorios/inteco/Perceptron/include/perceptron.h
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<vector>
+	<sstream>
+	"../../utils/utils.h"
+	"record.h"
+
+1351301576 /media/Cristian/Repositorios/inteco/Perceptron/include/Red.h
+	<iostream>
+	<cassert>
+	<vector>
+	"Capa.h"
+
+1349102055 source:/media/Cristian/Repositorios/inteco/utils/utils.cpp
+	"utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
+
+1348025292 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Capa.cpp
+	"../include/Capa.h"
+
+1351310164 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Miniptron.cpp
+	"../include/Miniptron.h"
+
+1349102055 source:/media/Cristian/Repositorios/inteco/Perceptron/src/Red.cpp
+	"../include/Red.h"
+
+1351310260 /media/Cristian/Repositorios/inteco/PSO_MLP/include/Red.h
+	<iostream>
+	<cassert>
+	<vector>
+	"../../Perceptron/include/Capa.h"
+
+1351314743 source:/media/Cristian/Repositorios/inteco/PSO_MLP/src/Red.cpp
+	"../include/swarm.h"
+	"../include/Red.h"
+
