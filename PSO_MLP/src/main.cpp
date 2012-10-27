@@ -55,7 +55,7 @@ int main() {
 
     cout << "\nResultados de 'clouds' con MLP (con PSO): " << endl;
 
-    aciertos = (1 - R.swarmEntrenar(Ve, Vp, maxit / 50, tol)) * 100;
+    aciertos = (1 - R.swarmEntrenar(Ve, Vp, maxit / 20, tol)) * 100;
 
     cout << "\nPorcentaje de aciertos: " << aciertos << endl;
 

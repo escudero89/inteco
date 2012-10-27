@@ -34,7 +34,7 @@ public:
         vector<double> GetPosition (short indx) { return particulas[indx].GetPosition(); }
 
         vector<double> GetBestPosition() {
-            cout << "Particula: " << gindex <<" [fitness: "<< particulas[gindex].get_pbest() << "]\n";
+            cout << "\nParticula con gbest: " << gindex <<" [fitness: "<< particulas[gindex].get_pbest() << "]\n";
             return GetPosition(gindex);
         }
 
