@@ -35,6 +35,7 @@
 		<Unit filename="include\Poblacion.h" />
 		<Unit filename="src\Individuo.cpp" />
 		<Unit filename="src\Poblacion.cpp" />
+		<Unit filename="src\main.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

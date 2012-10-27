@@ -1,18 +1,25 @@
-#include "Individuo.h"
+#include "../include/Individuo.h"
 
-Individuo::Individuo(int tam_cromosoma)
+Individuo::Individuo(int tam_cromosoma, int tipo_codificacion, int fitness_function)
 {
+    this->fitness_function = fitness_function;
+    this->tipo_codificacion = tipo_codificacion;
 
-    srand( time(NULL) );
+
     this->cromosoma.resize(tam_cromosoma);
 
     for(int i=0; i<tam_cromosoma; i++){
 
         cromosoma[i] = rand() % 2;
     }
+
+    actualizarFenotipo();
+    evaluarFitness();
 }
 
-float Individuo::evaluarFitness(int fitness_function){
+float Individuo::evaluarFitness(){
+
+    float ret;
 
     if(fitness_function == 0){
 
@@ -20,17 +27,16 @@ float Individuo::evaluarFitness(int fitness_function){
         int c_max = 500;
 
         /* Funcion de fitnes propuesta por Goldberg pag:76*/
-        float ret = c_max - (-f * sin(sqrt(abs(f))));
+        ret = c_max - (-f * sin(sqrt(abs(f))));
         ret = (ret > 0 ? ret : 0);
-
-        return ret;
-
+        this->fitness = ret;
     }
 
+    return ret;
 }
 
 
-void Individuo::actualizarFenotipo(int tipo_codificacion){
+void Individuo::actualizarFenotipo(){
 
     if(tipo_codificacion == 0){
 
@@ -41,11 +47,10 @@ void Individuo::actualizarFenotipo(int tipo_codificacion){
         float f = min_val + (max_val - min_val) * v / ( pow(2, cromosoma.size() ) -1 );
 
         vector<float> fen;
-        fen.pushback(f);
+        fen.push_back(f);
         this->fenotipo = fen;
 
     }
-
 
 }
 

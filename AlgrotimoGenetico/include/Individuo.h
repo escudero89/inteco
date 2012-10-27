@@ -1,21 +1,32 @@
 #ifndef INDIVIDUO_H
 #define INDIVIDUO_H
 
+#include <cstdlib>
+#include <cmath>
+
+#include <string>
+#include <vector>
+#include <string>
+#include <iostream>
+#include <cstdio>
+using namespace std;
 
 class Individuo
 {
-    private:
+    public:
         string cromosoma;
         vector<float> fenotipo;
         float fitness;
-
+        int tipo_codificacion;
+        int fitness_function;
 
     public:
-        Individuo(int tam_cromosoma);
+        Individuo(int tam_cromosoma, int tipo_codificacion, int fitness_function);
 
         /* Estas funciones variaran segun el problema */
-        float evaluarFitness(int fitness_function);
-        void actualizarFenotipo(int tipo_codificacion);
+        float evaluarFitness();
+        void actualizarFenotipo();
+        float getFitness(){return fitness;}
 
 
 
