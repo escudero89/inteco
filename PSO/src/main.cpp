@@ -47,12 +47,17 @@ int main() {
 
     srand(time(0));
 
-    Swarm S(50, 2, 'c');
+    // a en rango [-512, 512]
+    // b en rango [0, 20]
+    // c en rango [-100, 100]
+
+    Swarm S(30, 2, 'c', -100, 100);
 
     vector<double> pos;
 
-    pos = S.EvaluarSwarm(20);
+    pos = S.EvaluarSwarm(10);
 
+    cout << "\nPosicion final de pesos [x, y]:\n";
     printVector<double>(pos);
 
     return 0;

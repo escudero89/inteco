@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "../include/particle.h"
 #include "../../utils/utils.h"
 
@@ -5,7 +7,7 @@
 double funciones (vector<double>, char);
 
 /// INPUT: La dimension D del hiperspacio
-Particle::Particle(short D, char item) {
+Particle::Particle(short D, char item, double range_min, double range_max) {
 
 	x.resize(D);
 	v.resize(D);
@@ -15,13 +17,19 @@ Particle::Particle(short D, char item) {
 
     function_chosen = item;
 
+    p_range_min = range_min;
+    p_range_max = range_max;
+
 	Dimension = D;
 
     for (short j = 0; j < D; j++) {
 
         // Creamos valores iniciales de posicion y velocidad pequenios y aleatorios
-		x[j] = ((double) rand() / (RAND_MAX)) * 2 - 1;
-		v[j] = ((double) rand() / (RAND_MAX)) * 2 - 1;
+        v[j] = ((double) rand() / (RAND_MAX)) * 2 - 1;
+
+        // Pero los valores de X van a estar a mitad del rango
+		x[j] = (p_range_max + p_range_min) / 2
+               + ((double) rand() / (RAND_MAX)) * 2 - 1;
 
     }
 
@@ -54,7 +62,12 @@ void Particle::ChangeVelPos(vector<double> xgbest) {
 
     for (short i = 0; i < Dimension; i++) {
         v[i] = inertia * v[i] + p1 * (xpbest[i] - x[i]) + p2 * (xgbest[i] - x[i]);
-        x[i] = x[i] + v[i];
+
+        double new_position = x[i] + v[i];
+
+        if (new_position >= p_range_min && new_position <= p_range_max) {
+            x[i] = new_position;
+        }
     }
 
 }

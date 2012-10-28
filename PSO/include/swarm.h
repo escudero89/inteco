@@ -16,7 +16,7 @@ class Swarm {
     char function_chosen;
 
 public:
-        Swarm(short, short, char = 'a');
+        Swarm(short, short, char, double, double);
 
         void set_function(char item) { function_chosen = item; }
 

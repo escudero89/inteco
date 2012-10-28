@@ -2,14 +2,14 @@
 
 using namespace std;
 
-Swarm::Swarm(short cantParticulas, short Dimension, char item) {
+Swarm::Swarm(short cantParticulas, short Dimension, char item, double range_min, double range_max) {
 
     double F;  // Almaceno performance
 
     /// Creo el enjambre de particulas
 
     for (short kCant = 0; kCant < cantParticulas; kCant++) {
-        Particle P(Dimension, item);
+        Particle P(Dimension, item, range_min, range_max);
         F = P.EvaluarPbest(true); // Lo evaluo por primera vez para asignar pbest
 
         if (kCant == 0 || F < gbest) { // es el primer elemento? o el mejor valor de gbest?

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1351459624 source:/media/Cristian/Repositorios/inteco/PSO/src/main.cpp
+1351463062 source:/media/Cristian/Repositorios/inteco/PSO/src/main.cpp
 	<iostream>
 	<math.h>
 	"../include/particle.h"
@@ -15,17 +15,18 @@
 	<cstdlib>
 	<cassert>
 
-1351459612 /media/Cristian/Repositorios/inteco/PSO/include/swarm.h
+1351462859 /media/Cristian/Repositorios/inteco/PSO/include/swarm.h
 	"particle.h"
 	<iostream>
 
-1351219464 /media/Cristian/Repositorios/inteco/PSO/include/particle.h
+1351462891 /media/Cristian/Repositorios/inteco/PSO/include/particle.h
 	<vector>
 
-1351459256 source:/media/Cristian/Repositorios/inteco/PSO/src/particle.cpp
+1351463284 source:/media/Cristian/Repositorios/inteco/PSO/src/particle.cpp
+	<cmath>
 	"../include/particle.h"
 	"../../utils/utils.h"
 
-1351459621 source:/media/Cristian/Repositorios/inteco/PSO/src/swarm.cpp
+1351462876 source:/media/Cristian/Repositorios/inteco/PSO/src/swarm.cpp
 	"../include/swarm.h"
 

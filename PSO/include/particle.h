@@ -16,7 +16,9 @@ class Particle {
     double
         pbest,  // Best performance
         c1,     // Constantes de aceleracion (para pbest)
-        c2;     // (para gbest)
+        c2,     // (para gbest)
+        p_range_max,    // para el rango de pesos
+        p_range_min;
 
     char function_chosen;   // Funcion elegida para comparar
 
@@ -24,7 +26,7 @@ class Particle {
 
 public:
 
-    Particle(short, char = 'a');
+    Particle(short, char, double, double);
 
     // La mejor posicion personal tambien es la gbest (para cierta particula)
     vector<double> GetBestPosition () { return xpbest; }
