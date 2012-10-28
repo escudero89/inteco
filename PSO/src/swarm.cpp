@@ -57,7 +57,7 @@ void Swarm::EvaluarParticulas() {
 }
 
 /// Voy a ir moviendo mi enjambre por la 'sabana'
-vector<double> Swarm::EvaluarSwarm(unsigned int maxit, double tolerancia) {
+vector<double> Swarm::EvaluarSwarm(unsigned int maxit) {
 
     vector<double> retorno;
 
@@ -67,14 +67,9 @@ vector<double> Swarm::EvaluarSwarm(unsigned int maxit, double tolerancia) {
         }
         ChangeVelPos(iteration, maxit); // Actualizo la pos/vel
 
-        cout << "Gbest: " << gbest << endl;
+        cout << "Gindex [" << gindex << "], con gbest: " << gbest << endl;
         retorno = particulas[gindex].GetBestPosition();
-/*
-        if (gbest < tolerancia) {
-            // Obtengo el mejor valor de x
-            cout << "Salgo por gbest [" << gbest << "] < tolerancia \n";
-            break;
-        }*/
+
     }
 
     return retorno;

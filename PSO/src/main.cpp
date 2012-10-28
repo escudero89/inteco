@@ -47,11 +47,11 @@ int main() {
 
     srand(time(0));
 
-    Swarm S(50, 1, 'c');
+    Swarm S(50, 2, 'c');
 
     vector<double> pos;
 
-    pos = S.EvaluarSwarm(10, 1e-5);
+    pos = S.EvaluarSwarm(20);
 
     printVector<double>(pos);
 

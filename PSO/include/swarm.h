@@ -24,7 +24,7 @@ public:
 
         void EvaluarParticulas();
 
-        vector<double> EvaluarSwarm(unsigned int, double);
+        vector<double> EvaluarSwarm(unsigned int);
 
 };
 
