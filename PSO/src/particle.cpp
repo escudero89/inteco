@@ -2,16 +2,18 @@
 #include "../../utils/utils.h"
 
 // Declaramos la funcion que vamos a usar en main
-double funciones (char, vector<double>);
+double funciones (vector<double>, char);
 
 /// INPUT: La dimension D del hiperspacio
-Particle::Particle(short D) {
+Particle::Particle(short D, char item) {
 
 	x.resize(D);
 	v.resize(D);
 	p.resize(D);
 
 	xpbest.resize(D);
+
+    function_chosen = item;
 
 	Dimension = D;
 
@@ -28,7 +30,7 @@ Particle::Particle(short D) {
 /// Obtengo el valor de pbest al evaluar la particula, y lo retorno al swarm
 double Particle::EvaluarPbest(bool sin_pbest) {
 
-    double F = funciones(x);
+    double F = funciones(x, function_chosen);
     // Si no tengo un pbest asignado (primera iteracion), lo asigno
     // O si mi nuevo performance es mejor al anterior
     if (sin_pbest || F < pbest) {

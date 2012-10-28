@@ -9,7 +9,7 @@ using namespace std;
 
 /// Esta funcion controla las funciones que voy a tener (para evaluar performance)
 // Input: Un char que me dice que funcion, y equis con [x,y]
-double funciones (char function, vector<double> equis) {
+double funciones (vector<double> equis, char function = 'a') {
 
     double retorno, xy,
         x = equis[0],
@@ -47,7 +47,7 @@ int main() {
 
     srand(time(0));
 
-    Swarm S(50, 1, 'd');
+    Swarm S(50, 1, 'c');
 
     vector<double> pos;
 
