@@ -1,7 +1,9 @@
 #include "../include/Poblacion.h"
 
-Poblacion::Poblacion(int cantIndividuos, int tamCromosoma, float brecha, int tipo_codificacion, int fitness_function, float prob_cruza, float prob_mut)
+Poblacion::Poblacion(int cantIndividuos, int tamCromosoma, float brecha, int tipo_codificacion, int fitness_function, float prob_cruza, float prob_mut, int maxima_poblacion, int minima_poblacion)
 {
+    this->maxima_poblacion = maxima_poblacion;
+    this->minima_poblacion = minima_poblacion;
     this->prob_cruza = prob_cruza;
     this->prob_mut = prob_mut;
 
@@ -35,13 +37,17 @@ void Poblacion::cruzar(Individuo I1, Individuo I2, Individuo &I3, Individuo &I4)
     I4.cromosoma.append(c3);
     I4.cromosoma.append(c4);
 
-    /*Muestra la cruza (para debug):*/
+
+    /*MUESTRA CRUZA (para debug):
+
     cout<<"Padre 1: "<<I1.cromosoma<<endl;
     cout<<"Padre 2: "<<I2.cromosoma<<endl;
     cout<<"Punto de cruza: "<<punto_cruza<<endl;
     cout<<"Hijo 1: "<<I3.cromosoma<<endl;
     cout<<"Hijo 2: "<<I4.cromosoma<<endl;
-   // getchar();
+    */
+
+
 
     if((I3.cromosoma.size()!=I1.cromosoma.size()) || (I2.cromosoma.size()!=I4.cromosoma.size()))
         cout<<"Hay problema con la cruza";
@@ -51,16 +57,20 @@ void Poblacion::cruzar(Individuo I1, Individuo I2, Individuo &I3, Individuo &I4)
 void Poblacion::mutar(Individuo &I){
     int m = rand() % I.cromosoma.size();
 
+    /* MUESTRA MUTACION (para debug)
     cout<<"Mutacion: "<<endl;
     cout<<"Cromosoma sin mutar: "<<I.cromosoma<<endl;
     cout<<"Punto de mutacion: "<<m<<endl;
+    */
 
     if( I.cromosoma[m] == '1')
         I.cromosoma[m] = '0';
     else
         I.cromosoma[m] = '1';
 
+    /*
     cout<<"Cromosoma mutado: "<<I.cromosoma<<endl;
+    */
 
 }
 
@@ -77,9 +87,16 @@ void Poblacion::reproduccion(vector<Individuo> &nueva_generacion){
     /*Cantidad de individuos que tendra la nueva generacion:
      el valor anterior mas un valor al azar no mayor a su 25%               */
 
-    int variacion = (rand() % int((0.25) * individuos.size())) -
-                            int((0.25) * individuos.size()/2);
+    int variacion = (rand() % int(0.1 * float(individuos.size()) +1)) -
+                            int((0.1 * float(individuos.size()))/2);
+
     int cant_indv_nuevos =  individuos.size() + variacion;
+
+    if(cant_indv_nuevos > maxima_poblacion)
+        cant_indv_nuevos = maxima_poblacion;
+
+    if(cant_indv_nuevos < minima_poblacion)
+        cant_indv_nuevos = minima_poblacion;
 
     /*Cantidad de inviduos a competir*/
     int cant_competidores = 5;
@@ -90,6 +107,9 @@ void Poblacion::reproduccion(vector<Individuo> &nueva_generacion){
     competidores.resize(cant_competidores);
     vector<float> fitness_competidores;
     fitness_competidores.resize(cant_competidores);
+
+    /*ELITISMO*/
+    nueva_generacion.push_back(individuos[getMejorIndividuo()]);
 
     /* Repito hasta completar el numero de individuos nuevos que quiero */
     while(nueva_generacion.size() < cant_indv_nuevos){
@@ -154,9 +174,11 @@ void Poblacion::reproduccion(vector<Individuo> &nueva_generacion){
             viene dada por el parametro prob_cruza */
 
             if((rand() % 1001)/1000 < this->prob_cruza  ){
+                /* MUESTRA GANADORES
                 cout<<"Ganadores: "<<endl;
                 cout<<ganador_1<<endl;
                 cout<<ganador_2<<endl;
+                */
 
 
                 Individuo hijo_1 = individuos[ganador_1];
