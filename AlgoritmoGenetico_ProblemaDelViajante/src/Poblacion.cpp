@@ -35,12 +35,12 @@ void Poblacion::cruzar(Individuo padre_1,
                           Individuo &hijo_2){
 
     /** Se usa ORDER CROSSOVER (OX) **/
-
+/*
     cout<<"Cromosomas de los padres"<<endl;
     cout<<"Padre_1: "<<padre_1.cromosoma<<endl;
     cout<<"Padre_2: "<<padre_2.cromosoma<<endl;
 //    getchar();
-
+*/
     padre_1.cromosoma.erase(40,4);
     padre_1.cromosoma.erase(0,4);
     padre_2.cromosoma.erase(40,4);
@@ -52,22 +52,22 @@ void Poblacion::cruzar(Individuo padre_1,
     /*Obtenemos 2 puntos de cruza*/
     int punto_cruza_1 = rand() % fen_size;
     int punto_cruza_2 = rand() % fen_size;
-
+/*
     cout<<"Puntos de cruza: "<<endl;
     cout<<punto_cruza_1<<endl;
     cout<<punto_cruza_2<<endl;
 //    getchar();
-
+*/
     /* los ordenamos */
     if(punto_cruza_1 > punto_cruza_2)
         swap(punto_cruza_1, punto_cruza_2);
 
-
+/*
     cout<<"Puntos de cruza Ordenados: "<<endl;
     cout<<punto_cruza_1<<endl;
     cout<<punto_cruza_2<<endl;
 //    getchar();
-
+*/
     /*Limpio los cromosomas*/
     hijo_1.cromosoma.clear();
     hijo_2.cromosoma.clear();
@@ -91,11 +91,11 @@ void Poblacion::cruzar(Individuo padre_1,
         padre_2_vec[i] = padre_2.cromosoma.substr(i*4, 4);
     }
 
-    cout<<"Vectores binarios Padre 1 y Padre 2"<<endl;
-    printVector<string>(padre_1_vec);cout<<endl;
+//    cout<<"Vectores binarios Padre 1 y Padre 2"<<endl;
+  /*  printVector<string>(padre_1_vec);cout<<endl;
     printVector<string>(padre_2_vec);cout<<endl;
 //    getchar();
-
+*/
     /*A partir de ahora trabajo con los vectores de string*/
 
     /*Corto los padres en 3 pedazos segun los puntos de cruza*/
@@ -120,7 +120,7 @@ void Poblacion::cruzar(Individuo padre_1,
     vector<string> P2c3;
     P2c3.assign(padre_2_vec.begin()+punto_cruza_2,padre_2_vec.end());
 
-
+/*
     cout<<"Segmentos de cortado"<<endl;
     cout<<"P1c1: "<<endl;
     printVector<string>(P1c1);
@@ -135,77 +135,77 @@ void Poblacion::cruzar(Individuo padre_1,
     cout<<"P2c3: "<<endl;
     printVector<string>(P2c3);
 //    getchar();
-
+*/
     /** Cruza (OX), para obtener hijo 1 */
     hijo_1_vec = P1c2;
-
+/*
     cout<<"Hijo_1_vec: "<<endl;
     printVector<string>(hijo_1_vec);
 //    getchar();
-
+*/
     /**hacer mas eficiente mejorando el orden**/
     P2c1.insert(P2c1.begin(), P2c3.begin(), P2c3.end());
     P2c1.insert(P2c1.end(),P2c2.begin(), P2c2.end());
-
+/*
     cout<<"P2c1 con todo insertado"<<endl;
     printVector<string>(P2c1);
 //    getchar();
-
+*/
     /*Vectores auxiliares*/
     vector<string> delante;
     vector<string> detras;
 
     /*Mientras el tamaño del hijo sea menor que el del padre*/
     int pos = 0;
-    cout<<"Inicio WHILE"<<endl;
+  //  cout<<"Inicio WHILE"<<endl;
 //    getchar();
     while(hijo_1_vec.size() + delante.size() + detras.size()< padre_1_vec.size()){
-
+/*
         cout<<"Tamanio hijo_1_vec: "<<hijo_1_vec.size();
         cout<<"Tamanio padre_1_vec: "<<padre_1_vec.size();
-
+*/
 
         /*Si no encuentra el elemento*/
-        cout<<"Elemento a buscar: "<<endl;
+/*      cout<<"Elemento a buscar: "<<endl;
         cout<<P2c1[pos]<<endl;
         cout<<"En: "<<endl;
         printVector<string> (hijo_1_vec);
 //        getchar();
-
+*/
         if( find(hijo_1_vec.begin(), hijo_1_vec.end(), P2c1[pos]) == hijo_1_vec.end()){
 
-            cout<<"El elemento no estaba, lo puede agregar..."<<endl;
+//          cout<<"El elemento no estaba, lo puede agregar..."<<endl;
 //            getchar();
 
             /*y si no se fue de rango*/
             if(hijo_1_vec.size() + delante.size() < (padre_1_vec.size() - punto_cruza_1)){
 
-                cout<<"entra por delante"<<endl;
+//                cout<<"entra por delante"<<endl;
 //                getchar();
 
                 delante.push_back(P2c1[pos]);
 
-                printVector<string>(delante);
+//                printVector<string>(delante);
 //                getchar();
             }
             else{
-                cout<<"entra por detras"<<endl;
+//                cout<<"entra por detras"<<endl;
 //                getchar();
 
                 detras.push_back(P2c1[pos]);
 
-                printVector<string>(detras);
+//                printVector<string>(detras);
 //                getchar();
             }
 
         }else{
-        cout<<"El elemento estaba, no lo agrega"<<endl;
+//        cout<<"El elemento estaba, no lo agrega"<<endl;
         }
 
         pos++;
 
     }
-        cout<<"Salio de WHILE"<<endl;
+//        cout<<"Salio de WHILE"<<endl;
 //        getchar();
 
         /* doy vuelta el detras */
@@ -218,8 +218,8 @@ void Poblacion::cruzar(Individuo padre_1,
         detras.insert(detras.begin(), "0000");
         detras.insert(detras.end(), "0000");
 
-        cout<<"++++VECTOR MUTADO+++++"<<endl;
-        printVector<string>(detras);
+//        cout<<"++++VECTOR Cruzado+++++"<<endl;
+//        printVector<string>(detras);
 //        getchar();
 
         /*llevamos todo devuelta al string binario*/
@@ -250,76 +250,73 @@ void Poblacion::cruzar(Individuo padre_1,
 
 
 
-
-
-
     /** Cruza (OX), para obtener hijo 1 */
     hijo_2_vec = P2c2;
 
-    cout<<"Hijo_2_vec: "<<endl;
-    printVector<string>(hijo_2_vec);
+//    cout<<"Hijo_2_vec: "<<endl;
+//    printVector<string>(hijo_2_vec);
 //    getchar();
 
     /**hacer mas eficiente mejorando el orden**/
     P1c1.insert(P1c1.begin(), P1c3.begin(), P1c3.end());
     P1c1.insert(P1c1.end(),P1c2.begin(), P1c2.end());
 
-    cout<<"P1c1 con todo insertado"<<endl;
-    printVector<string>(P1c1);
+//    cout<<"P1c1 con todo insertado"<<endl;
+//    printVector<string>(P1c1);
 //    getchar();
 
 
     /*Mientras el tamaño del hijo sea menor que el del padre*/
     pos = 0;
-    cout<<"Inicio WHILE"<<endl;
+//    cout<<"Inicio WHILE"<<endl;
 //    getchar();
     while(hijo_2_vec.size() + delante.size() + detras.size()< padre_2_vec.size()){
 
-        cout<<"Tamanio hijo_2_vec: "<<hijo_2_vec.size();
-        cout<<"Tamanio padre_2_vec: "<<padre_2_vec.size();
+//        cout<<"Tamanio hijo_2_vec: "<<hijo_2_vec.size();
+//        cout<<"Tamanio padre_2_vec: "<<padre_2_vec.size();
 
 
         /*Si no encuentra el elemento*/
-        cout<<"Elemento a buscar: "<<endl;
-        cout<<P1c1[pos]<<endl;
-        cout<<"En: "<<endl;
-        printVector<string> (hijo_2_vec);
+//        cout<<"Elemento a buscar: "<<endl;
+//        cout<<P1c1[pos]<<endl;
+//        cout<<"En: "<<endl;
+//        printVector<string> (hijo_2_vec);
 //        getchar();
 
         if( find(hijo_2_vec.begin(), hijo_2_vec.end(), P1c1[pos]) == hijo_2_vec.end()){
 
-            cout<<"El elemento no estaba, lo puede agregar..."<<endl;
+//            cout<<"El elemento no estaba, lo puede agregar..."<<endl;
 //            getchar();
 
             /*y si no se fue de rango*/
             if(hijo_2_vec.size() + delante.size() < (padre_2_vec.size() - punto_cruza_1)){
 
-                cout<<"entra por delante"<<endl;
+//                cout<<"entra por delante"<<endl;
 //                getchar();
 
                 delante.push_back(P1c1[pos]);
 
-                printVector<string>(delante);
+//                printVector<string>(delante);
 //                getchar();
             }
             else{
-                cout<<"entra por detras"<<endl;
+//                cout<<"entra por detras"<<endl;
 //                getchar();
 
                 detras.push_back(P1c1[pos]);
 
-                printVector<string>(detras);
+//                printVector<string>(detras);
 //                getchar();
             }
 
         }else{
-        cout<<"El elemento estaba, no lo agrega"<<endl;
+//        cout<<"El elemento estaba, no lo agrega"<<endl;
         }
 
         pos++;
 
     }
-        cout<<"Salio de WHILE"<<endl;
+//        cout<<"Salio de WHILE"<<endl;
 //        getchar();
 
         /* doy vuelta el detras */
@@ -332,8 +329,8 @@ void Poblacion::cruzar(Individuo padre_1,
         detras.insert(detras.begin(), "0000");
         detras.insert(detras.end(), "0000");
 
-        cout<<"++++VECTOR MUTADO+++++"<<endl;
-        printVector<string>(detras);
+//        cout<<"++++VECTOR cruzado+++++"<<endl;
+//        printVector<string>(detras);
 //        getchar();
 
         /*llevamos todo devuelta al string binario*/

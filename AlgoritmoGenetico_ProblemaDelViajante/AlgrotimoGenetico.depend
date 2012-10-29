@@ -25,7 +25,7 @@
 1351448706 source:c:\users\marcos\workspace\inteco\algrotimogenetico\src\individuo.cpp
 	"../include/Individuo.h"
 
-1351493415 source:c:\users\marcos\workspace\inteco\algoritmogenetico_problemadelviajante\src\poblacion.cpp
+1351509766 source:c:\users\marcos\workspace\inteco\algoritmogenetico_problemadelviajante\src\poblacion.cpp
 	"../include/Poblacion.h"
 
 1351480611 c:\users\marcos\workspace\inteco\algoritmogenetico_problemadelviajante\include\poblacion.h
@@ -47,11 +47,13 @@
 1351489144 source:c:\users\marcos\workspace\inteco\algoritmogenetico_problemadelviajante\src\individuo.cpp
 	"../include/Individuo.h"
 
-1351492383 source:c:\users\marcos\workspace\inteco\algoritmogenetico_problemadelviajante\src\main.cpp
+1351510050 source:c:\users\marcos\workspace\inteco\algoritmogenetico_problemadelviajante\src\main.cpp
 	<ctime>
 	<cstdlib>
 	"../include/Individuo.h"
 	"../include/Poblacion.h"
+	"../../RBF_Network/include/punto.h"
+	"../../RBF_Network/src/punto.cpp"
 
 1351480549 c:\users\marcos\workspace\inteco\utils\utils.h
 	<vector>
@@ -67,4 +69,13 @@
 	<vector>
 	<math.h>
 	<algorithm>
+
+1351274216 c:\users\marcos\workspace\inteco\rbf_network\include\punto.h
+	<vector>
+	<cstdlib>
+	<math.h>
+	<iostream>
+
+1351274217 c:\users\marcos\workspace\inteco\rbf_network\src\punto.cpp
+	"../include/punto.h"
 

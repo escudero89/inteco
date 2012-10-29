@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include "../include/Individuo.h"
 #include "../include/Poblacion.h"
+#include "../../RBF_Network/include/punto.h"
+#include "../../RBF_Network/src/punto.cpp"
 
 
 using namespace std;
@@ -13,6 +15,73 @@ int main(int argc, char **argv) {
 
 #if 1
 /** EJERCICIO 2 **/
+
+
+/* Creacion de ciudades */
+
+vector<vector<float> > v;
+v.resize(10);
+
+    v[0].push_back(0);
+    v[0].push_back(0);
+
+    v[1].push_back(0);
+    v[1].push_back(1);
+
+    v[2].push_back(0);
+    v[2].push_back(2);
+
+    v[3].push_back(0);
+    v[3].push_back(3);
+
+    v[4].push_back(0);
+    v[4].push_back(4);
+
+    v[5].push_back(5);
+    v[5].push_back(5);
+
+    v[6].push_back(5);
+    v[6].push_back(4);
+
+    v[7].push_back(5);
+    v[7].push_back(3);
+
+    v[8].push_back(5);
+    v[8].push_back(2);
+
+    v[9].push_back(5);
+    v[9].push_back(1);
+
+
+
+    vector<punto> VP;
+
+    for(int i=0; i<10; i++){
+        punto p1(v[i]);
+        VP.push_back(p1);
+    }
+    /* Repito la primera ciudad */
+    VP.push_back(VP[0]);
+    vector<vector <float> > ciudades1;
+    ciudades1.resize(11);
+
+    for(int i=0; i<11; i++){
+        ciudades1[i].resize(11);
+    }
+
+    /* Convertimos ciudades en distancias */
+    for(int i = 0; i<11; i++){
+        for(int j=0; j<11; j++){
+            ciudades1[i][j] = VP[i].distancia(VP[j]);
+        }
+
+    }
+
+    /* Mostramos matriz de distancias */
+    cout<<"Distancias: "<<endl;
+    printVectorVector<float>(ciudades1);
+    getchar();
+
 
 /* Parametros del algoritmo genetico */
 
@@ -30,28 +99,7 @@ int main(int argc, char **argv) {
     float fitnessBuscado = 100000;
     int maxima_poblacion = cantIndividuos + int(float(cantIndividuos) * 0.25);
     int minima_poblacion = cantIndividuos - int(float(cantIndividuos) * 0.25);
-    vector< vector<float> > ciudades;
 
-    ciudades.resize(10);
-    for(int i=0;i<10;i++)
-        ciudades[i].resize(10);
-
-    for(int i=0; i<10; i++){
-        for(int j=0; j<10; j++){
-
-            ciudades[i][j] = float(rand()%100);
-
-            if(i == j)
-                ciudades[i][j] = 0;
-            else
-
-            if(j<i)
-                ciudades[i][j] = ciudades[j][i];
-        }
-    }
-
-cout<<"Ciudades: "<<endl;
-printVectorVector<float>(ciudades);
 
 /* Creamos la poblacion */
 #if 1
@@ -64,11 +112,11 @@ printVectorVector<float>(ciudades);
              prob_mut,
              maxima_poblacion,
              minima_poblacion,
-             ciudades);
+             ciudades1);
 
 #endif
 /* Mostramos los individuos creados */
-
+cout<<"Individuos Iniciales"<<endl;
 for(int i=0; i<cantIndividuos; i++ ){
     cout<<i<<") "<<P.individuos[i].cromosoma<<endl;
 }
@@ -81,6 +129,10 @@ for(int i = 0; i <maxIt; i++ ){
   cout<<"ITERACION: "<<i<<endl;
   cout<<"Tamaño poblacion: "<<P.individuos.size()<<endl;
   mejor = P.getMejorIndividuo();
+
+  /*Mostramos el mejor*/
+  printVector<float> (P.individuos[mejor].fenotipo);
+  //getchar();
 
   if(P.individuos[mejor].fitness > fitnessBuscado || i == maxIt - 1){
     fenotipo = P.individuos[mejor].fenotipo;
