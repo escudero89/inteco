@@ -28,9 +28,6 @@ class Individuo
         void actualizarFenotipo();
         float getFitness(){return fitness;}
 
-
-
-
 };
 
 #endif // INDIVIDUO_H

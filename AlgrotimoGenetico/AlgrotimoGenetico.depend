@@ -25,3 +25,29 @@
 1351448706 source:c:\users\marcos\workspace\inteco\algrotimogenetico\src\individuo.cpp
 	"../include/Individuo.h"
 
+1351510213 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgrotimoGenetico/src/Individuo.cpp
+	"../include/Individuo.h"
+
+1351519564 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgrotimoGenetico/include/Individuo.h
+	<cstdlib>
+	<cmath>
+	<string>
+	<vector>
+	<string>
+	<iostream>
+	<cstdio>
+
+1351510213 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgrotimoGenetico/src/Poblacion.cpp
+	"../include/Poblacion.h"
+
+1351510213 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgrotimoGenetico/include/Poblacion.h
+	"Individuo.h"
+	<algorithm>
+	<cstdio>
+
+1351519564 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgrotimoGenetico/src/main.cpp
+	<ctime>
+	<cstdlib>
+	"../include/Individuo.h"
+	"../include/Poblacion.h"
+

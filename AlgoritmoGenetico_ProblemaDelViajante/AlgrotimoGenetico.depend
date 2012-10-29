@@ -79,3 +79,51 @@
 1351274217 c:\users\marcos\workspace\inteco\rbf_network\src\punto.cpp
 	"../include/punto.h"
 
+1351510213 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante/src/Individuo.cpp
+	"../include/Individuo.h"
+
+1351510213 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante/include/Individuo.h
+	<cstdlib>
+	<cmath>
+	<string>
+	<vector>
+	<string>
+	<iostream>
+	<cstdio>
+	<algorithm>
+	"../../utils/utils.h"
+
+1351510215 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/utils/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1351510213 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante/src/Poblacion.cpp
+	"../include/Poblacion.h"
+
+1351510213 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante/include/Poblacion.h
+	"Individuo.h"
+	<algorithm>
+	<cstdio>
+
+1351522361 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante/src/main.cpp
+	<ctime>
+	<cstdlib>
+	"../include/Individuo.h"
+	"../include/Poblacion.h"
+	"../../RBF_Network/include/punto.h"
+	"../../RBF_Network/src/punto.cpp"
+
+1351510215 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/include/punto.h
+	<vector>
+	<cstdlib>
+	<math.h>
+	<iostream>
+
+1351510215 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/src/punto.cpp
+	"../include/punto.h"
+

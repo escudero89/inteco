@@ -23,12 +23,9 @@ int main() {
     vector<vector<float> > Ve;
     vector<vector<float> > Vp;
 
-    vector<vector<float> > Vv;
-
-    vector<conjuntoDatos> C = particionar("data/clouds.csv",1,70,20,10);
+    vector<conjuntoDatos> C = particionar("data/clouds.csv",1,80,19,1);
     Ve = C[0].entrenamiento;
     Vp = C[0].prueba;
-    Vv = C[0].control;
 
     /// Creo mi MLP
 
@@ -58,7 +55,7 @@ int main() {
 
     cout << "\nResultados de 'clouds' con MLP (con PSO): " << endl;
 
-    aciertos = (1 - R.swarmEntrenar(Ve, Vp, Vv, maxit / 20, tol)) * 100;
+    aciertos = (1 - R.swarmEntrenar(Ve, Vp, maxit / 20, tol)) * 100;
 
     cout << "\nPorcentaje de aciertos: " << aciertos << endl;
 

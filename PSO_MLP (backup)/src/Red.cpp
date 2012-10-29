@@ -357,11 +357,7 @@ void Red::forzar_pesos(vector<float> &pesos) {
 }
 
 
-float Red::swarmEntrenar(
-                         vector<vector<float> > &E,
-                         vector<vector<float> > &P,
-                         vector<vector<float> > &V,
-                         int maxit, float tol) {
+float Red::swarmEntrenar(vector<vector<float> > &E,vector<vector<float> > &P, int maxit, float tol) {
 
     // Creo mi enjambre, cuya dimension va a ser cant_neuronas * cant_pesos_por_capa
     short
@@ -393,12 +389,8 @@ float Red::swarmEntrenar(
             // "Entreno" la red, sin usar le backpropagation
             error = 1 - estEntrenamiento(E, true);
 
-            double error_validacion = 1 - estEntrenamiento(V, true);
             // Uso el error como la funcion de aptitud
-
-            if (error_validacion > tol) {
-                S.set_fitness_from_net(error, kParticulas);
-            }
+            S.set_fitness_from_net(error, kParticulas);
         }
 
         /// Ahora fuerzo los pesos con la mejor particula y verifico

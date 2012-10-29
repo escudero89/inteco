@@ -81,8 +81,8 @@ entidades = [ 0 0.5 1 ];
 var_ent_upper = [ 1/6 1/6 1/6 ];
 var_ent_lower = [ 0.5 0.5 0.5 ];
 
-voltMax = 520;
-ampereMax = 0.38; % en base a un voltaje de 380V
+voltMax = 560;
+ampereMax = 5; % en base a un voltaje de 380V
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ### Variables de la habitacion ###

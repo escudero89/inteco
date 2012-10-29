@@ -68,7 +68,7 @@ public:
     }
 
     /// FUNCIONES PROGRAMADAS PARA EL SWARM
-    float swarmEntrenar(vector<vector<float> > &E,vector<vector<float> > &P, vector<vector<float> > &V, int maxit, float tol);
+    float swarmEntrenar(vector<vector<float> > &E,vector<vector<float> > &P, int maxit, float tol);
 
     vector<vector<float> > transmutar_pesos(vector<float> &);
     void forzar_pesos(vector<float> &);

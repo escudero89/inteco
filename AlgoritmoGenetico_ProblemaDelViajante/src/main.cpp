@@ -79,7 +79,7 @@ v.resize(10);
 
     /* Mostramos matriz de distancias */
     cout<<"Distancias: "<<endl;
-    printVectorVector<float>(ciudades1);
+    printVectorVector<float>(ciudades1, '\t');
     getchar();
 
 
