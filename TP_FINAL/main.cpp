@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "include/individuo.h"
 #include "include/punto.h"
@@ -6,12 +7,15 @@ using namespace std;
 
 int main() {
 
-    punto origen(0, 0);
-    Individuo C("2aadaiaa", origen);
+    string rama = "2ala+a";
 
-    origen = C.obtenerPuntoPosicion("2aadaiaa");
+    punto origen(0, 0);
+    Individuo C(rama, origen);
+
+    origen = C.obtenerPuntoPosicion(rama);
 
     cout << "Hello world!" << endl;
+    cout << C.obtenerSubramaje(3) << endl;
     origen.printPunto();
     return 0;
 }

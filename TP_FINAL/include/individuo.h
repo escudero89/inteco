@@ -22,7 +22,9 @@ public:
     string anexarElemento(short);
     bool calcularOrientacion();
     bool calcularDistancia(short);
-    string obtenerSubrama(short posicion);
+
+    string obtenerSubramaje(short);
+    string obtenerSubramaje_r(string);
 
     punto obtenerPuntoPosicion(string cromosoma_de_direccion);
     punto nuevaDireccion_helper(punto base, short direccion);

@@ -1,13 +1,14 @@
 # depslib dependency file v1.0
-1351895591 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/main.cpp
+1351899870 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/main.cpp
 	<iostream>
+	<string>
 	"include/individuo.h"
 	"include/punto.h"
 
-1351894905 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/src/individuo.cpp
+1351898919 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/src/individuo.cpp
 	"../include/individuo.h"
 
-1351894244 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/include/individuo.h
+1351899340 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/include/individuo.h
 	<string>
 	<vector>
 	"punto.h"
@@ -19,7 +20,7 @@
 	<cmath>
 	<iostream>
 
-1351895243 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/utils/utils.h
+1351897577 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/utils/utils.h
 	<vector>
 	<sstream>
 	<fstream>

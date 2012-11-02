@@ -11,6 +11,8 @@ Individuo::Individuo(string cromosoma, punto origen) {
     T.tee_derecho = "re+e";
     T.cruz = "xe+e+e";
 
+    T.separador = "+";
+
 }
 
 /*
@@ -93,8 +95,24 @@ return true;
 Recibe:
 Salida:
 */
-string Individuo::obtenerSubrama(short posicion) {
-return "assd";
+string Individuo::obtenerSubramaje(short posicion) {
+
+    string cromosoma_r = cromosoma.substr(0, posicion), c;
+    short k;
+
+    for (k = 0 ; k < posicion ; k++ ) {
+        c = cromosoma_r[k];
+        if (c == T.tee_derecho || c == T.tee_izquierdo || c == T.cruz) {
+            break;
+        }
+    }
+
+    return cromosoma_r.substr(0, k) + obtenerSubramaje_r(cromosoma_r.substr(k));
+}
+
+string Individuo::obtenerSubramaje_r(string cromosoma_r) {
+    string subramaje;
+    return subramaje;
 }
 
 /*
@@ -164,6 +182,12 @@ punto Individuo::nuevaDireccion_helper(punto base, short direccion) {
     return base;
 }
 
+/*
+"A partir de la direccion anterior y un tipo de giro (0: izq, 1:der) obtengo
+una nueva direccion expresada en valores 1,2,3,4."
+Recibe: una direccion anterior y un tipo de giro
+Salida: un valor 1,2,3,4 que indica arriba der abajo izq respectivamente
+*/
 short Individuo::cambioDeDireccion(short direccion_anterior, bool esGiroDerecho) {
 
     direccion_anterior += (2 * esGiroDerecho - 1);

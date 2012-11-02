@@ -194,7 +194,8 @@ struct Tubo {
         codo_derecho,
         tee_izquierdo,
         tee_derecho,
-        cruz;
+        cruz,
+        separador;
 };
 
 double get_rand() ;
