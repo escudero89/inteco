@@ -87,13 +87,14 @@ Recibe:
 Salida:
 */
 bool Individuo::calcularDistancia(short){
-return true;
+    return true;
 }
 
 /*
-""
-Recibe:
-Salida:
+"La idea es que a partir de un indice de elemento dentro del cromosoma,
+devolver la subrama libre de bifurcaciones de ese elemento"
+Recibe: el indice de la posicion del elemento en base 0
+Salida: el subramaje en string
 */
 string Individuo::obtenerSubramaje(short posicion) {
 

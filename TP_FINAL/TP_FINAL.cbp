@@ -32,7 +32,17 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/individuo.h" />
+		<Unit filename="include/matriz.h" />
+		<Unit filename="include/poblacion.h" />
+		<Unit filename="include/punto.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/individuo.cpp" />
+		<Unit filename="src/matriz.cpp" />
+		<Unit filename="src/poblacion.cpp" />
+		<Unit filename="src/punto.cpp" />
+		<Unit filename="../utils/utils.cpp" />
+		<Unit filename="../utils/utils.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
