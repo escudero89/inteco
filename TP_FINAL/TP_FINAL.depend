@@ -1,0 +1,51 @@
+# depslib dependency file v1.0
+1351895591 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/main.cpp
+	<iostream>
+	"include/individuo.h"
+	"include/punto.h"
+
+1351894905 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/src/individuo.cpp
+	"../include/individuo.h"
+
+1351894244 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/include/individuo.h
+	<string>
+	<vector>
+	"punto.h"
+	"../../utils/utils.h"
+
+1351895652 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/include/punto.h
+	<vector>
+	<cstdlib>
+	<cmath>
+	<iostream>
+
+1351895243 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/utils/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1351894917 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/src/matriz.cpp
+	"../include/matriz.h"
+
+1351880468 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/include/matriz.h
+
+1351894929 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/src/poblacion.cpp
+	"../include/poblacion.h"
+
+1351894951 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/include/poblacion.h
+	<vector>
+	"individuo.h"
+
+1351895221 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/utils/utils.cpp
+	"utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
+
+1351895547 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/src/punto.cpp
+	"../include/punto.h"
+

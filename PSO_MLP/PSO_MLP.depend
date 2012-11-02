@@ -91,7 +91,7 @@
 	"../include/swarm.h"
 	"../include/Red.h"
 
-1351510214 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/PSO_MLP/src/particle.cpp
+1351544871 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/PSO_MLP/src/particle.cpp
 	"../include/particle.h"
 	"../../utils/utils.h"
 
@@ -148,7 +148,7 @@
 	<math.h>
 	<algorithm>
 
-1351526197 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/PSO_MLP/src/Red.cpp
+1351544888 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/PSO_MLP/src/Red.cpp
 	"../include/swarm.h"
 	"../include/Red.h"
 
@@ -157,4 +157,11 @@
 	<cassert>
 	<vector>
 	"../../Perceptron/include/Capa.h"
+
+1351544985 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/PSO_MLP/src/main.cpp
+	<iostream>
+	<vector>
+	<cmath>
+	"../../utils/utils.h"
+	"../include/Red.h"
 

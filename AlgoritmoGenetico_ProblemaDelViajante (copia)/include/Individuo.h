@@ -36,6 +36,11 @@ class Individuo
         void actualizarFenotipo();
         float getFitness(){return fitness;}
 
+
+
+
+
+
     string dec2bin(unsigned n){
         const int size=sizeof(n)*8;
         std::string res;

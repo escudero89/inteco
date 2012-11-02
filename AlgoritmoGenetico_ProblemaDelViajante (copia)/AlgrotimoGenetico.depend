@@ -82,7 +82,7 @@
 1351510213 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante/src/Individuo.cpp
 	"../include/Individuo.h"
 
-1351537621 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante/include/Individuo.h
+1351510213 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante/include/Individuo.h
 	<cstdlib>
 	<cmath>
 	<string>
@@ -110,14 +110,13 @@
 	<algorithm>
 	<cstdio>
 
-1351537996 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante/src/main.cpp
+1351522361 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante/src/main.cpp
 	<ctime>
 	<cstdlib>
 	"../include/Individuo.h"
 	"../include/Poblacion.h"
 	"../../RBF_Network/include/punto.h"
 	"../../RBF_Network/src/punto.cpp"
-	<sstream>
 
 1351510215 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/include/punto.h
 	<vector>
@@ -127,4 +126,34 @@
 
 1351510215 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/RBF_Network/src/punto.cpp
 	"../include/punto.h"
+
+1351510213 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante (copia)/src/Individuo.cpp
+	"../include/Individuo.h"
+
+1351510213 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante (copia)/include/Individuo.h
+	<cstdlib>
+	<cmath>
+	<string>
+	<vector>
+	<string>
+	<iostream>
+	<cstdio>
+	<algorithm>
+	"../../utils/utils.h"
+
+1351510213 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante (copia)/src/Poblacion.cpp
+	"../include/Poblacion.h"
+
+1351510213 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante (copia)/include/Poblacion.h
+	"Individuo.h"
+	<algorithm>
+	<cstdio>
+
+1351541132 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/AlgoritmoGenetico_ProblemaDelViajante (copia)/src/main.cpp
+	<ctime>
+	<cstdlib>
+	"../include/Individuo.h"
+	"../include/Poblacion.h"
+	"../../RBF_Network/include/punto.h"
+	"../../RBF_Network/src/punto.cpp"
 

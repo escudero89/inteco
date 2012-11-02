@@ -187,6 +187,15 @@ std::vector<conjuntoDatos> particionar(std::string path, int cantConj = 1,
                     float porPruebas = 20,
                     float porControl = 10);
 
+struct Tubo {
+    std::string
+        tubo_recto,
+        codo_izquierdo,
+        codo_derecho,
+        tee_izquierdo,
+        tee_derecho,
+        cruz;
+};
 
-
+double get_rand() ;
 #endif

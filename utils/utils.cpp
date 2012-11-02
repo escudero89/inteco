@@ -61,3 +61,8 @@ vector<conjuntoDatos> particionar(string path, int cantConj,
     return particiones;
 
 }
+
+/* Te devuelve un numero al azar entre 0 y 1 */
+double get_rand() {
+    return ((double) rand() / (RAND_MAX));
+}

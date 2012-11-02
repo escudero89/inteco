@@ -68,7 +68,7 @@ vector<double> Swarm::EvaluarSwarm(unsigned int maxit) {
         ChangeVelPos(iteration, maxit); // Actualizo la pos/vel
 
         cout << "Gindex [" << gindex << "], con gbest: " << gbest << endl;
-        retorno = particulas[gindex].GetBestPosition();
+        retorno = gbest;//particulas[gindex].GetBestPosition();
 
     }
 

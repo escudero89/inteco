@@ -5,7 +5,7 @@
 #include "../../RBF_Network/include/punto.h"
 #include "../../RBF_Network/src/punto.cpp"
 
-#include <sstream>
+
 using namespace std;
 
 int main(int argc, char **argv) {
@@ -22,68 +22,38 @@ int main(int argc, char **argv) {
 vector<vector<float> > v;
 v.resize(10);
 
-    v[0].push_back(3);
-    v[0].push_back(3);
+    v[0].push_back(0);
+    v[0].push_back(0);
 
-    v[1].push_back(3);
     v[1].push_back(0);
+    v[1].push_back(1);
 
-    v[2].push_back(3);
-    v[2].push_back(6);
+    v[2].push_back(0);
+    v[2].push_back(2);
 
     v[3].push_back(0);
     v[3].push_back(3);
 
-    v[4].push_back(6);
-    v[4].push_back(3);
+    v[4].push_back(0);
+    v[4].push_back(4);
 
-    v[5].push_back(3.5);
-    v[5].push_back(3.5);
+    v[5].push_back(5);
+    v[5].push_back(5);
 
-    v[6].push_back(2.5);
-    v[6].push_back(2.5);
+    v[6].push_back(5);
+    v[6].push_back(4);
 
-    v[7].push_back(2.5);
-    v[7].push_back(3.5);
+    v[7].push_back(5);
+    v[7].push_back(3);
 
-    v[8].push_back(3.5);
-    v[8].push_back(2.5);
+    v[8].push_back(5);
+    v[8].push_back(2);
 
-    v[9].push_back(6);
-    v[9].push_back(6);
-/*
-    v[0].push_back(1);
-    v[0].push_back(1);
-
-    v[1].push_back(2);
-    v[1].push_back(2);
-
-    v[2].push_back(3);
-    v[2].push_back(3);
-
-    v[3].push_back(3);
-    v[3].push_back(4);
-
-    v[4].push_back(3);
-    v[4].push_back(3);
-
-    v[5].push_back(2.2);
-    v[5].push_back(2.8);
-
-    v[6].push_back(2.6);
-    v[6].push_back(2.4);
-
-    v[7].push_back(2.3);
-    v[7].push_back(2.1);
-
-    v[8].push_back(6);
-    v[8].push_back(6);
-
+    v[9].push_back(5);
     v[9].push_back(1);
-    v[9].push_back(5.5);*/
 
 
-printCSV(v, "puntos.dat");
+
     vector<punto> VP;
 
     for(int i=0; i<10; i++){
@@ -125,7 +95,7 @@ printCSV(v, "puntos.dat");
     vector<Individuo> nueva_generacion;
     int mejor;
     vector<float> fenotipo;
-    int maxIt = 100;
+    int maxIt = 30;
     float fitnessBuscado = 100000;
     int maxima_poblacion = cantIndividuos + int(float(cantIndividuos) * 0.25);
     int minima_poblacion = cantIndividuos - int(float(cantIndividuos) * 0.25);
@@ -154,7 +124,7 @@ getchar();
 
 
 /* Bucle de evolución */
-vector<vector<float> > caminos;
+
 for(int i = 0; i <maxIt; i++ ){
   cout<<"ITERACION: "<<i<<endl;
   cout<<"Tamaño poblacion: "<<P.individuos.size()<<endl;
@@ -162,7 +132,6 @@ for(int i = 0; i <maxIt; i++ ){
 
   /*Mostramos el mejor*/
   printVector<float> (P.individuos[mejor].fenotipo);
-  caminos.push_back(P.individuos[mejor].fenotipo);
   //getchar();
 
   if(P.individuos[mejor].fitness > fitnessBuscado || i == maxIt - 1){
@@ -176,7 +145,7 @@ for(int i = 0; i <maxIt; i++ ){
   P.evaluarFitness();
 
 }
-printCSV(caminos, "logs.dat");
+
 /* Mostramos la solucion encontrada*/
 cout<<endl<<endl;
 cout<<"------------------------------------"<<endl;

@@ -25,7 +25,7 @@ int main() {
 
     vector<vector<float> > Vv;
 
-    vector<conjuntoDatos> C = particionar("data/clouds.csv",1,70,20,10);
+    vector<conjuntoDatos> C = particionar("data/clouds.csv",1,80,19,1);
     Ve = C[0].entrenamiento;
     Vp = C[0].prueba;
     Vv = C[0].control;
@@ -33,11 +33,12 @@ int main() {
     /// Creo mi MLP
 
     vector<short> neuronasPorCapa;
-    neuronasPorCapa.push_back(12);
+    neuronasPorCapa.push_back(6);
+    //neuronasPorCapa.push_back(3);
     neuronasPorCapa.push_back(2);
 
     Red R(neuronasPorCapa, 0.001, 2);
-    R.set_alfa(0.0008);
+    R.set_alfa(0.08);
 
     float
         aciertos,
@@ -48,9 +49,9 @@ int main() {
 
     cout << "\nResultados de 'clouds' con MLP (clasico): " << endl;
 
-    aciertos = (1 - R.entrenar(Ve, Vp, maxit, tol)) * 100;
+ //   aciertos = (1 - R.entrenar(Ve, Vp, maxit, tol)) * 100;
 
-    cout <<"\nPorcentaje de aciertos: " << aciertos << endl;
+//    cout <<"\nPorcentaje de aciertos: " << aciertos << endl;
 
     /// Entrenamiento usando SWARM
     cout << "\n--------------------------------------------------------------\n";

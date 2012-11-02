@@ -18,8 +18,8 @@ Particle::Particle(short D) {
     for (short j = 0; j < D; j++) {
 
         // Creamos valores iniciales de posicion y velocidad pequenios y aleatorios
-		x[j] = ((double) rand() / (RAND_MAX)) * 2 - 1;
-		v[j] = ((double) rand() / (RAND_MAX)) * 2 - 1;
+		x[j] = ((double) rand() / (RAND_MAX)) * 10 - 5;
+		v[j] = ((double) rand() / (RAND_MAX)) * 10 - 5;
 
     }
 
@@ -43,16 +43,16 @@ double Particle::EvaluarPbest(bool sin_pbest) {
 /// Cambio el valor de velocidad y posicion de la particula
 void Particle::ChangeVelPos(vector<double> xgbest) {
 
-    double
+
+    for (short i = 0; i < Dimension; i++) {
+      double
         r1 = ((double) rand() / (RAND_MAX)),    // valores entre 0 y 1
         r2 = ((double) rand() / (RAND_MAX)),
 
         p1 = r1 * c1,
         p2 = r2 * c2,
         inertia = 1;
-
-    for (short i = 0; i < Dimension; i++) {
-        v[i] = inertia * v[i] + p1 * (xpbest[i] - x[i]) + p2 * (xgbest[i] - x[i]);
+       v[i] = inertia * v[i] + p1 * (xpbest[i] - x[i]) + p2 * (xgbest[i] - x[i]);
         x[i] = x[i] + v[i];
     }
 

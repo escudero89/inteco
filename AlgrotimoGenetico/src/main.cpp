@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
 /* Parametros del algoritmo genetico */
 
     int cantIndividuos = 30;
-    int tamCromosoma = 10;
+    int tamCromosoma = 20;
     float brecha = 0.5;
     int tipo_codificacion = 0;
     int fitness_function = 0;
@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     vector<Individuo> nueva_generacion;
     int mejor;
     vector<float> fenotipo;
-    int maxIt = 100;
+    int maxIt = 300;
     float fitnessBuscado = 1000;
     int maxima_poblacion = cantIndividuos + int(cantIndividuos * 0.25);
     int minima_poblacion = cantIndividuos - int(cantIndividuos * 0.25);
@@ -93,7 +93,7 @@ cout<<"------------------------------------"<<endl;
 /* Parametros del algoritmo genetico */
 
     int cantIndividuos = 30;
-    int tamCromosoma = 30;
+    int tamCromosoma = 40;
     float brecha = 0.9;
     int tipo_codificacion = 2;
     int fitness_function = 2;
