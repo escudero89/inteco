@@ -1,21 +1,28 @@
 #include <iostream>
 #include <string>
+#include <ctime>
+#include <cstdlib>
+#include <vector>
 
-#include "include/individuo.h"
 #include "include/punto.h"
+#include "include/individuo.h"
+
 using namespace std;
 
 int main() {
 
-    string rama = "2ala+a";
+    srand(time(NULL));
+
+    string rama = "";
 
     punto origen(0, 0);
-    Individuo C(rama, origen);
 
-    origen = C.obtenerPuntoPosicion(rama);
+    vector<punto> tomas;
+    tomas.push_back(punto(3,3));
 
-    cout << "Hello world!" << endl;
-    cout << C.obtenerSubramaje(3) << endl;
-    origen.printPunto();
+    Individuo C(origen, tomas);
+    C.autocompletar();
+    cout << C.get_cromosoma();
+
     return 0;
 }

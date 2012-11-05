@@ -68,6 +68,20 @@ punto punto::operator/(float N){
     return punto(V);
 }
 
+
+bool punto::operator==(punto N){
+
+    int tam = this->coordenadas.size();
+
+    for(int i=0; i<tam; i++){
+        if(N.coordenadas[i] != this->coordenadas[i]){
+            return false;
+        }
+    }
+
+    return true;
+}
+
 float punto::distancia(punto A){
 
     punto d = *this - A;
@@ -82,6 +96,24 @@ float punto::distancia(punto A){
     return sqrt(dist); //sacar esta raiz si es muy lento
 }
 
+
+float punto::distancia_manhattan(punto A, punto &d){
+
+    d = A - *this;
+    int cant = this->coordenadas.size();
+    float dist = 0;
+
+    for(int i = 0; i<cant; i++){
+        dist += abs(d.coordenadas[i]);
+    }
+
+    if(cant == 2) {
+        d.coordenadas[0] = (d.coordenadas[0] != 0) ? d.coordenadas[0] / abs(d.coordenadas[0]) : 0;
+        d.coordenadas[1] = (d.coordenadas[1] != 0) ? d.coordenadas[1] / abs(d.coordenadas[1]) : 0;
+    }
+
+    return dist;
+}
 punto punto::pow2(){
 
     int tam = this->coordenadas.size();
@@ -114,7 +146,7 @@ void punto::printPunto(){
 
     for(unsigned int i = 0; i<this->coordenadas.size(); i++){
 
-        cout<<this->coordenadas[i]<<" -- ";
+        cout<<"\t"<<this->coordenadas[i];
 
     }
     cout<<endl;
@@ -132,4 +164,25 @@ float punto::sum(){
     }
 
     return acum;
+}
+
+unsigned int punto::menor_distancia(vector<punto> VP, short &menor_dist, punto &d_toma){
+
+    punto trash(0, 0);
+    float d, min = distancia_manhattan(VP[0], trash);
+    unsigned int min_i = 0;
+
+    for (unsigned int i = 1; i< VP.size(); i++){
+        d = distancia_manhattan(VP[i], trash);
+        if( d < min ){
+            min = d;
+            min_i = i;
+        }
+
+    }
+    distancia_manhattan(VP[min_i], d_toma);
+
+    menor_dist = min;
+    return min_i;
+
 }

@@ -1,20 +1,24 @@
 # depslib dependency file v1.0
-1351899870 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/main.cpp
+1352156668 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/main.cpp
 	<iostream>
 	<string>
-	"include/individuo.h"
+	<ctime>
+	<cstdlib>
+	<vector>
 	"include/punto.h"
+	"include/individuo.h"
 
-1351898919 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/src/individuo.cpp
+1352156422 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/src/individuo.cpp
+	<sstream>
 	"../include/individuo.h"
 
-1351899340 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/include/individuo.h
+1352152103 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/include/individuo.h
 	<string>
 	<vector>
 	"punto.h"
 	"../../utils/utils.h"
 
-1351895652 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/include/punto.h
+1352150826 /media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/include/punto.h
 	<vector>
 	<cstdlib>
 	<cmath>
@@ -47,6 +51,6 @@
 	<math.h>
 	<algorithm>
 
-1351895547 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/src/punto.cpp
+1352156619 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/src/punto.cpp
 	"../include/punto.h"
 

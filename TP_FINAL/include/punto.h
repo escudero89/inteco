@@ -19,11 +19,14 @@ public:
     punto operator+(const punto& other);
     punto operator-(const punto& other);
     punto operator/(float N);
+    bool operator==(punto N);
     float distancia(punto A);
+    float distancia_manhattan(punto A, punto &);
     punto pow2();
     punto raizCuadrada();
     void printPunto();
     float sum();
+    unsigned int menor_distancia(vector<punto> VP, short &, punto &);
     /* punto operator=(const punto& other){
      this->coordenadas = other.coordenadas;
 
