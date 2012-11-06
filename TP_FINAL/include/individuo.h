@@ -35,6 +35,8 @@ public:
     short cambioDeDireccion(short direccion_anterior, bool esGiroDerecho);
 
     string get_cromosoma() { return cromosoma; }
+
+    punto convertirOrientacion(short direccion);
 };
 
 #endif // INDIVIDUO_H

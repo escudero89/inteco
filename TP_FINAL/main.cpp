@@ -21,6 +21,7 @@ int main() {
     tomas.push_back(punto(3,3));
 
     Individuo C(origen, tomas);
+
     C.autocompletar();
     cout << C.get_cromosoma();
 

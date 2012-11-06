@@ -1,0 +1,56 @@
+# depslib dependency file v1.0
+1352163718 source:/media/Cristian/Repositorios/inteco/TP_FINAL/main.cpp
+	<iostream>
+	<string>
+	<ctime>
+	<cstdlib>
+	<vector>
+	"include/punto.h"
+	"include/individuo.h"
+
+1352160684 /media/Cristian/Repositorios/inteco/TP_FINAL/include/punto.h
+	<vector>
+	<cstdlib>
+	<cmath>
+	<iostream>
+
+1352161069 /media/Cristian/Repositorios/inteco/TP_FINAL/include/individuo.h
+	<string>
+	<vector>
+	"punto.h"
+	"../../utils/utils.h"
+
+1351917525 /media/Cristian/Repositorios/inteco/utils/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1352163932 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/individuo.cpp
+	<sstream>
+	"../include/individuo.h"
+
+1351917525 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/matriz.cpp
+	"../include/matriz.h"
+
+1351917525 /media/Cristian/Repositorios/inteco/TP_FINAL/include/matriz.h
+
+1351917525 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/poblacion.cpp
+	"../include/poblacion.h"
+
+1351917525 /media/Cristian/Repositorios/inteco/TP_FINAL/include/poblacion.h
+	<vector>
+	"individuo.h"
+
+1352160147 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/punto.cpp
+	"../include/punto.h"
+
+1351917525 source:/media/Cristian/Repositorios/inteco/utils/utils.cpp
+	"utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
+

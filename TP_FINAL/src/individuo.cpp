@@ -35,13 +35,15 @@ void Individuo::autocompletar() {
     cromosoma += ss.str();
 
     cromosoma += autocompletar_r(this->origen, tomas_libres, direccion_actual);
+
+    cout << "\n Se ha encontrado camino con " << cromosoma.size() << " tuberias.\n";
 }
 
 
 string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short direccion){
 
     punto
-        direccion_toma_libre,
+        punto_toma_libre,
         punto_actual = base;
 
     short
@@ -57,11 +59,12 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
 
     while(tomas_libres.size()){
 
-        idx_menor_distancia = base.menor_distancia(tomas_libres,
-                                                   menor_dist,
-                                                   direccion_toma_libre);
+        idx_menor_distancia = punto_actual.menor_distancia(tomas_libres,
+                                                           menor_dist,
+                                                           punto_toma_libre);
 
-        orientacion = calcularOrientacion(base, direccion_toma_libre);
+        orientacion = calcularOrientacion(convertirOrientacion(direccion_actual),
+                                          punto_toma_libre);
 
         nuevo_elemento = anexarElemento(tomas_libres.size(), orientacion);
 
@@ -71,14 +74,13 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
             stringstream ss;
         ss << retorno;
 
-        cout << ss.str() << " // " << direccion_actual << endl;
+        cout << ss.str() << " | " << direccion_actual << "\t Punto actual: ";
 
             punto_actual = obtenerPuntoPosicion(punto_actual, nuevo_elemento, direccion_actual);
 
     punto_actual.printPunto();
-getchar();
+
             if (punto_actual == tomas_libres[0]) {
-                cout << "\neaeaeaeaeaea";
                 break;
             }
 
@@ -141,7 +143,7 @@ string Individuo::anexarElemento(short tomas_libres_relativas, bool orientacion)
     tomas_libres_relativas = 0; /// ESTO A ARREGLR
     double
         p_bifurcacion = 0.1,   // 10%
-        p_codo = 0.15,         // 15%
+        p_codo = 0.35,         // 15%
         p_tee = 0.5;
 
     if (tomas_libres_relativas && get_rand() < p_bifurcacion) {
@@ -183,19 +185,22 @@ Salida: 0 -> IZQUIERDA || 1 -> DERECHA
 bool Individuo::calcularOrientacion(punto direccion_actual, punto direccion_ir) {
 
     punto Z(0, 0);
-    short retorno;cout << endl;
-direccion_ir.printPunto();
+    short retorno;
+
     // Esto quiere decir q son paralelos
     if (direccion_actual - direccion_ir == Z || direccion_actual + direccion_ir == Z) {
         retorno = rand() % 2;
     } else {
         if (direccion_actual.coordenadas[0] == 0) {
-            retorno = direccion_ir.coordenadas[0] * direccion_actual.coordenadas[1];
+            retorno = direccion_actual.coordenadas[1] * direccion_ir.coordenadas[0];
+            // Esto porque me devuelve 1 der , -1 izq
+            retorno = (retorno == 1) ? true : false;
         } else {
-            retorno = direccion_ir.coordenadas[1] * direccion_actual.coordenadas[0];
+            retorno = direccion_actual.coordenadas[0] * direccion_ir.coordenadas[1];
+            // Esto porque me devuelve -1 der , 1 izq
+            retorno = (retorno == -1) ? true : false;
         }
-        // Esto porque me devuelve 1 izq -1 derecha
-        retorno = (retorno - 1) / 2.0;
+
     }
 
     return (bool) retorno;
@@ -328,4 +333,40 @@ short Individuo::cambioDeDireccion(short direccion_anterior, bool esGiroDerecho)
     }
 
     return direccion_anterior;
+}
+
+/*
+"En base a un valor 1,2,3,4, devuelve un vector de posicion en base a eso. Lo
+mejor seria hacer esto directamente en la funcion que retorna 1,2,3,4"
+Recibe: un valor 1,2,3,4
+Salida: un vector (0,1) (1,0) (0, -1) (-1, 0) respectivamente
+*/
+punto Individuo::convertirOrientacion(short direccion) {
+
+    punto base;
+
+    switch (direccion) {
+        case 1:
+            base = punto(0, 1);
+            break;
+
+        case 2:
+            base = punto(1, 0);
+            break;
+
+        case 3:
+            base = punto(0, -1);
+            break;
+
+        case 4:
+            base = punto(-1, 0);
+            break;
+
+        default:
+            cout << "\nError al determinar punto nuevo en convertirOrientacion.\n";
+            getchar();
+    }
+
+    return base;
+
 }
