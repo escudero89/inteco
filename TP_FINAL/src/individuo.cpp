@@ -72,19 +72,91 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
             retorno += nuevo_elemento;
 
             stringstream ss;
-        ss << retorno;
-
-        cout << ss.str() << " | " << direccion_actual << "\t Punto actual: ";
-
+            ss << retorno;
             punto_actual = obtenerPuntoPosicion(punto_actual, nuevo_elemento, direccion_actual);
 
-    punto_actual.printPunto();
+            cout << ss.str() << " | " << direccion_actual << "\t Punto actual: ";
+            punto_actual.printPunto();
 
-            if (punto_actual == tomas_libres[0]) {
+            if (punto_actual == tomas_libres[idx_menor_distancia]) {
                 break;
             }
 
         } else {
+            // Calculo el punto actual en base a mi punto anterior, la direccion, y el flujo principal
+            punto_actual = obtenerPuntoPosicion(punto_actual, T.tubo_recto, direccion_actual);
+
+            retorno += "(" + nuevo_elemento;
+
+            /// MANIPULACION DE TOMAS LIBRES
+
+            /// Borro las tomas libres antes de asignarlas, asi recursivamente no me jode.
+            vector<punto>
+                toma_flujo_principal,
+                toma_flujo_secundario,
+                toma_flujo_terciario;
+
+            toma_flujo_principal.push_back(tomas_libres[idx_menor_distancia]);
+
+            // Borro la ya "asignada"
+            tomas_libres.erase(tomas_libres.begin() + idx_menor_distancia);
+
+            // Asigno ya el flujo secundario, y si hay, el terciario
+            toma_flujo_secundario.push_back(tomas_libres[0]);
+            tomas_libres.erase(tomas_libres.begin());
+
+            if (tomas_libres.size()) {
+                toma_flujo_terciario.push_back(tomas_libres[0]);
+                tomas_libres.erase(tomas_libres.begin());
+
+                // Y ahora asigno el resto de tomas al azar (si hay)
+                for (unsigned int k = 0, kSize = tomas_libres.size(); k < kSize ; k++) {
+                    switch (rand()%3) {
+                        case 0:
+                            toma_flujo_principal.push_back(tomas_libres[0]);
+                            break;
+                        case 1:
+                            toma_flujo_secundario.push_back(tomas_libres[0]);
+                            break;
+                        case 2:
+                            toma_flujo_terciario.push_back(tomas_libres[0]);
+                            break;
+                        default:
+                            cout << "Exploto todo vieja en la funcion recursiva \n";
+                    }
+                    tomas_libres.erase(tomas_libres.begin());
+                }
+            }
+
+            // El tema era que cuando accedia recursivamente, la funcion usaba las tomas libres
+            // (la primera) y no dejaba con tomas libres a las otras que se llamaban
+
+            /// FIN MANIPULACION
+
+            // Flujo principal
+            retorno += "(" + autocompletar_r(punto_actual, toma_flujo_principal, direccion_actual) + ")";
+
+            retorno += "(" + autocompletar_r(punto_actual,
+                                             toma_flujo_secundario,
+                                             cambioDeDireccion(direccion_actual,
+                                                               orientacion)) + ")";
+
+            if (nuevo_elemento == T.cruz) {
+                retorno += "(" + autocompletar_r(punto_actual,
+                                                toma_flujo_terciario,
+                                                cambioDeDireccion(direccion_actual,
+                                                                !orientacion)) + ")";
+            }
+
+            retorno += ")";
+
+            // Y ahora rompo el while, ya que no necesito seguir agregando
+            break;
+            cout << retorno << endl; getchar();
+        }
+        /*
+        {
+
             stringstream ss; /// PUEDE HABER PROBLEMAAS CON SS y DIRECCION
             ss << direccion << retorno << T.tubo_recto;
             punto_actual = obtenerPuntoPosicion(base, ss.str(), direccion_actual);
@@ -109,7 +181,7 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
             }
 
             retorno += ")";
-        }
+        }*/
 
     }
 
@@ -134,17 +206,57 @@ unsigned int Individuo::es_bifurcacion(string elemento) {
 "Va a devolver un codo o tubo recto y si llega a haber
 mas tomas libres que nodos libres puede
 devolver una cruz o una tee"
-Recibe: Cantidad de tomas libres - cantidad nodos libres y la orientacion false/true
+Recibe: Cantidad de tomas libres y la orientacion false/true
 Salida: Elemento nuevo a conexionar con la tuberia
 */
-string Individuo::anexarElemento(short tomas_libres_relativas, bool orientacion){
+string Individuo::anexarElemento(short tomas_libres, bool orientacion){
 
     string t;
-    tomas_libres_relativas = 0; /// ESTO A ARREGLR
+
     double
         p_bifurcacion = 0.1,   // 10%
         p_codo = 0.35,         // 15%
         p_tee = 0.5;
+
+    if (tomas_libres > 1 && get_rand() < p_bifurcacion) {
+        // Existe bifurcacion, vemos si es Tee o Cruz
+        if (get_rand() < p_tee) {
+            // Si es cero izquierdo, uno derecho
+            if (orientacion) {
+                t = T.tee_derecho;
+            } else {
+                t = T.tee_izquierdo;
+            }
+        // No agregamos cruz si no hay al menos tres tomas libres
+        } else if (tomas_libres > 2) {
+            t = T.cruz;
+        }
+    } else {
+    // Sino, agregamos un codo o un tubo recto
+        if (get_rand() < p_codo) {
+            // Si es cero izquierdo, uno derecho
+            if (orientacion) {
+                t = T.codo_derecho;
+            } else {
+                t = T.codo_izquierdo;
+            }
+        } else {
+            t = T.tubo_recto;
+        }
+    }
+
+    return t;
+}
+/*
+string Individuo::anexarElemento(short tomas_libres_relativas, bool orientacion){
+
+    string t;
+
+    double
+        p_bifurcacion = 0.1,   // 10%
+        p_codo = 0.35,         // 15%
+        p_tee = 0.5;
+
 
     if (tomas_libres_relativas && get_rand() < p_bifurcacion) {
         // Existe bifurcacion, vemos si es Tee o Cruz
@@ -175,7 +287,7 @@ string Individuo::anexarElemento(short tomas_libres_relativas, bool orientacion)
 
     return t;
 }
-
+*/
 /*
 "Dado un indice del cromosoma devuelve 0 o 1 indicando si la
 posicion optima es hacia la izquierda o hacia la derecha"

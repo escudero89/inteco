@@ -18,12 +18,14 @@ int main() {
     punto origen(0, 0);
 
     vector<punto> tomas;
-    tomas.push_back(punto(3,3));
+    tomas.push_back(punto(5,5));
+    tomas.push_back(punto(5,0));
+    tomas.push_back(punto(-4,-4));
 
     Individuo C(origen, tomas);
 
     C.autocompletar();
-    cout << C.get_cromosoma();
+    cout << "Cromosoma:\n" << C.get_cromosoma();
 
     return 0;
 }
