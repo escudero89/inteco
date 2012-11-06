@@ -79,7 +79,10 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
             punto_actual.printPunto();
 
             if (punto_actual == tomas_libres[idx_menor_distancia]) {
-                break;
+                tomas_libres.erase(tomas_libres.begin() + idx_menor_distancia);
+                cout << "Alcanzado! -----------------------------------\n";
+                // No le pongo el break, sino que elimino el punto de la lista
+                //break;
             }
 
         } else {
@@ -106,12 +109,15 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
             tomas_libres.erase(tomas_libres.begin());
 
             if (tomas_libres.size()) {
-                toma_flujo_terciario.push_back(tomas_libres[0]);
-                tomas_libres.erase(tomas_libres.begin());
+                if (nuevo_elemento == T.cruz) {
+                    toma_flujo_terciario.push_back(tomas_libres[0]);
+                    tomas_libres.erase(tomas_libres.begin());
+                }
 
                 // Y ahora asigno el resto de tomas al azar (si hay)
                 for (unsigned int k = 0, kSize = tomas_libres.size(); k < kSize ; k++) {
-                    switch (rand()%3) {
+                    // Si es verdadero, el switch es de 3
+                    switch (rand() % ( 2 + (nuevo_elemento == T.cruz))) {
                         case 0:
                             toma_flujo_principal.push_back(tomas_libres[0]);
                             break;
@@ -119,7 +125,9 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
                             toma_flujo_secundario.push_back(tomas_libres[0]);
                             break;
                         case 2:
-                            toma_flujo_terciario.push_back(tomas_libres[0]);
+                            if (nuevo_elemento == T.cruz) {
+                                toma_flujo_terciario.push_back(tomas_libres[0]);
+                            }
                             break;
                         default:
                             cout << "Exploto todo vieja en la funcion recursiva \n";

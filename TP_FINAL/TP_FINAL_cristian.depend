@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1352166117 source:/media/Cristian/Repositorios/inteco/TP_FINAL/main.cpp
+1352170561 source:/media/Cristian/Repositorios/inteco/TP_FINAL/main.cpp
 	<iostream>
 	<string>
 	<ctime>
@@ -29,7 +29,7 @@
 	<cstdlib>
 	<cassert>
 
-1352166177 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/individuo.cpp
+1352170492 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/individuo.cpp
 	<sstream>
 	"../include/individuo.h"
 

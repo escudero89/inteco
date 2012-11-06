@@ -18,9 +18,10 @@ int main() {
     punto origen(0, 0);
 
     vector<punto> tomas;
-    tomas.push_back(punto(5,5));
-    tomas.push_back(punto(5,0));
-    tomas.push_back(punto(-4,-4));
+    tomas.push_back(punto(10,10));
+    tomas.push_back(punto(-10,-10));
+    tomas.push_back(punto(10,-10));
+    tomas.push_back(punto(-10,10));
 
     Individuo C(origen, tomas);
 
