@@ -14,6 +14,8 @@ class Poblacion {
 public:
     Poblacion();
     void generarPoblacion();
+
+    vector<vector<double> > generarMatrizBloques(unsigned int, unsigned int);
 };
 
 #endif // POBLACION_H

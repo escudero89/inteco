@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "include/punto.h"
-#include "include/individuo.h"
+#include "include/poblacion.h"
 
 using namespace std;
 
@@ -38,12 +38,13 @@ int main() {
 */
 
 /// EJEMPLO DE CRUZA
+
     vector<punto> tomas2;
     tomas2.push_back(punto(1,1));
     tomas2.push_back(punto(-1,-1));
     tomas2.push_back(punto(-3,-3));
     tomas2.push_back(punto(3,3));
-
+/*
     string ramas1 = "1dada",
         ramas2 = "2aiia";
 
@@ -67,6 +68,28 @@ int main() {
     C1.forzarCromosoma(h1_a, h1_r, pos1_r, h1);
 
     cout << "Cromosoma final: "<< C1.get_cromosoma();
+*/
+
+/// Ejemplo de fitness
+    Individuo C1(origen, tomas2);
+
+    C1.autocompletar();
+    cout << "Cromosoma final: " << C1.get_cromosoma() << endl;
+
+    vector<vector<double> > Field;
+    vector<double> P1;
+
+    Poblacion P;
+    Field = P.generarMatrizBloques(20, 20);
+
+    cout << "Precio total: "  << C1.evaluarFitness(Field);
+
+/// A ver si puedo guardarlo
+
+    printCSV<double>(Field, "logs/field.dat", false);
+
+    Field = C1.get_puntos_double();
+    printCSV<double>(Field, "logs/puntos.dat", false);
 
     return 0;
 }

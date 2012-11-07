@@ -846,4 +846,131 @@ string Individuo::forzarCromosoma(string cromosoma_base,
     return cromosoma;
 
 }
+/*
+"Evalua el fitness de un individuo, en base a los bloques, al costo de las tuberias
+y el largo de ella"
+Recibe: la matriz de bloques
+Salida: el valor de fitness
+*/
+double Individuo::evaluarFitness(vector<vector<double> > &Field) {
 
+    // Voy recorriendo cada posicion que ocupa mi tuberia
+    /// CONVOCO ACA LA MEGA FUNCION DE MARCOS QUE OBTIENE PUNTOS
+    /// megaFuncionObtenedora de puntos
+    vector<punto> puntosObtenidos = tuberias;
+
+
+    double
+        fitness = 0,    // Mi valor de fitness
+        fitness_bloqueado = 500;    // Esto es que tan caro hago el pasar sobre un bloque
+
+    // Voy a suponer que todos mis puntos obtenidos son enteros
+    int x, y,
+        cant_rows = Field.size(),
+        cant_cols = (Field[0]).size(); // Notese la diferencia
+
+    cout << "Tenemos un Field de [" << cant_rows << " x " << cant_cols << "]\n";
+
+    for (unsigned int k = 0, kCant = puntosObtenidos.size() ; k < kCant ; k++) {
+        // Obtengo la coordenada de una tuberia
+        x = (int) puntosObtenidos[k].coordenadas[0] + cant_cols / 2;
+        y = (int) puntosObtenidos[k].coordenadas[1] + cant_rows / 2;
+
+        cout << x << " # " << y <<  " (bloqueado? " << Field[x][y] << ")" << endl;
+
+        if (x < 0  || y < 0) {
+            cout << "Error, la matriz no alcanza a cubrir todos los puntos\n";
+            getchar();
+        }
+
+        // Hay un bloque coincidiendo? Yo lo sumo total
+        fitness += Field[x][y] * fitness_bloqueado;
+    }
+
+    // Ademas voy viendo en mi cromosoma que costo tiene cada pieza
+    fitness += evaluarFitness_helper();
+
+    return fitness;
+}
+
+/*
+"La onda es que te da, en base al cromosoma, el costo total de este"
+Recibe: el cromosoma
+Salida: el valor de las componentes del cromosoma
+*/
+double Individuo::evaluarFitness_helper() {
+
+    // Creo un cromosoma sin punto de origen
+    string cromosoma_libre(cromosoma.begin() + 1, cromosoma.end());
+
+    cout << "\nCromosoma libre: " << cromosoma_libre << endl;
+
+    /// Precios:
+
+    double
+        precio_total = 0,
+        precio_base = 1;        // Esto es una medida para ajustar cuanto pesa el precio
+
+    // Voy a tomar tubos de 1''. Por lo que las medidas (segun planos)
+    // de cada cuadrado son 0.118 x 0.118 m
+
+    for (unsigned int k = 0, kCant = cromosoma_libre.size(); k < kCant ; k++) {
+        string cro_k;
+        cro_k = cromosoma_libre[k];
+
+        // Si encuentro un separador, salto al proximo for
+        if (cro_k == "(" || cro_k == ")") {
+            continue;
+        }
+
+        /// Por cada tuberia, cuento el precio
+
+        // Tubo simple de 1 metro sale 120$, entonces uno de 0.118m saldria
+        // 120 * 0.118 = 14$
+        if (cro_k == T.tubo_recto) {
+            precio_total += precio_base * 14;
+
+        //  Codo 90º (89$).
+        } else if (cro_k == T.codo_izquierdo || cro_k == T.codo_derecho) {
+            precio_total += precio_base * 89;
+
+        //  Tee (120$).
+        } else if (cro_k == T.tee_izquierdo || cro_k == T.tee_derecho) {
+            precio_total += precio_base * 120;
+
+        //  Cruz galvanizada (300$).
+        } else if (cro_k == T.cruz) {
+            precio_total += precio_base * 300;
+
+        // Sino se da ninguna, es porque hubo un error
+        } else {
+            cout << "\nHubo un error en evaluarFitness_helper (precios)";
+            getchar();
+        }
+
+        cout << "Pieza: " << cro_k <<" (precio $" << precio_total << ")"<<  endl;
+    }
+
+    return precio_total;
+
+}
+
+/*
+"Recorro las posiciones actuales, pero retorno estas en forma de puntos double"
+Salida: el vector de vectores de doubles de la posicion
+*/
+vector<vector<double> > Individuo::get_puntos_double() {
+
+    vector<vector<double> > retorno;
+    vector<double> aux;
+
+    for (unsigned int k = 0, kCant = tuberias.size(); k < kCant; k++ ) {
+        aux.push_back(tuberias[k].coordenadas[0]);
+        aux.push_back(tuberias[k].coordenadas[1]);
+
+        retorno.push_back(aux);
+        aux.clear();
+    }
+
+    return retorno;
+}

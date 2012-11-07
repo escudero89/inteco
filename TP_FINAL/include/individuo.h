@@ -59,6 +59,11 @@ public:
     vector<punto> getPosDirByIndex(unsigned int, punto &, short &, unsigned int = 0);
 
     string forzarCromosoma(string cromosoma_base, string cromosoma_reemplazado, vector<punto>, string nuevo_cromosoma);
+
+    double evaluarFitness(vector<vector<double> > &);
+    double evaluarFitness_helper();
+
+    vector<vector<double> > get_puntos_double();
 };
 
 #endif // INDIVIDUO_H
