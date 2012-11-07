@@ -54,3 +54,42 @@
 1352156619 source:/media/3B79A23F13FBC324/marcos/WorkSpace/inteco/TP_FINAL/src/punto.cpp
 	"../include/punto.h"
 
+1351917525 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/matriz.cpp
+	"../include/matriz.h"
+
+1351917525 /media/Cristian/Repositorios/inteco/TP_FINAL/include/matriz.h
+
+1351917525 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/poblacion.cpp
+	"../include/poblacion.h"
+
+1351917525 /media/Cristian/Repositorios/inteco/TP_FINAL/include/poblacion.h
+	<vector>
+	"individuo.h"
+
+1352241092 /media/Cristian/Repositorios/inteco/TP_FINAL/include/individuo.h
+	<string>
+	<vector>
+	"punto.h"
+	"../../utils/utils.h"
+
+1352210126 /media/Cristian/Repositorios/inteco/TP_FINAL/include/punto.h
+	<vector>
+	<cstdlib>
+	<cmath>
+	<iostream>
+
+1351917525 /media/Cristian/Repositorios/inteco/utils/utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1351917525 source:/media/Cristian/Repositorios/inteco/utils/utils.cpp
+	"utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
+

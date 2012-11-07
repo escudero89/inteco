@@ -97,7 +97,7 @@ float punto::distancia(punto A){
 }
 
 
-float punto::distancia_manhattan(punto A, punto &d){
+float punto::distancia_manhattan(punto A, punto &d, bool resolucion_baja){
 
     d = A - *this;
     int cant = this->coordenadas.size();
@@ -108,12 +108,28 @@ float punto::distancia_manhattan(punto A, punto &d){
     }
 
     if(cant == 2) {
-        d.coordenadas[0] = (d.coordenadas[0] != 0) ? d.coordenadas[0] / abs(d.coordenadas[0]) : 0;
-        d.coordenadas[1] = (d.coordenadas[1] != 0) ? d.coordenadas[1] / abs(d.coordenadas[1]) : 0;
-    }
+        if (!resolucion_baja) {
+            d.coordenadas[0] = (d.coordenadas[0] != 0) ? d.coordenadas[0] / abs(d.coordenadas[0]) : 0;
+            d.coordenadas[1] = (d.coordenadas[1] != 0) ? d.coordenadas[1] / abs(d.coordenadas[1]) : 0;
+        } else {///esto ANDA NO TOCAR
 
+            if(abs(d.coordenadas[0]) > abs(d.coordenadas[1])){
+
+                d.coordenadas[0]=1 * d.coordenadas[0]/abs(d.coordenadas[0]);
+                d.coordenadas[1]=0;
+
+            } else{
+
+                d.coordenadas[1]=1 * d.coordenadas[1]/abs(d.coordenadas[1]);
+                d.coordenadas[0]=0;
+
+            }
+
+        }
+    }
     return dist;
 }
+
 punto punto::pow2(){
 
     int tam = this->coordenadas.size();
