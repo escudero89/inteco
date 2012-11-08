@@ -184,7 +184,7 @@ vector<vector<double> > Poblacion::generarMatrizBloques(unsigned int cant_rows,
 
     for (unsigned int i = 0 ; i < cant_rows ; i++) {
         for (unsigned int j = 0 ; j < cant_cols ; j++) {
-            P1.push_back(rand()%1); // 0 libre, 1 ocupado
+            P1.push_back(0); // 0 libre, 1 ocupado
             cout << P1[j] << "\t";
         }
         cout << endl;

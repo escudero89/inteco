@@ -16,6 +16,10 @@ int main() {
 
     vector<punto> tomas2;
     tomas2.push_back(punto(10,10));
+    tomas2.push_back(punto(7,10));
+    tomas2.push_back(punto(3,10));
+    tomas2.push_back(punto(-3,10));
+    tomas2.push_back(punto(-7,10));
     tomas2.push_back(punto(-10,-10));
     tomas2.push_back(punto(10,-10));
     tomas2.push_back(punto(-10,10));
@@ -23,25 +27,38 @@ int main() {
     string rama = "4aaaaai(x(didaaaaaaiiaaaadaadiaaa)(aa(l(iidaiaaaaaaadaaaaaaada)(aaadaadaaidaaaiaaadaiaaaiaidaaaaaaaaaaaaaaaaaaaadaiadiaaaaadiaada)))(aiaiaaaadaaaaiadaaiaaaaaaaaaaia))";
 
     Individuo C1(origen, tomas2, rama, false);//, C2(origen, tomas2);
+    vector<punto> puntos_borrados;
+    C1.get_puntos();
+    C1.get_spliced_cromosoma(get_rand(), puntos_borrados);
 
+    cout << C1.get_cromosoma();
+/*
    cout << "Entrando \n";
     C1.get_puntos();
 cout << C1.get_cromosoma() << endl;
 cout << C1.get_puntos().size() << " \\ " << C1.get_direcciones().size() << endl;
     for (unsigned int i = 0 ; i<C1.get_direcciones().size(); i++) {
         cout << C1.getDirByIndex(i) << "\t";
-    }
+    }*/
 #endif
     //C1.cruzarCromosoma(C2, 0.2);
 #if 1
+
+    // APAGAMOS EL COUT
+    streambuf * old;
+    old = cout.rdbuf(0);
+
     vector<punto> vpunto;
     Individuo ind(origen, tomas2, "");
-    Poblacion P(0.6,0.4,0.5,30,origen,tomas2);
+    Poblacion P(0.4,0.1,0.5,30,origen,tomas2);
     for(unsigned int k = 0 ; k < 1000 ; k++) {
         P.reproduccion();
         cout << "Mejor cromosoma > " << ind.get_cromosoma();
 
     }
+
+    // LO PRENDEMOS
+    cout.rdbuf(old);
 
     ind = P.getMejorIndividuo();
     vpunto = ind.get_puntos();

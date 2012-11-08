@@ -1,10 +1,16 @@
 #! /usr/bin/octave -qf
 
 % Le voy a pasar dos archivos csv para que lea, uno vector<punto> y otro matriz
-function print_tube(	surfacing = false, archivo_vector_puntos = 'puntos.dat', archivo_Field = 'field.dat')
+function print_tube(surfacing = false, archivo_vector_puntos = 'puntos.dat', archivo_Field = 'field.dat')
 
 	vector_puntos = csvread(archivo_vector_puntos);
 	Field = csvread(archivo_Field);
+	
+	% En la primera fila
+	punto_origen = vector_puntos(1, :);
+	for k = 1 : size(vector_puntos)(1)
+		
+	end
 
 	% Primera columna filas, segunda columnas
 	cant_y = size(Field)(1);
@@ -45,6 +51,7 @@ Field
 		xlim([min(vector_puntos(:,1) - 1) , max(vector_puntos(:,1) + 1)]);
 		ylim([min(vector_puntos(:,2) - 1) , max(vector_puntos(:,2) + 1)]);
 		
+		grid;
 		hold off;
 	end
 

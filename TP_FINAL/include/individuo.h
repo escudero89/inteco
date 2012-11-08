@@ -11,6 +11,8 @@ using namespace std;
 class Individuo {
     string cromosoma;
 
+    bool esta_siendo_mutado;
+
     punto origen;
     Tubo T;
 
@@ -61,7 +63,7 @@ public:
 
     vector<punto> getPosDirByIndex(unsigned int, punto &, short &, unsigned int = 0);
 
-    string forzarCromosoma(string cromosoma_base, string cromosoma_reemplazado, vector<punto>);
+    string forzarCromosoma(string &cromosoma_base, string cromosoma_reemplazado, vector<punto>);
 
     double evaluarFitness(vector<vector<double> > &);
     double evaluarFitness_helper();

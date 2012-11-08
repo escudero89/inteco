@@ -11,6 +11,8 @@ Individuo::Individuo(punto origen,
     this->origen = origen;
     this->tomas = tomas;
 
+    esta_siendo_mutado = false;
+
     T.tubo_recto = "a";
     T.codo_izquierdo = "i";
     T.codo_derecho = "d";
@@ -67,7 +69,7 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
         menor_dist,
         idx_menor_distancia,
         direccion_actual = direccion,
-        radio_absorcion = 5;
+        radio_absorcion = (esta_siendo_mutado) ? 10 : 5;
 
     bool orientacion;
 
@@ -628,7 +630,12 @@ string Individuo::get_spliced_cromosoma(double idx_percentage, vector<punto> &pu
     // Si es la primera posicion
     if (idx == 0) {
         idx++;
+
+    // O la ultima
+    } else if (idx == cromosoma.size()) {
+        idx--;
     }
+
 
     // Evito trabajar en un parentesis
     while (cromosoma[idx] == '(' || cromosoma[idx] == ')') {
@@ -639,9 +646,11 @@ string Individuo::get_spliced_cromosoma(double idx_percentage, vector<punto> &pu
         }
     }
 
+
     string
         cromosoma_base = this->cromosoma.substr(idx),
-        cromosoma_spliceado = get_spliced_cromosoma_r(cromosoma_base, pos_corte);
+        cromosoma_spliceado = get_spliced_cromosoma_r(cromosoma_base, pos_corte),
+        cromosoma_spliceado_sin_parentesis = cromosoma_spliceado;
 
     cout << "Indice inicial: "<< idx<< endl;
     idx += pos_corte;
@@ -669,14 +678,20 @@ string Individuo::get_spliced_cromosoma(double idx_percentage, vector<punto> &pu
             idx_sin_parentesis--;
         }
     }
-    hasta_sin = idx_sin_parentesis + cromosoma_spliceado.size();
+
+    /// Voy a obtener un cromosoma sin parentesis
+    for (unsigned int k = 0; k < cromosoma_spliceado_sin_parentesis.size(); k++) {
+        if (cromosoma_spliceado_sin_parentesis[k] == '(' ||
+            cromosoma_spliceado_sin_parentesis[k] == ')') {
+            cromosoma_spliceado_sin_parentesis.erase(k, 1);
+            k--;
+        }
+    }
+
+    hasta_sin = idx_sin_parentesis + cromosoma_spliceado_sin_parentesis.size();
 
     vector<punto> puntos_reemplazados(tuberias.begin() + idx_sin_parentesis,
                                       tuberias.begin() + hasta_sin);
-
-    for (unsigned int j = 0; j < puntos_reemplazados.size(); j++) {
-        cout << "Reemplazado: "; puntos_reemplazados[j].printPunto();
-    }
 
     puntos_borrados = puntos_reemplazados;
 
@@ -689,7 +704,30 @@ string Individuo::get_spliced_cromosoma(double idx_percentage, vector<punto> &pu
 string Individuo::get_spliced_cromosoma_r(string cromosoma_base, unsigned int &pos_corte) {
 
     string retorno = cromosoma_base;
+//    short contador_parentesis_abiertos = 0;
+/*
+    // Si caigo en un parentesis cerrado, me voy al proximo caso
+    if (cromosoma_base[0] == ')') {
+        pos_corte++;
+        retorno = get_spliced_cromosoma_r(cromosoma_base.substr(1), pos_corte);
+    } else {
+        for (unsigned int k = 0, N = cromosoma_base.size() ; k < N ; k++) {
+            // Si encuentro un (, lo agrego para ser reemplazado
+            if (cromosoma_base[k] == '(') {
+                contador_parentesis_abiertos++;
+            } else if (cromosoma_base[k] == ')') {
+                contador_parentesis_abiertos--;
+            }
 
+            // Si tengo contador de ) negativos, lo detengo!
+            if (contador_parentesis_abiertos < 0) {
+                retorno = cromosoma_base.substr(0, k);
+                break;
+            }
+
+        }
+    }
+*/
     // Si caigo en un parentesis cerrado, me voy al proximo caso
     if (cromosoma_base[0] == ')') {
         pos_corte++;
@@ -764,8 +802,11 @@ vector<punto> Individuo::getPosDirByIndex(unsigned int idx,
 
     cout << "Real_idx: " << real_idx << " | " << tuberias.size();
 
-    pos_actual = tuberias[real_idx - 1];
-    direccion = direcciones[real_idx - 1];
+    // Evito que se haga menor a cero
+    real_idx = (real_idx > 0) ? real_idx - 1 : 0;
+
+    pos_actual = tuberias[real_idx];
+    direccion = direcciones[real_idx];
 
     return tomas_libres_cubiertas;
 }
@@ -801,9 +842,9 @@ string Individuo::forzarCromosoma(string &cromosoma_base,
 
     cout << "Cromosoma base: " << cromosoma_base << endl;
     cout << "Cromosoma reemplazado: " << cromosoma_reemplazado << endl;
-
+cout << "INICIO\n";
     this->tuberias = get_puntos();
-
+cout << "FIN\n";
     /*
 
     /// INICIALIZO
@@ -846,7 +887,7 @@ string Individuo::forzarCromosoma(string &cromosoma_base,
 
     for (unsigned int k = 0 ; k < tuberias_reemplazadas.size() ; k++) {
       for (unsigned int m = 0; m < tomas.size(); m++) {
-          cout << "Tuberia analizada! "; tuberias_reemplazadas[k].printPunto();
+          //cout << "Tuberia analizada! "; tuberias_reemplazadas[k].printPunto();
           if (tuberias_reemplazadas[k] == tomas[m]) { // Encontro tuberia
               tomas_liberadas.push_back(tomas[m]);
               cout << "Tuberia cubierta! "; tuberias_reemplazadas[k].printPunto();
@@ -856,6 +897,8 @@ string Individuo::forzarCromosoma(string &cromosoma_base,
 
     // Reemplazo los valores por la posicion, punto y direccion del "E"
     cout << "\nIgnorar estas tomas: \n";
+    cout << cromosoma << endl;
+    cout << pos_separador << " | " << direccion_actual << endl; punto_actual.printPunto();
     getPosDirByIndex(pos_separador - 1, punto_actual, direccion_actual);
 
     cout << "____________________\n";
@@ -975,8 +1018,11 @@ double Individuo::evaluarFitness(vector<vector<double> > &Field) {
     }
 
     // Y se lo agrego al fitness con mucha penalizacion
-    fitness += 1000 * tomas_libres;
+    fitness += 100000 * tomas_libres;
     cout << "Tomas libres en fitness: " <<  tomas_libres << endl;
+
+    // Y le sumo la longitud del cromosoma al cuadrado por x
+    //fitness += tuberias.size() * tuberias.size() * 10;
 
     return fitness;
 }
@@ -1069,7 +1115,11 @@ vector<vector<double> > Individuo::get_puntos_double() {
 Salida: vector con los puntos ocupados por la tuberia
 */
 vector<punto> Individuo::get_puntos() {
-cout << "Parte 1" << endl;
+
+    // Borramos lo que estaba antes
+    this->tuberias.clear();
+    this->direcciones.clear();
+
     vector<short> nuevas_direcciones,
                     nuevas_dir_0,
                     nuevas_dir_1,
@@ -1181,7 +1231,6 @@ cout << "Parte 1" << endl;
     VP.insert(VP.begin(), origen);
 
     this->tuberias = VP;
-    this->direcciones.clear();
     this->direcciones = nuevas_direcciones;
     return VP;
 
@@ -1356,7 +1405,9 @@ Recibe: el cromosoma a editar (normalmente dentro de la clase)
 Salida: el cromosoma mutado
 */
 void Individuo::mutarCromosoma() {
-//    cout << "Fase 1"; getchar();
+
+    esta_siendo_mutado = true;
+
     double random_idx_percentage = get_rand();
 
     string cromosoma_eliminado;
@@ -1364,8 +1415,7 @@ void Individuo::mutarCromosoma() {
 
     cout << "Cromosoma utilizado al mutar:" << cromosoma << endl;
 
-    // Libero lo que tenia antes, y lo recalculo
-    tuberias.clear(); direcciones.clear();
+    // Recalculando
     get_puntos();
 
     // Obtengo un cromosoma
@@ -1377,6 +1427,8 @@ void Individuo::mutarCromosoma() {
     forzarCromosoma(this->cromosoma, cromosoma_eliminado, puntos_eliminados);
 //cout << "Fase 4"; getchar();
     cout << "\nCromosoma mutado:" << cromosoma << endl;
+
+    esta_siendo_mutado = false;
 }
 
 void Individuo::cruzarCromosoma(Individuo &I2, double pos_corte) {
