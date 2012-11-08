@@ -45,7 +45,7 @@ void Individuo::autocompletar() {
     cromosoma += ss.str();
 
     // Agrego la direccion a mi vector de direcciones
-    direcciones.push_back(direccion_actual);
+    // direcciones.push_back(direccion_actual);
 
     cromosoma += autocompletar_r(this->origen, tomas_libres, direccion_actual);
 
@@ -355,7 +355,7 @@ punto Individuo::obtenerPuntoPosicion(punto posicion, string cromosoma_de_direcc
     }
 
     // Agrego mi posicion a mi vector de posiciones
-    direcciones.push_back(direccion);
+    //direcciones.push_back(direccion);
 
     return posicion;
 
@@ -1069,7 +1069,7 @@ vector<vector<double> > Individuo::get_puntos_double() {
 Salida: vector con los puntos ocupados por la tuberia
 */
 vector<punto> Individuo::get_puntos() {
-
+cout << "Parte 1" << endl;
     vector<short> nuevas_direcciones,
                     nuevas_dir_0,
                     nuevas_dir_1,
@@ -1082,14 +1082,14 @@ vector<punto> Individuo::get_puntos() {
 
     bool orientacion;
 
-    char ca = cromo[0];
-    short direccion_actual = atoi(&ca);
+    //char ca = cromo[0];
+    string ca; ca = cromo[0];
+    short direccion_actual = atoi(ca.c_str());
     cromo = cromo.substr(1);
 
     nuevas_direcciones.push_back(direccion_actual);
 
     punto base = this->origen;
-
 
     while(cromo.size()){
 
@@ -1356,26 +1356,26 @@ Recibe: el cromosoma a editar (normalmente dentro de la clase)
 Salida: el cromosoma mutado
 */
 void Individuo::mutarCromosoma() {
-
+//    cout << "Fase 1"; getchar();
     double random_idx_percentage = get_rand();
 
     string cromosoma_eliminado;
     vector<punto> puntos_eliminados;
 
-    cout << cromosoma ;
+    cout << "Cromosoma utilizado al mutar:" << cromosoma << endl;
 
+    // Libero lo que tenia antes, y lo recalculo
+    tuberias.clear(); direcciones.clear();
     get_puntos();
-
-    printVector<short>(get_direcciones());
 
     // Obtengo un cromosoma
     cromosoma_eliminado = get_spliced_cromosoma(random_idx_percentage, puntos_eliminados);
-
+//cout << "Fase 3"; getchar();
     cout << "\n\n\nCromosoma sin mutar:" << cromosoma << endl;
 
     // El ultimo argumento es vacio porque no quiero "heredar nada"
     forzarCromosoma(this->cromosoma, cromosoma_eliminado, puntos_eliminados);
-
+//cout << "Fase 4"; getchar();
     cout << "\nCromosoma mutado:" << cromosoma << endl;
 }
 
