@@ -405,6 +405,12 @@ punto Individuo::nuevaDireccion_helper(punto base, short direccion) {
 
         default:
             cout << "\nError al determinar punto nuevo en nuevaDireccion_helper.\n";
+            cout << "Direccion recibida: " << direccion << endl;
+
+            cout << "\nCromosoma: " << cromosoma << endl;
+            cout << "Tam tuberias y  direcciones: " << tuberias.size() << ", " << direcciones.size() << endl;
+            cout << "Vector de direcciones: "; printVector<short>(direcciones);
+
             getchar();
     }
 
@@ -645,11 +651,11 @@ string Individuo::get_spliced_cromosoma(double idx_percentage, vector<punto> &pu
 
     cromosoma.erase(idx, cromosoma_spliceado.size());
 
-    cout << "Ereseado:" << cromosoma << endl;
+    cout << "Cromosoma borrado: " << cromosoma << endl;
 
     cromosoma.insert(idx, "E");
 
-    cout << "E:" << cromosoma << endl;
+    cout << "Cromosoma con E:" << cromosoma << endl;
 
     /// Reviso las tuberias
 
@@ -769,9 +775,35 @@ Recibe: cromosoma base (this->cromosoma), cromosoma_reemplazado (lo que quitamos
 Salida: el cromosoma base modificado
 */
 
-string Individuo::forzarCromosoma(string cromosoma_base,
+string Individuo::forzarCromosoma(string &cromosoma_base,
                                   string cromosoma_reemplazado,
                                   vector<punto> tuberias_reemplazadas) {
+
+    cout << "\n\n----------------------------------------------------------\n";
+    cout << " INICIANDO FORZAR CROMOSOMA \n\n";
+
+    // Devuelve la posicion de insercion
+    unsigned int pos_separador = cromosoma_base.find(T.separador);
+
+    punto punto_actual;
+    short direccion_actual;
+    vector<punto> nuevas_tuberias;
+
+    cout << "Pos separador: " << pos_separador << endl;
+    cout << "Sub Cromosoma hasta separador: " << cromosoma_base.substr(0, pos_separador) << endl;
+    cout << "Cromosoma_reemplazado tamanio: " << cromosoma_reemplazado.size() << endl;
+
+    cout << "Cromosoma: " << cromosoma << endl;
+
+    cromosoma_base.replace(pos_separador, 1, cromosoma_reemplazado);
+
+    cout << "Cromosoma base: " << cromosoma_base << endl;
+    cout << "Cromosoma reemplazado: " << cromosoma_reemplazado << endl;
+
+    this->tuberias = get_puntos();
+
+    /*
+
     /// INICIALIZO
 
     cout << "\n\n----------------------------------------------------------\n";
@@ -790,6 +822,7 @@ string Individuo::forzarCromosoma(string cromosoma_base,
     /// MODIFICACIONES EN CROMOSOMA
 
     cout << "Cromosoma: " << cromosoma << endl;
+    // Deberia ser igual al cromosoma
     cout << "Cromosoma base: " << cromosoma_base << endl;
     cout << "Cromosoma reemplazado: " << cromosoma_reemplazado << endl;
 
@@ -797,7 +830,7 @@ string Individuo::forzarCromosoma(string cromosoma_base,
     cout << "Entre";
     this->tuberias = get_puntos();
     cout << "Pero no sali";
-
+*/
     getPosDirByIndex(pos_separador + cromosoma_reemplazado.size(),
                      punto_actual,
                      direccion_actual,
@@ -996,7 +1029,8 @@ double Individuo::evaluarFitness_helper() {
 
         // Sino se da ninguna, es porque hubo un error
         } else {
-            cout << "\nHubo un error en evaluarFitness_helper (precios)";
+            cout << "\nHubo un error en evaluarFitness_helper (precios)" << endl;
+            cout << "Cromosoma del error:\n" << cromosoma;
             getchar();
         }
 
@@ -1073,7 +1107,6 @@ vector<punto> Individuo::get_puntos() {
         }
 
     }
-
 
     if(es_parentesis(tipo_tubo) == 1){
         //Actualizo el tipo tubo
@@ -1327,7 +1360,7 @@ void Individuo::mutarCromosoma() {
     string cromosoma_eliminado;
     vector<punto> puntos_eliminados;
 
-    cout << cromosoma ; getchar();
+    cout << cromosoma ;
 
     get_puntos();
 
@@ -1336,8 +1369,12 @@ void Individuo::mutarCromosoma() {
     // Obtengo un cromosoma
     cromosoma_eliminado = get_spliced_cromosoma(random_idx_percentage, puntos_eliminados);
 
+    cout << "\n\n\nCromosoma sin mutar:" << cromosoma << endl;
+
     // El ultimo argumento es vacio porque no quiero "heredar nada"
     forzarCromosoma(this->cromosoma, cromosoma_eliminado, puntos_eliminados);
+
+    cout << "\nCromosoma mutado:" << cromosoma << endl;
 }
 
 void Individuo::cruzarCromosoma(Individuo &I2, double pos_corte) {
@@ -1355,8 +1392,12 @@ void Individuo::cruzarCromosoma(Individuo &I2, double pos_corte) {
 
     cout << "\n\n------------------------------------------------------------------\n\n";
 
+    cout << "\n\n\nCromosoma sin cruzar:" << cromosoma << endl;
+
     this->forzarCromosoma(h1_a, h2, pos1_r);
     I2.forzarCromosoma(h2_a, h1, pos2_r);
+
+    cout << "\nCromosoma cruzado:" << cromosoma << endl;
 
     cout << "\n\n------------------------------------------------------------------\n\n";
 
