@@ -1277,10 +1277,10 @@ vector<punto> Individuo::get_puntos_r(punto base, short direccion_actual,
             VP_r3 = get_puntos_r(base, direccion_flujo_terciario, biff[2], nuevas_dir_2);
 
             nuevas_direcciones.insert(nuevas_direcciones.end(),
-                                   nuevas_dir_0.begin(), nuevas_dir_1.end());
+                                   nuevas_dir_1.begin(), nuevas_dir_1.end());
 
             nuevas_direcciones.insert(nuevas_direcciones.end(),
-                                   nuevas_dir_0.begin(), nuevas_dir_2.end());
+                                   nuevas_dir_2.begin(), nuevas_dir_2.end());
 
             VP.insert(VP.end(), VP_r2.begin(), VP_r2.end());
             VP.insert(VP.end(), VP_r3.begin(), VP_r3.end());
