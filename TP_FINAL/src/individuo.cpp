@@ -925,6 +925,24 @@ double Individuo::evaluarFitness(vector<vector<double> > &Field) {
     // Ademas voy viendo en mi cromosoma que costo tiene cada pieza
     fitness += evaluarFitness_helper();
 
+    /// Otra cosa extra, y es que si no cubre todas las tuberias, lo penalizo copado
+    unsigned int tomas_libres = tomas.size();
+    vector<punto> tomas_analizadas(tomas);
+
+    for (unsigned int i = 0, N = tuberias.size() ; i < N ; i++) {
+        for (unsigned int j = 0 ; j < tomas_analizadas.size() ; j++) {
+            if (tuberias[i] == tomas_analizadas[j]) {
+                tomas_libres--;
+                // Borro la ya analizada
+                tomas_analizadas.erase(tomas_analizadas.begin() + j);
+            }
+        }
+    }
+
+    // Y se lo agrego al fitness con mucha penalizacion
+    fitness += 1000 * tomas_libres;
+    cout << "Tomas libres en fitness: " <<  tomas_libres << endl;
+
     return fitness;
 }
 /*
@@ -1312,6 +1330,8 @@ void Individuo::mutarCromosoma() {
     cout << cromosoma ; getchar();
 
     get_puntos();
+
+    printVector<short>(get_direcciones());
 
     // Obtengo un cromosoma
     cromosoma_eliminado = get_spliced_cromosoma(random_idx_percentage, puntos_eliminados);
