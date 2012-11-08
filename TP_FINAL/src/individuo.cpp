@@ -114,9 +114,11 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
                 cout << nuevo_elemento << " | " << direccion_actual << "\t Punto actual: ";
                 punto_actual.printPunto();
 
-                if (punto_actual == tomas_libres[idx_menor_distancia]) {
-                    tomas_libres.erase(tomas_libres.begin() + idx_menor_distancia);
-                    cout << "Alcanzado! -----------------------------------\n";
+                for (unsigned int kTomas = 0 ; kTomas < tomas_libres.size(); kTomas++) {
+                    if (punto_actual == tomas_libres[kTomas]) {
+                        tomas_libres.erase(tomas_libres.begin() + kTomas);
+                        cout << "Alcanzado! -------------------------------\n";
+                    }
                 }
 
             }
