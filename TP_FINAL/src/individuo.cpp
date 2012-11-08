@@ -2,13 +2,14 @@
 
 #include "../include/individuo.h"
 
-Individuo::Individuo(punto origen, vector<punto> &tomas, string cromosoma) {
+Individuo::Individuo(punto origen,
+                      vector<punto> &tomas,
+                       string cromosoma,
+                        bool completar) {
+
     this->cromosoma = cromosoma;
     this->origen = origen;
     this->tomas = tomas;
-
-    // El primer punto es el origen
-    tuberias.push_back(origen);
 
     T.tubo_recto = "a";
     T.codo_izquierdo = "i";
@@ -18,6 +19,12 @@ Individuo::Individuo(punto origen, vector<punto> &tomas, string cromosoma) {
     T.cruz = "x";
 
     T.separador = "E";
+    T.abre_parentesis = "(";
+    T.cierra_parentesis = ")";
+
+    if(completar)
+        autocompletar();
+
 }
 
 /*
@@ -43,6 +50,10 @@ void Individuo::autocompletar() {
     cromosoma += autocompletar_r(this->origen, tomas_libres, direccion_actual);
 
     cout << "\n Se ha encontrado camino con " << cromosoma.size() << " tuberias.\n";
+
+    /// Actualizo mi vector de tuberias
+    // @TODO vector de direcciones
+    this->tuberias = get_puntos();
 }
 
 
@@ -64,6 +75,9 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
         retorno,
         nuevo_elemento;
 
+    cout << "\nPartiendo de origen: "; origen.printPunto();
+    cout << "Con direccion: " << direccion << endl;
+
     while(tomas_libres.size()){
 
         idx_menor_distancia = punto_actual.menor_distancia(tomas_libres,
@@ -78,8 +92,14 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
         if (es_bifurcacion(nuevo_elemento) == 0) {
 
             if (menor_dist < radio_absorcion){
-                tomas_libres[idx_menor_distancia].printPunto();
-                retorno += forzar_completado(punto_actual, direccion_actual, tomas_libres[idx_menor_distancia]);
+                string retorno_forzar_completado;
+                cout << "Toma destino en forzar: "; tomas_libres[idx_menor_distancia].printPunto();
+                retorno_forzar_completado = forzar_completado(punto_actual,
+                                                              direccion_actual,
+                                                              tomas_libres[idx_menor_distancia]);
+
+                cout << "Nuevas tuberias de forzar_completado: " << retorno_forzar_completado << endl;
+                retorno += retorno_forzar_completado;
 
                 tomas_libres.erase(tomas_libres.begin() + idx_menor_distancia);
                 cout << "Alcanzado! -----------------------------------\n";
@@ -91,7 +111,7 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
                 ss << retorno;
                 punto_actual = obtenerPuntoPosicion(punto_actual, nuevo_elemento, direccion_actual);
 
-                cout << ss.str() << " | " << direccion_actual << "\t Punto actual: ";
+                cout << nuevo_elemento << " | " << direccion_actual << "\t Punto actual: ";
                 punto_actual.printPunto();
 
                 if (punto_actual == tomas_libres[idx_menor_distancia]) {
@@ -161,16 +181,19 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
             // Flujo principal
             retorno += "(" + autocompletar_r(punto_actual, toma_flujo_principal, direccion_actual) + ")";
 
-            retorno += "(" + autocompletar_r(punto_actual,
-                                             toma_flujo_secundario,
-                                             cambioDeDireccion(direccion_actual,
-                                                               orientacion)) + ")";
-
             if (nuevo_elemento == T.cruz) {
                 retorno += "(" + autocompletar_r(punto_actual,
+                                                 toma_flujo_secundario,
+                                                 cambioDeDireccion(direccion_actual, 0)) + ")";
+
+                retorno += "(" + autocompletar_r(punto_actual,
                                                 toma_flujo_terciario,
+                                                cambioDeDireccion(direccion_actual, 1)) + ")";
+            } else { // Es una tee?
+                retorno += "(" + autocompletar_r(punto_actual,
+                                                toma_flujo_secundario,
                                                 cambioDeDireccion(direccion_actual,
-                                                                !orientacion)) + ")";
+                                                orientacion)) + ")";
             }
 
             retorno += ")";
@@ -192,6 +215,18 @@ unsigned int Individuo::es_bifurcacion(string elemento) {
     if (elemento == T.tee_derecho || elemento == T.tee_izquierdo) {
         retorno = 1;
     } else if (elemento == T.cruz) {
+        retorno = 2;
+    }
+
+    return retorno;
+}
+
+unsigned int Individuo::es_parentesis(string elemento){
+    unsigned int retorno = 0;
+
+    if(elemento == T.abre_parentesis) {
+        retorno = 1;
+    }else if(elemento == T.cierra_parentesis){
         retorno = 2;
     }
 
@@ -244,47 +279,6 @@ string Individuo::anexarElemento(short tomas_libres, bool orientacion){
     return t;
 }
 /*
-string Individuo::anexarElemento(short tomas_libres_relativas, bool orientacion){
-
-    string t;
-
-    double
-        p_bifurcacion = 0.1,   // 10%
-        p_codo = 0.35,         // 15%
-        p_tee = 0.5;
-
-
-    if (tomas_libres_relativas && get_rand() < p_bifurcacion) {
-        // Existe bifurcacion, vemos si es Tee o Cruz
-        if (get_rand() < p_tee) {
-            // Si es cero izquierdo, uno derecho
-            if (orientacion) {
-                t = T.tee_derecho;
-            } else {
-                t = T.tee_izquierdo;
-            }
-        // No agregamos cruz si no hay al menos tres tomas libres
-        } else if (tomas_libres_relativas > 1) {
-            t = T.cruz;
-        }
-    } else {
-    // Sino, agregamos un codo o un tubo recto
-        if (get_rand() < p_codo) {
-            // Si es cero izquierdo, uno derecho
-            if (orientacion) {
-                t = T.codo_derecho;
-            } else {
-                t = T.codo_izquierdo;
-            }
-        } else {
-            t = T.tubo_recto;
-        }
-    }
-
-    return t;
-}
-*/
-/*
 "Dado un indice del cromosoma devuelve 0 o 1 indicando si la
 posicion optima es hacia la izquierda o hacia la derecha"
 Recibe: indice del elemento en el cromosoma
@@ -312,16 +306,6 @@ bool Individuo::calcularOrientacion(punto direccion_actual, punto direccion_ir) 
     }
 
     return (bool) retorno;
-}
-
-/*
-"Le paso un indice de cromosoma y  devuelve la distancia a
-la toma libre mas cercana a ese elemento"
-Recibe:
-Salida:
-*/
-bool Individuo::calcularDistancia(short){
-    return true;
 }
 
 /*
@@ -369,7 +353,6 @@ punto Individuo::obtenerPuntoPosicion(punto posicion, string cromosoma_de_direcc
     }
 
     // Agrego mi posicion a mi vector de posiciones
-    tuberias.push_back(posicion);
     direcciones.push_back(direccion);
 
     return posicion;
@@ -484,9 +467,9 @@ punto Individuo::convertirOrientacion(short direccion) {
 }
 
 /*
-"MARCO COMPLETA"
-Recibe: un valor 1,2,3,4
-Salida: un vector (0,1) (1,0) (0, -1) (-1, 0) respectivamente
+"Fuerza a un cromosoma a llegar a un toma especificado"
+Recibe: un punto origen, una direccion actual y el punto donde esta el toma
+Salida: devuelve un string con el cromosoma modificado que llega al toma
 */
 string Individuo::forzar_completado(punto &base,
                                     short &direccion_actual,
@@ -521,6 +504,7 @@ string Individuo::forzar_completado(punto &base,
         }
 
         retorno += nuevo_elemento;
+
         base = obtenerPuntoPosicion(base, nuevo_elemento, direccion_actual);
 
         direccion_actual_convertida = convertirOrientacion(direccion_actual);
@@ -530,6 +514,10 @@ string Individuo::forzar_completado(punto &base,
         if (direccion_actual_convertida - dir_toma == Z) {
             girar = false;
         }
+
+
+        cout << "Nuevo elemento [" << nuevo_elemento << "], direccion: "
+             << direccion_actual << " posicion: "; base.printPunto();
 
     }
 
@@ -623,36 +611,60 @@ Recibe: un valor entre 0 y 1
 Salida: cromosoma spliceado, el cromosoma borrado, y el vector de puntos q pertenece a ese cromosoma
 */
 
-string Individuo::get_spliced_cromosoma(double idx_percentage, string &cromosoma_borrado, vector<punto> &puntos_borrados) {
+string Individuo::get_spliced_cromosoma(double idx_percentage, vector<punto> &puntos_borrados) {
 
-    unsigned int idx = (idx_percentage * cromosoma.size());
+    unsigned int
+        idx = (idx_percentage * cromosoma.size()),
+        pos_corte = 0;
 
-    cout << "Posicion en cromosoma: " << idx << endl;
+    // Si es la primera posicion
+    if (idx == 0) {
+        idx++;
+    }
 
-    string
-        cromosoma_base = this->cromosoma.substr(idx),
-        cromosoma_spliceado = get_spliced_cromosoma_r(cromosoma_base);
-
-    unsigned int pos_borrado = cromosoma.find(cromosoma_spliceado, idx);
-
-    cout << "Viejo cromosoma:\n" << cromosoma << endl;
-
-    string cromosoma_borrado_aux(cromosoma.begin() + pos_borrado,
-                                 cromosoma.begin() + pos_borrado + cromosoma_spliceado.size());
-
-    cromosoma_borrado = cromosoma_borrado_aux;
-
-    /// Para pasar los puntos borrados
-    unsigned int fin_idx = pos_borrado;
-    for (unsigned int k = pos_borrado; k < pos_borrado + cromosoma_spliceado.size(); k++) {
-        string cro;
-        cro = cromosoma[k];
-        if (cro != "(" && cro != ")") {
-            fin_idx ++;
+    // Evito trabajar en un parentesis
+    while (cromosoma[idx] == '(' || cromosoma[idx] == ')') {
+        if (cromosoma[idx] == '(') {
+            idx++;
+        } else if (cromosoma[idx] == ')') {
+            idx--;
         }
     }
 
-    vector<punto> puntos_reemplazados(tuberias.begin() + pos_borrado, tuberias.begin() + fin_idx);
+    string
+        cromosoma_base = this->cromosoma.substr(idx),
+        cromosoma_spliceado = get_spliced_cromosoma_r(cromosoma_base, pos_corte);
+
+    cout << "Indice inicial: "<< idx<< endl;
+    idx += pos_corte;
+    cout << "Posicion de corte: "<< pos_corte << endl;
+
+    cout << "Normal: " <<cromosoma <<endl;
+    cout << "Base: " <<cromosoma_base <<endl;
+    cout << "Spliced: " <<cromosoma_spliceado <<endl;
+
+    cromosoma.erase(idx, cromosoma_spliceado.size());
+
+    cout << "Ereseado:" << cromosoma << endl;
+
+    cromosoma.insert(idx, "E");
+
+    cout << "E:" << cromosoma << endl;
+
+    /// Reviso las tuberias
+
+    unsigned int idx_sin_parentesis = idx,
+        hasta_sin;
+
+    for (unsigned int k = 0; k <= idx; k++) {
+        if (cromosoma[k] == '(' || cromosoma[k] == ')') {
+            idx_sin_parentesis--;
+        }
+    }
+    hasta_sin = idx_sin_parentesis + cromosoma_spliceado.size();
+
+    vector<punto> puntos_reemplazados(tuberias.begin() + idx_sin_parentesis,
+                                      tuberias.begin() + hasta_sin);
 
     for (unsigned int j = 0; j < puntos_reemplazados.size(); j++) {
         cout << "Reemplazado: "; puntos_reemplazados[j].printPunto();
@@ -662,31 +674,24 @@ string Individuo::get_spliced_cromosoma(double idx_percentage, string &cromosoma
 
     /// Fin
 
-    cout << "Cromosoma borrado: " << cromosoma_borrado_aux << endl;
-
-    cromosoma.replace(pos_borrado, cromosoma_spliceado.size(), T.separador);
-
-    cout << "\nNuevo cromosoma:\n" << cromosoma << endl;
-
-    cout << "-------------------------" << endl;
-
     return cromosoma_spliceado;
 
 }
 
-string Individuo::get_spliced_cromosoma_r(string cromosoma_base) {
+string Individuo::get_spliced_cromosoma_r(string cromosoma_base, unsigned int &pos_corte) {
 
     string retorno = cromosoma_base;
 
     // Si caigo en un parentesis cerrado, me voy al proximo caso
     if (cromosoma_base[0] == ')') {
-        retorno = get_spliced_cromosoma_r(cromosoma_base.substr(1));
+        pos_corte++;
+        retorno = get_spliced_cromosoma_r(cromosoma_base.substr(1), pos_corte);
     } else {
         for (unsigned int k = 0, N = cromosoma_base.size() ; k < N ; k++) {
-
             // Avanzo hasta encontrar un ), si encuentro un ( recursion time
             if (cromosoma_base[k] == '(') {
-                retorno = get_spliced_cromosoma_r(cromosoma_base.substr(k + 1));
+                pos_corte += k + 1;
+                retorno = get_spliced_cromosoma_r(cromosoma_base.substr(k + 1), pos_corte);
                 break;
             } else if (cromosoma_base[k] == ')') {
                 retorno = cromosoma_base.substr(0, k);
@@ -726,7 +731,7 @@ las tuberias libres (desde donde empezar a tomarlas)
 Salida: la posicion y direccion en esa posicion del eleemnto, y las tomas libres hasta ese punto
 */
 vector<punto> Individuo::getPosDirByIndex(unsigned int idx,
-                                          punto &pos,
+                                          punto &pos_actual,
                                           short &direccion,
                                           unsigned int pre_idx) {
 
@@ -739,27 +744,20 @@ vector<punto> Individuo::getPosDirByIndex(unsigned int idx,
         }
     }
 
+    /// Evito que caiga en un parentesis
+    string cro; cro = cromosoma[real_idx];
+    while (cro == T.abre_parentesis || cro == T.cierra_parentesis) {
+        real_idx++;
+        cro = cromosoma[real_idx];
+    }
+
     // Obtengo las tomas libres
     vector<punto> tomas_libres_cubiertas;
-    cout << cromosoma << endl;
-    // Evita que me vaya. Revisar
-    if (real_idx >= tuberias.size()) {
-        real_idx = tuberias.size() - 1;
-    }
 
-    for (unsigned int k = pre_idx ; k <= real_idx ; k++) {
-        for (unsigned int j = 0; j < tomas.size(); j++) {
-            cout << "Tuberias analizadas: "; tuberias[k].printPunto();
+    cout << "Real_idx: " << real_idx << " | " << tuberias.size();
 
-            if (tuberias[k] == tomas[j]) { // Encontro tuberia
-                tomas_libres_cubiertas.push_back(tomas[j]);
-                cout << "Tuberia cubierta!"; tomas[j].printPunto();
-            }
-        }
-    }
-
-    pos = tuberias[real_idx];
-    direccion = direcciones[real_idx];
+    pos_actual = tuberias[real_idx - 1];
+    direccion = direcciones[real_idx - 1];
 
     return tomas_libres_cubiertas;
 }
@@ -767,44 +765,76 @@ vector<punto> Individuo::getPosDirByIndex(unsigned int idx,
 /*
 "Recibe un nuevo cromosoma, a partir de este y una posicion,
 fuerza el completado"
-Recibe: un nuevo cromosoma a insertar
+Recibe: cromosoma base (this->cromosoma), cromosoma_reemplazado (lo que quitamos)
 Salida: el cromosoma base modificado
 */
 
 string Individuo::forzarCromosoma(string cromosoma_base,
                                   string cromosoma_reemplazado,
-                                  vector<punto> tuberias_reemplazadas,
-                                  string nuevo_cromosoma) {
+                                  vector<punto> tuberias_reemplazadas) {
+    /// INICIALIZO
 
-    cout << "\n\n----------------------------------------------------------\n\n";
+    cout << "\n\n----------------------------------------------------------\n";
+    cout << " Iniciando forzarCromosoma \n\n";
 
     // Devuelve la posicion de insercion
     unsigned int pos_separador = cromosoma_base.find(T.separador);
-
     punto punto_actual;
     short direccion_actual;
     vector<punto> nuevas_tuberias;
 
     cout << "Pos separador: " << pos_separador << endl;
+    cout << "Sub Cromosoma hasta separador: " << cromosoma_base.substr(0, pos_separador) << endl;
     cout << "Cromosoma_reemplazado tamanio: " << cromosoma_reemplazado.size() << endl;
 
-    /// Anexo a mi vector de tuberias, mis tuberias que vinieron con el cromosoma reemplazado
-    nuevas_tuberias.insert(nuevas_tuberias.end(), tuberias_reemplazadas.begin(), tuberias_reemplazadas.end());
+    /// MODIFICACIONES EN CROMOSOMA
 
-    vector<punto> tomas_liberadas = getPosDirByIndex(pos_separador + cromosoma_reemplazado.size(),
-                                                     punto_actual,
-                                                     direccion_actual,
-                                                     pos_separador);
+    cout << "Cromosoma: " << cromosoma << endl;
+    cout << "Cromosoma base: " << cromosoma_base << endl;
+    cout << "Cromosoma reemplazado: " << cromosoma_reemplazado << endl;
 
+    /// MODIFICACIONES EN TUBERIA
+    cout << "Entre";
+    this->tuberias = get_puntos();
+    cout << "Pero no sali";
 
-    for (unsigned int j = 0; j < tomas_liberadas.size(); j++) {
-        cout << "toma: "; tomas_liberadas[j].printPunto();
+    getPosDirByIndex(pos_separador + cromosoma_reemplazado.size(),
+                     punto_actual,
+                     direccion_actual,
+                     pos_separador);
+
+    cout << "Punto actual: "; punto_actual.printPunto();
+    cout << "Direccion actual: " << direccion_actual << endl;
+
+    /// Analizo que tomas libere
+    vector<punto> tomas_liberadas;
+
+    for (unsigned int k = 0 ; k < tuberias_reemplazadas.size() ; k++) {
+      for (unsigned int m = 0; m < tomas.size(); m++) {
+          cout << "Tuberia analizada! "; tuberias_reemplazadas[k].printPunto();
+          if (tuberias_reemplazadas[k] == tomas[m]) { // Encontro tuberia
+              tomas_liberadas.push_back(tomas[m]);
+              cout << "Tuberia cubierta! "; tuberias_reemplazadas[k].printPunto();
+          }
+      }
     }
 
-    // Voy recorriendo con el nuevo cromosoma, y elimino tomas si ya pase por ahi
-    for (unsigned int k = 0 ; k < nuevo_cromosoma.size(); k++) {
+    // Reemplazo los valores por la posicion, punto y direccion del "E"
+    cout << "\nIgnorar estas tomas: \n";
+    getPosDirByIndex(pos_separador - 1, punto_actual, direccion_actual);
+
+    cout << "____________________\n";
+    cout << "Tomas destino:\n";
+    for (unsigned int k = 0; k < tomas_liberadas.size(); k++) {
+        cout << "[" << k << "] ";
+        tomas_liberadas[k].printPunto();
+    }
+    cout << "____________________\n";
+
+    // Voy recorriendo el cromosoma reemplazado, y elimino tomas si ya pase por ahi
+    for (unsigned int k = 0 ; k < cromosoma_reemplazado.size(); k++) {
         string nuevo_elemento;
-        nuevo_elemento = nuevo_cromosoma[k];
+        nuevo_elemento = cromosoma_reemplazado[k];
 
         punto_actual = obtenerPuntoPosicion(punto_actual, nuevo_elemento, direccion_actual);
 
@@ -813,35 +843,40 @@ string Individuo::forzarCromosoma(string cromosoma_base,
 
         for (unsigned int j = 0; j < tomas_liberadas.size(); j++) {
             if (punto_actual == tomas_liberadas[j]) {
+                cout << "Toma cubierta en cruza: " << endl; tomas_liberadas[j].printPunto();
                 tomas_liberadas.erase(tomas_liberadas.begin() + j);
             }
         }
     }
 
-    /// TRABAJAMOS CON LA AUTOCOMPLETACION
-    // Le anexo la autocompletacion
-    short
-        cant_tuberias_antes_de_autocompletar = tuberias.size();
+    cout << "Punto Origen: "; punto_actual.printPunto();
+    cout << "Direccion Origen: " << direccion_actual << endl;
+    cout << "Tomas cant liberadas? " << tomas_liberadas.size() << endl;
 
-    nuevo_cromosoma += autocompletar_r(punto_actual, tomas_liberadas, direccion_actual);
+    // Si me quedaron sin cubrir
+    if (tomas_liberadas.size()) {
+        cout << "\n\nAUTOCOMPLETANDO...\n\n";
+        /// TRABAJAMOS CON LA AUTOCOMPLETACION
+        // Le anexo la autocompletacion
+        short cant_tuberias_antes_de_autocompletar = tuberias.size();
 
-    vector<punto> puntos_nuevos_dps_de_autocompletar(tuberias.begin() + cant_tuberias_antes_de_autocompletar,
-                                                     tuberias.end());
+        cromosoma_reemplazado += autocompletar_r(punto_actual, tomas_liberadas, direccion_actual);
 
-    vector<short> direcciones_nuevas_dps_autocompletar(direcciones.begin() + cant_tuberias_antes_de_autocompletar,
-                                                       direcciones.end());
+        vector<punto> puntos_nuevos_dps_de_autocompletar(tuberias.begin() + cant_tuberias_antes_de_autocompletar,
+          tuberias.end());
 
-    nuevas_tuberias.insert(nuevas_tuberias.end(),
-                           puntos_nuevos_dps_de_autocompletar.begin(),
-                           puntos_nuevos_dps_de_autocompletar.end());
+        vector<short> direcciones_nuevas_dps_autocompletar(direcciones.begin() + cant_tuberias_antes_de_autocompletar,
+          direcciones.end());
 
-    if (pos_separador >= 0) {
-        cromosoma.erase(pos_separador, 1);
-        cromosoma.insert(pos_separador, nuevo_cromosoma);
-    } else {
-        cout << "Error en el intercambiarCromosoma, no hay separador\n";
-        getchar();
+        nuevas_tuberias.insert(nuevas_tuberias.end(),
+          puntos_nuevos_dps_de_autocompletar.begin(),
+          puntos_nuevos_dps_de_autocompletar.end());
+
+        /// FIN AUTOCOMPLETAR
     }
+
+
+    cout << "eqweq " << cromosoma;
 
     return cromosoma;
 
@@ -869,16 +904,16 @@ double Individuo::evaluarFitness(vector<vector<double> > &Field) {
         cant_rows = Field.size(),
         cant_cols = (Field[0]).size(); // Notese la diferencia
 
-    cout << "Tenemos un Field de [" << cant_rows << " x " << cant_cols << "]\n";
+//    cout << "Tenemos un Field de [" << cant_rows << " x " << cant_cols << "]\n";
 
     for (unsigned int k = 0, kCant = puntosObtenidos.size() ; k < kCant ; k++) {
         // Obtengo la coordenada de una tuberia
         x = (int) puntosObtenidos[k].coordenadas[0] + cant_cols / 2;
         y = (int) puntosObtenidos[k].coordenadas[1] + cant_rows / 2;
 
-        cout << x << " # " << y <<  " (bloqueado? " << Field[x][y] << ")" << endl;
+      //  cout << x << " # " << y <<  " (bloqueado? " << Field[x][y] << ")" << endl;
 
-        if (x < 0  || y < 0) {
+        if (x < 0  || y < 0 || x > cant_cols || y > cant_rows) {
             cout << "Error, la matriz no alcanza a cubrir todos los puntos\n";
             getchar();
         }
@@ -892,7 +927,6 @@ double Individuo::evaluarFitness(vector<vector<double> > &Field) {
 
     return fitness;
 }
-
 /*
 "La onda es que te da, en base al cromosoma, el costo total de este"
 Recibe: el cromosoma
@@ -903,7 +937,7 @@ double Individuo::evaluarFitness_helper() {
     // Creo un cromosoma sin punto de origen
     string cromosoma_libre(cromosoma.begin() + 1, cromosoma.end());
 
-    cout << "\nCromosoma libre: " << cromosoma_libre << endl;
+    //cout << "\nCromosoma libre: " << cromosoma_libre << endl;
 
     /// Precios:
 
@@ -948,7 +982,7 @@ double Individuo::evaluarFitness_helper() {
             getchar();
         }
 
-        cout << "Pieza: " << cro_k <<" (precio $" << precio_total << ")"<<  endl;
+      //  cout << "Pieza: " << cro_k <<" (precio $" << precio_total << ")"<<  endl;
     }
 
     return precio_total;
@@ -973,4 +1007,340 @@ vector<vector<double> > Individuo::get_puntos_double() {
     }
 
     return retorno;
+}
+
+
+/*
+"Mapea un cromosoma a los puntos de la matriz correspondiente"
+Salida: vector con los puntos ocupados por la tuberia
+*/
+vector<punto> Individuo::get_puntos() {
+
+    vector<short> nuevas_direcciones,
+                    nuevas_dir_0,
+                    nuevas_dir_1,
+                    nuevas_dir_2;
+
+    string cromo = this->cromosoma,
+        tipo_tubo;
+
+    vector<punto> VP, VP_r1, VP_r2, VP_r3;
+
+    bool orientacion;
+
+    char ca = cromo[0];
+    short direccion_actual = atoi(&ca);
+    cromo = cromo.substr(1);
+
+    nuevas_direcciones.push_back(direccion_actual);
+
+    punto base = this->origen;
+
+
+    while(cromo.size()){
+
+        if(es_parentesis(tipo_tubo) == 0){
+            tipo_tubo = cromo[0];
+            cromo = cromo.substr(1);
+
+            //Actualizo punto base y direccion (si viene un codo)
+            base = obtenerPuntoPosicion(base, tipo_tubo, direccion_actual);
+            nuevas_direcciones.push_back(direccion_actual);
+
+            VP.push_back(base);
+        }
+        else{
+            //Vino un parentesis
+            break;
+        }
+
+    }
+
+
+    if(es_parentesis(tipo_tubo) == 1){
+        //Actualizo el tipo tubo
+        tipo_tubo = cromo[0];
+
+        // si viene un parentesis, lo saco
+        cromo = cromo.substr(1);
+
+        //Tambien saco el ultimo parentesis
+        cromo.erase(cromo.size() - 1, 1);
+
+
+    }
+
+
+    if(es_bifurcacion(tipo_tubo)){
+
+        //base = obtenerPuntoPosicion(base, T.tubo_recto, direccion_actual);
+
+        vector<string> biff = obtener_bifurcaciones(tipo_tubo + cromo);
+
+        VP_r1 = get_puntos_r(base, direccion_actual, biff[0], nuevas_dir_0);
+
+        nuevas_direcciones.insert(nuevas_direcciones.end(),
+                                  nuevas_dir_0.begin(), nuevas_dir_0.end());
+
+        VP.insert(VP.end(), VP_r1.begin(), VP_r1.end());
+
+        if(es_bifurcacion(tipo_tubo) == 1){
+
+            if(tipo_tubo == T.tee_izquierdo){
+                orientacion = false;
+            } else {
+                orientacion = true;
+            }
+
+            //Obtengo nueva direccion para flujo secundario
+            short direccion_flujo_secundario = cambioDeDireccion(direccion_actual, orientacion);
+
+            VP_r2 = get_puntos_r(base, direccion_flujo_secundario, biff[1], nuevas_dir_1);
+
+             nuevas_direcciones.insert(nuevas_direcciones.end(),
+                                  nuevas_dir_1.begin(), nuevas_dir_1.end());
+
+            VP.insert(VP.end(), VP_r2.begin(), VP_r2.end());
+
+        }else{
+
+            short direccion_flujo_secundario = cambioDeDireccion(direccion_actual, 0);
+            short direccion_flujo_terciario = cambioDeDireccion(direccion_actual, 1);
+
+            VP_r2 = get_puntos_r(base, direccion_flujo_secundario, biff[1], nuevas_dir_1);
+            VP_r3 = get_puntos_r(base, direccion_flujo_terciario, biff[2], nuevas_dir_2);
+
+             nuevas_direcciones.insert(nuevas_direcciones.end(),
+                                  nuevas_dir_1.begin(), nuevas_dir_1.end());
+
+            nuevas_direcciones.insert(nuevas_direcciones.end(),
+                                  nuevas_dir_2.begin(), nuevas_dir_2.end());
+
+
+            VP.insert(VP.end(), VP_r2.begin(), VP_r2.end());
+            VP.insert(VP.end(), VP_r3.begin(), VP_r3.end());
+
+        }
+
+    }
+
+    // Inserto el origen
+    VP.insert(VP.begin(), origen);
+
+    this->tuberias = VP;
+    this->direcciones.clear();
+    this->direcciones = nuevas_direcciones;
+    return VP;
+
+}
+
+/*
+Version recursiva de la funcion anterior
+*/
+vector<punto> Individuo::get_puntos_r(punto base, short direccion_actual,
+                                       string cromo_recibido,
+                                        vector<short> &nuevas_direcciones){
+
+    string cromo = cromo_recibido,
+        tipo_tubo;
+
+    vector<punto> VP, VP_r1, VP_r2, VP_r3;
+
+    vector<short>  nuevas_dir_0,
+                    nuevas_dir_1,
+                    nuevas_dir_2;
+
+    bool orientacion;
+
+    while(cromo.size()){
+
+        if(es_parentesis(tipo_tubo) == 0){
+            tipo_tubo = cromo[0];
+            cromo = cromo.substr(1);
+
+            //Actualizo punto base y direccion (si viene un codo)
+            base = obtenerPuntoPosicion(base, tipo_tubo, direccion_actual);
+
+            nuevas_direcciones.push_back(direccion_actual);
+            VP.push_back(base);
+        }
+        else{
+            //Vino un parentesis
+            break;
+        }
+
+    }
+
+    if(es_parentesis(tipo_tubo) == 1){
+        //Actualizo el tipo tubo
+        tipo_tubo = cromo[0];
+
+        // si viene un parentesis, lo saco
+        cromo = cromo.substr(1);
+
+        //Tambien saco el ultimo parentesis
+        cromo.erase(cromo.size() - 1, 1);
+
+
+    }
+
+    if(es_bifurcacion(tipo_tubo)){
+        //Agrego un tubo recto xq deo actualizar la posicion
+        //base = obtenerPuntoPosicion(base, T.tubo_recto, direccion_actual);
+
+        vector<string> biff = obtener_bifurcaciones(tipo_tubo + cromo);
+
+        VP_r1 = get_puntos_r(base, direccion_actual, biff[0], nuevas_dir_0);
+
+        nuevas_direcciones.insert(nuevas_direcciones.end(),
+                                   nuevas_dir_0.begin(), nuevas_dir_0.end());
+
+        VP.insert(VP.end(), VP_r1.begin(), VP_r1.end());
+
+        if(es_bifurcacion(tipo_tubo) == 1){
+
+            if(tipo_tubo == T.tee_izquierdo){
+                orientacion = false;
+            } else {
+                orientacion = true;
+            }
+
+            //Obtengo nueva direccion para flujo secundario
+            short direccion_flujo_secundario = cambioDeDireccion(direccion_actual, orientacion);
+
+            VP_r2 = get_puntos_r(base, direccion_flujo_secundario, biff[1], nuevas_dir_1);
+
+            nuevas_direcciones.insert(nuevas_direcciones.end(),
+                                   nuevas_dir_1.begin(), nuevas_dir_1.end());
+
+            VP.insert(VP.end(), VP_r2.begin(), VP_r2.end());
+
+        }else{
+
+            short direccion_flujo_secundario = cambioDeDireccion(direccion_actual, 0);
+            short direccion_flujo_terciario = cambioDeDireccion(direccion_actual, 1);
+
+            VP_r2 = get_puntos_r(base, direccion_flujo_secundario, biff[1], nuevas_dir_1);
+            VP_r3 = get_puntos_r(base, direccion_flujo_terciario, biff[2], nuevas_dir_2);
+
+            nuevas_direcciones.insert(nuevas_direcciones.end(),
+                                   nuevas_dir_0.begin(), nuevas_dir_1.end());
+
+            nuevas_direcciones.insert(nuevas_direcciones.end(),
+                                   nuevas_dir_0.begin(), nuevas_dir_2.end());
+
+            VP.insert(VP.end(), VP_r2.begin(), VP_r2.end());
+            VP.insert(VP.end(), VP_r3.begin(), VP_r3.end());
+
+        }
+
+    }
+
+    return VP;
+
+
+}
+
+/*
+"Recibe parte de un cromosoma con bifurcacion del tipo [x(aaaa)(aa(l(a)(a))a)(aaa)] y
+devuelve un vector con los sub string correspondientes ej: aaaa; aa(l(a)(a))a; aaa"
+Salida: string en el formato indicado
+Salida: vector de string con los substring correspondientes
+*/
+vector<string> Individuo :: obtener_bifurcaciones(string entrada){
+
+    string ca(&entrada[0],1);
+    unsigned int max;
+
+    if(es_bifurcacion(ca) == 1){
+        max = 2;
+    } else{
+
+        max = 3;
+    }
+    vector<string>ret;
+    string ret_1;
+    entrada = entrada.substr(2);
+
+    // contador de parentesis
+    int kparentesis = 1;
+    unsigned int i = 0;
+
+    for(unsigned int j = 0; j < max; j++){
+        ret_1.clear();
+        for(i = 0; i < entrada.size(); i++){
+
+            if(string(&entrada[i],1) == T.abre_parentesis){
+                kparentesis++;
+            }
+
+            if(string(&entrada[i],1) == T.cierra_parentesis){
+                kparentesis--;
+            }
+
+            if(kparentesis == 0){
+                break;
+            }
+
+            ret_1 += entrada[i];
+
+        }
+
+        ret.push_back(ret_1);
+
+        if(j != max-1){
+            kparentesis = 1;
+            entrada = entrada.substr(i+2);
+        }
+    }
+
+    return ret;
+}
+
+/*
+"Muta una seccion random del cromosoma"
+Recibe: el cromosoma a editar (normalmente dentro de la clase)
+Salida: el cromosoma mutado
+*/
+void Individuo::mutarCromosoma() {
+
+    double random_idx_percentage = get_rand();
+
+    string cromosoma_eliminado;
+    vector<punto> puntos_eliminados;
+
+    cout << cromosoma ; getchar();
+
+    get_puntos();
+
+    // Obtengo un cromosoma
+    cromosoma_eliminado = get_spliced_cromosoma(random_idx_percentage, puntos_eliminados);
+
+    // El ultimo argumento es vacio porque no quiero "heredar nada"
+    forzarCromosoma(this->cromosoma, cromosoma_eliminado, puntos_eliminados);
+}
+
+void Individuo::cruzarCromosoma(Individuo &I2, double pos_corte) {
+
+    vector<punto> pos1_r, pos2_r;
+
+    string
+        h1 = this->get_spliced_cromosoma(pos_corte, pos1_r),
+        h2 = I2.get_spliced_cromosoma(pos_corte, pos2_r),
+        h1_a = this->get_cromosoma(),
+        h2_a = I2.get_cromosoma();
+
+    cout << "Cromosoma hijo 1: " << this->intercambiarCromosoma(h2) << endl;
+    cout << "Cromosoma hijo 2: " << I2.intercambiarCromosoma(h1);
+
+    cout << "\n\n------------------------------------------------------------------\n\n";
+
+    this->forzarCromosoma(h1_a, h2, pos1_r);
+    I2.forzarCromosoma(h2_a, h1, pos2_r);
+
+    cout << "\n\n------------------------------------------------------------------\n\n";
+
+    cout << "Cromosoma final [hijo 1]: "<< this->get_cromosoma() << endl;
+    cout << "Cromosoma final [hijo 2]: "<< I2.get_cromosoma();
+
 }

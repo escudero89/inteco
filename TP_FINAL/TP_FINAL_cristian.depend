@@ -1,26 +1,26 @@
 # depslib dependency file v1.0
-1352170678 source:/media/Cristian/Repositorios/inteco/TP_FINAL/main.cpp
+1352330986 source:/media/Cristian/Repositorios/inteco/TP_FINAL/main.cpp
 	<iostream>
 	<string>
 	<ctime>
 	<cstdlib>
 	<vector>
 	"include/punto.h"
-	"include/individuo.h"
+	"include/poblacion.h"
 
-1352160684 /media/Cristian/Repositorios/inteco/TP_FINAL/include/punto.h
+1352274932 /media/Cristian/Repositorios/inteco/TP_FINAL/include/punto.h
 	<vector>
 	<cstdlib>
 	<cmath>
 	<iostream>
 
-1352161069 /media/Cristian/Repositorios/inteco/TP_FINAL/include/individuo.h
+1352328292 /media/Cristian/Repositorios/inteco/TP_FINAL/include/individuo.h
 	<string>
 	<vector>
 	"punto.h"
 	"../../utils/utils.h"
 
-1351917525 /media/Cristian/Repositorios/inteco/utils/utils.h
+1352283324 /media/Cristian/Repositorios/inteco/utils/utils.h
 	<vector>
 	<sstream>
 	<fstream>
@@ -29,26 +29,30 @@
 	<cstdlib>
 	<cassert>
 
-1352170492 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/individuo.cpp
+1352331948 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/individuo.cpp
 	<sstream>
 	"../include/individuo.h"
 
-1351917525 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/matriz.cpp
+1352274932 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/matriz.cpp
 	"../include/matriz.h"
 
-1351917525 /media/Cristian/Repositorios/inteco/TP_FINAL/include/matriz.h
+1352274932 /media/Cristian/Repositorios/inteco/TP_FINAL/include/matriz.h
 
-1351917525 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/poblacion.cpp
-	"../include/poblacion.h"
-
-1351917525 /media/Cristian/Repositorios/inteco/TP_FINAL/include/poblacion.h
+1352331134 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/poblacion.cpp
 	<vector>
+	"../include/poblacion.h"
+	"../include/individuo.h"
+
+1352316304 /media/Cristian/Repositorios/inteco/TP_FINAL/include/poblacion.h
+	<vector>
+	<algorithm>
+	<iterator>
 	"individuo.h"
 
-1352160147 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/punto.cpp
+1352274932 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/punto.cpp
 	"../include/punto.h"
 
-1351917525 source:/media/Cristian/Repositorios/inteco/utils/utils.cpp
+1352274932 source:/media/Cristian/Repositorios/inteco/utils/utils.cpp
 	"utils.h"
 	<vector>
 	<math.h>

@@ -195,7 +195,10 @@ struct Tubo {
         tee_izquierdo,
         tee_derecho,
         cruz,
-        separador;
+        separador,
+        abre_parentesis,
+        cierra_parentesis;
+
 };
 
 double get_rand() ;

@@ -1,7 +1,7 @@
 #! /usr/bin/octave -qf
 
 % Le voy a pasar dos archivos csv para que lea, uno vector<punto> y otro matriz
-function print_tube(archivo_vector_puntos = 'puntos.dat', archivo_Field = 'field.dat')
+function print_tube(	surfacing = false, archivo_vector_puntos = 'puntos.dat', archivo_Field = 'field.dat')
 
 	vector_puntos = csvread(archivo_vector_puntos);
 	Field = csvread(archivo_Field);
@@ -29,8 +29,6 @@ function print_tube(archivo_vector_puntos = 'puntos.dat', archivo_Field = 'field
 x
 y
 Field
-
-	surfacing = false;
 
 	clf;
 	if (surfacing) 
