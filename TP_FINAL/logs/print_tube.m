@@ -52,13 +52,21 @@ function print_tube_helper(surfacing, vector_puntos, Field, punto_origen, tomas,
 
 		% Damos un valor negativo muy alto a las tuberias
 		% Pero solo una vez
-		Field(abs(x_pto), abs(y_pto)) = -1000;
+		if Field(abs(x_pto), abs(y_pto)) != 1000
+		   Field(abs(x_pto), abs(y_pto)) = -1000;
+		else
+		   Field(abs(x_pto), abs(y_pto)) = -2000;
+		end
 		
 	end
 
 	clf;
 	if (surfacing) 
+	   clf;
 		surface(y, x, Field);
+		title(["Generacion [" num2str(iteracion) "]" ]);
+		print(["draws/surface_" padding_zeros(iteracion) ".png"]);
+		
 	else
 		% Ploteo comun
 		hold on;
@@ -66,7 +74,7 @@ function print_tube_helper(surfacing, vector_puntos, Field, punto_origen, tomas,
 
 		% Origen
 		plot(punto_origen(1), punto_origen(2), 'or');
-		
+	
 		% Tomas
 		plot(tomas(:,1), tomas(:,2), 'xm');
 
@@ -75,6 +83,7 @@ function print_tube_helper(surfacing, vector_puntos, Field, punto_origen, tomas,
 		ylim([min(vector_puntos(:,2) - 1) , max(vector_puntos(:,2) + 1)]);
 		
 		grid;
+		axis("equal");
 		title(["Generacion [" num2str(iteracion) "]" ]);
 		
 %		pause(0.01);

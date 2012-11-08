@@ -23,7 +23,6 @@ Poblacion::Poblacion(float prob_cruza,
         Individuo I (origen, tomas);
         this->v_individuos.push_back(I);
     }
-
 }
 
 
@@ -90,7 +89,6 @@ vector<Individuo> Poblacion::reproduccion(){
 
             }
 
-
             seleccionados.push_back(hijo_1);
             if(seleccionados.size() == tam_poblacion){
                 break;
@@ -133,9 +131,12 @@ void Poblacion::cruzar(int padre_1, int padre_2, Individuo &hijo_1, Individuo &h
 
     hijo_1 = v_individuos[padre_1];
     hijo_2 = v_individuos[padre_2];
+cout << "Padre 1: "<<hijo_1.get_cromosoma()<<endl;
+cout << "Padre 2: "<<hijo_2.get_cromosoma()<<endl;
 
-    hijo_1.cruzarCromosoma(hijo_2, get_rand());
-
+    hijo_1.cruzarCromosoma(hijo_2, 0.5);
+cout << "\nHijo 1: "<<hijo_1.get_cromosoma()<<endl;
+cout << "Hijo 2: "<<hijo_2.get_cromosoma()<<endl;
 }
 
 void Poblacion::mutar(Individuo &I){
@@ -150,22 +151,39 @@ Individuo Poblacion::getMejorIndividuo(){
 
     //si se pone muy lento esto puede hacerse MUCHO mas eficiente
     Individuo masCapo = v_individuos[0];
-    float fitness_masCapo = masCapo.evaluarFitness(M);
-    float fitness_nuevo;
+    float fitness_masCapo = masCapo.evaluarFitness(M),
+        fitness_nuevo,
+        fitness_max = 0,
+        fitness_medio = 0;
 
-    for(unsigned int k = 1; k<v_individuos.size(); k++){
+    for(unsigned int k = 1; k < v_individuos.size(); k++){
 
         fitness_nuevo = v_individuos[k].evaluarFitness(M);
+        fitness_medio += fitness_nuevo;
 
         if(fitness_nuevo < fitness_masCapo){
-
             masCapo = v_individuos[k];
             fitness_masCapo = fitness_nuevo;
-
+            idx_mejorIndividuo = k;
         }
 
+        if (fitness_nuevo > fitness_max) {
+            fitness_max = fitness_nuevo;
+        }
 
     }
+
+    fitness_medio = fitness_medio / v_individuos.size();
+
+    cout << "cromosoma [" << fitness_masCapo << "] "
+        << masCapo.get_cromosoma();
+
+    vector<double> fitness_compilados;
+    fitness_compilados.push_back(fitness_masCapo);
+    fitness_compilados.push_back(fitness_medio);
+    fitness_compilados.push_back(fitness_max);
+
+    fitness_values.push_back(fitness_compilados);
 
     return masCapo;
 
@@ -184,7 +202,7 @@ vector<vector<double> > Poblacion::generarMatrizBloques(unsigned int cant_rows,
 
     for (unsigned int i = 0 ; i < cant_rows ; i++) {
         for (unsigned int j = 0 ; j < cant_cols ; j++) {
-            P1.push_back(round(rand()%11/10)); // 0 libre, 1 ocupado : cerca 10% de probabilidad
+            P1.push_back(0);//floor(rand()%11/10)); // 0 libre, 1 ocupado : cerca 10% de probabilidad
             cout << P1[j] << "\t";
         }
         cout << endl;

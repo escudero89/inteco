@@ -69,7 +69,7 @@ string Individuo::autocompletar_r(punto base, vector<punto> &tomas_libres, short
         menor_dist,
         idx_menor_distancia,
         direccion_actual = direccion,
-        radio_absorcion = (esta_siendo_mutado) ? 10 : 5;
+        radio_absorcion = (esta_siendo_mutado) ? 4 : 2;
 
     bool orientacion;
 
@@ -704,8 +704,9 @@ string Individuo::get_spliced_cromosoma(double idx_percentage, vector<punto> &pu
 string Individuo::get_spliced_cromosoma_r(string cromosoma_base, unsigned int &pos_corte) {
 
     string retorno = cromosoma_base;
-//    short contador_parentesis_abiertos = 0;
-/*
+#if 0
+    short contador_parentesis_abiertos = 0;
+
     // Si caigo en un parentesis cerrado, me voy al proximo caso
     if (cromosoma_base[0] == ')') {
         pos_corte++;
@@ -727,7 +728,8 @@ string Individuo::get_spliced_cromosoma_r(string cromosoma_base, unsigned int &p
 
         }
     }
-*/
+#endif
+#if 1
     // Si caigo en un parentesis cerrado, me voy al proximo caso
     if (cromosoma_base[0] == ')') {
         pos_corte++;
@@ -745,7 +747,7 @@ string Individuo::get_spliced_cromosoma_r(string cromosoma_base, unsigned int &p
             }
         }
     }
-
+#endif
     return retorno;
 }
 /*
@@ -968,8 +970,6 @@ Salida: el valor de fitness
 double Individuo::evaluarFitness(vector<vector<double> > &Field) {
 
     // Voy recorriendo cada posicion que ocupa mi tuberia
-    /// CONVOCO ACA LA MEGA FUNCION DE MARCOS QUE OBTIENE PUNTOS
-    /// megaFuncionObtenedora de puntos
     vector<punto> puntosObtenidos = tuberias;
 
 
@@ -986,10 +986,10 @@ double Individuo::evaluarFitness(vector<vector<double> > &Field) {
 
     for (unsigned int k = 0, kCant = puntosObtenidos.size() ; k < kCant ; k++) {
         // Obtengo la coordenada de una tuberia
-        x = (int) puntosObtenidos[k].coordenadas[0] + cant_cols / 2;
-        y = (int) puntosObtenidos[k].coordenadas[1] + cant_rows / 2;
+        x = (int) puntosObtenidos[k].coordenadas[0] + cant_cols / 2.0;
+        y = (int) puntosObtenidos[k].coordenadas[1] + cant_rows / 2.0;
 
-      //  cout << x << " # " << y <<  " (bloqueado? " << Field[x][y] << ")" << endl;
+        cout << x << " # " << y <<  " (bloqueado? " << Field[x][y] << ")" << endl;
 
         if (x < 0  || y < 0 || x > cant_cols || y > cant_rows) {
             cout << "Error, la matriz no alcanza a cubrir todos los puntos\n";
@@ -1022,7 +1022,7 @@ double Individuo::evaluarFitness(vector<vector<double> > &Field) {
     cout << "Tomas libres en fitness: " <<  tomas_libres << endl;
 
     // Y le sumo la longitud del cromosoma al cuadrado por x
-    //fitness += tuberias.size() * tuberias.size() * 10;
+    // fitness += tuberias.size() * tuberias.size() * 10;
 
     return fitness;
 }

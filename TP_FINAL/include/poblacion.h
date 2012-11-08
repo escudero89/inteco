@@ -20,10 +20,11 @@ class Poblacion {
     punto origen;
 
     vector<punto> tomas;
-    vector<vector <double> > M;
-
+    vector<vector <double> > M, fitness_values;
 
     vector<Individuo> v_individuos;
+
+    unsigned int idx_mejorIndividuo;
 
 
 public:
@@ -37,6 +38,10 @@ public:
 
     vector<vector<double> > generarMatrizBloques(unsigned int, unsigned int);
     vector<vector<double> > get_matrizBloques() { return M; }
+
+    Individuo get_mejor_individuo() { return v_individuos[idx_mejorIndividuo]; }
+
+    void printFitness() { printCSV<double>(fitness_values, "logs/fitness.dat", false); }
 };
 
 #endif // POBLACION_H

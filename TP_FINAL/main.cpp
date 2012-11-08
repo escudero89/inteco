@@ -9,56 +9,31 @@
 
 using namespace std;
 
-
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-
- MARCOS UNA DE DOS:
- a) Los puntos guardados son siempre los mismos.
- b) Tiene menos de busqueda el algoritmo genetico.
-
- ¿POR QUE?
- Llama a print_tubes() una vez y lo vas a ver.
- O recorre puntos.dat, y vas a ver que siempre
- tiene la misma cantidad de tuberias...
-
- Sospechosoooooo
-
- HASTA LAS MANOSSS :D
-
- Te veo en unas horas. Saludos.
-
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-///////////////////////////////////////////////
-
-
-
 int main() {
 
     srand(time(0));
     punto origen(0, 0);
 
     vector<punto> tomas2;
-    tomas2.push_back(punto(10,10));
     tomas2.push_back(punto(-10,-10));
-    tomas2.push_back(punto(10,-10));
-    tomas2.push_back(punto(-10,10));
+    tomas2.push_back(punto(10,10));
+    //tomas2.push_back(punto(-10,-10));
+    //tomas2.push_back(punto(10,-10));
+    //tomas2.push_back(punto(-10,10));
 #if 0
-    string rama = "4aaaaai(x(didaaaaaaiiaaaadaadiaaa)(aa(l(iidaiaaaaaaadaaaaaaada)(aaadaadaaidaaaiaaadaiaaaiaidaaaaaaaaaaaaaaaaaaaadaiadiaaaaadiaada)))(aiaiaaaadaaaaiadaaiaaaaaaaaaaia))";
+    string rama1 = "";
+    string rama2 = "";
 
-    Individuo C1(origen, tomas2, rama, false);//, C2(origen, tomas2);
+    Individuo C1(origen, tomas2, rama1, true);//, C2(origen, tomas2);
+    Individuo C2(origen, tomas2, rama2, true);//, C2(origen, tomas2);
 
-   cout << "Entrando \n";
-    C1.get_puntos();
-cout << C1.get_cromosoma() << endl;
-cout << C1.get_puntos().size() << " \\ " << C1.get_direcciones().size() << endl;
-    for (unsigned int i = 0 ; i<C1.get_direcciones().size(); i++) {
-        cout << C1.getDirByIndex(i) << "\t";
-    }
+    cout << "padre1> " << C1.get_cromosoma() << endl;
+    cout << "padre2> " << C2.get_cromosoma() << endl;
+    getchar();
+    C1.cruzarCromosoma(C2, 0.5);
+
+    cout << "hijo1> " << C1.get_cromosoma() << endl;
+    cout << "hijo2> " << C2.get_cromosoma() << endl;
 #endif
     //C1.cruzarCromosoma(C2, 0.2);
 #if 1
@@ -79,22 +54,21 @@ cout << C1.get_puntos().size() << " \\ " << C1.get_direcciones().size() << endl;
         aux.clear();
     }
 
-    printCSV<double>(retorno, "logs/puntos.dat", true);
-
+    printCSV<double>(retorno, "logs/puntos.dat", false);
 
     Individuo ind(origen, tomas2, "");
 
-    Poblacion P(0.4,0.1,0.5,30,origen,tomas2);
-
-    vector<vector<double> > puntos;
+    Poblacion P(0.9,0.2,0.3,30,origen,tomas2);
 
     unsigned int tamanio;
 
-    for(unsigned int k = 0 ; k < 500 ; k++) {
+    for(unsigned int k = 0, base_max = 10 ; k < base_max ; k++) {
+
+        vector<vector<double> > puntos;
 
         P.reproduccion();
 
-        puntos = P.getMejorIndividuo().get_puntos_double();
+        puntos = P.get_mejor_individuo().get_puntos_double();
 
         tamanio = puntos.size();
         vector<double> Vd;
@@ -103,13 +77,13 @@ cout << C1.get_puntos().size() << " \\ " << C1.get_direcciones().size() << endl;
         Vd.push_back((double)tamanio);
         Vd.push_back(-9999.0);
 
-
         puntos.insert(puntos.begin(),Vd);
 
-        printCSV<double>(puntos, "logs/puntos.dat", true);
-
+        if (k % (base_max / 10) == 0) {
+            printCSV<double>(puntos, "logs/puntos.dat", true);
+        }
     }
-
+    P.printFitness();
 #endif
 /*
     printCSV<double>(Field, "logs/field.dat", false);
