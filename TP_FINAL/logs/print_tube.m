@@ -38,7 +38,7 @@ Field
 
 	clf;
 	if (surfacing) 
-		surface(x, y, Field);
+		surface(y, x, Field);
 	else
 		% Ploteo comun
 		hold on;

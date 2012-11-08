@@ -15,14 +15,10 @@ int main() {
     punto origen(0, 0);
 
     vector<punto> tomas2;
-    tomas2.push_back(punto(10,10));
-    tomas2.push_back(punto(7,10));
-    tomas2.push_back(punto(3,10));
-    tomas2.push_back(punto(-3,10));
-    tomas2.push_back(punto(-7,10));
-    tomas2.push_back(punto(-10,-10));
-    tomas2.push_back(punto(10,-10));
-    tomas2.push_back(punto(-10,10));
+    tomas2.push_back(punto(30,30));
+    tomas2.push_back(punto(-30,-30));
+    tomas2.push_back(punto(30,-30));
+    tomas2.push_back(punto(-30,30));
 #if 0
     string rama = "4aaaaai(x(didaaaaaaiiaaaadaadiaaa)(aa(l(iidaiaaaaaaadaaaaaaada)(aaadaadaaidaaaiaaadaiaaaiaidaaaaaaaaaaaaaaaaaaaadaiadiaaaaadiaada)))(aiaiaaaadaaaaiadaaiaaaaaaaaaaia))";
 
