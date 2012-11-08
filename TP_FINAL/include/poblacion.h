@@ -36,6 +36,7 @@ public:
     void mutar(Individuo &I);
 
     vector<vector<double> > generarMatrizBloques(unsigned int, unsigned int);
+    vector<vector<double> > get_matrizBloques() { return M; }
 };
 
 #endif // POBLACION_H

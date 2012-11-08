@@ -17,7 +17,7 @@ Poblacion::Poblacion(float prob_cruza,
     this->origen = origen;
     this->tomas = tomas;
     this->M = generarMatrizBloques(100,100);
-
+    printCSV<double>(M, "logs/field.dat", false);
 
     for( unsigned int k = 0; k<tam_poblacion; k++){
         Individuo I (origen, tomas);

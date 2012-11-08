@@ -6,13 +6,36 @@ function print_tube(surfacing = false, archivo_vector_puntos = 'puntos.dat', arc
 	vector_puntos = csvread(archivo_vector_puntos);
 	Field = csvread(archivo_Field);
 	
-	% En la primera fila
+	% En la primera fila agregamos tomas y origen
 	punto_origen = vector_puntos(1, :);
-	for k = 1 : size(vector_puntos)(1)
-		
+	tomas = [];
+	for k = 2 : size(vector_puntos)(1)
+		if vector_puntos(k, 2) == -9999
+			break;
+		end
+		tomas = [tomas ; vector_puntos(k, :) ];
 	end
 
-	% Primera columna filas, segunda columnas
+	iteracion = 0;
+	h = k;
+	% Ahora estoy parado en algo -9999
+	while (h < size(vector_puntos)(1))
+		
+		cant_tubos = vector_puntos(h, 1);
+		recorrer = vector_puntos((h + 1) : (h + cant_tubos), :);
+		
+		print_tube_helper(surfacing, recorrer, Field, punto_origen, tomas, iteracion);
+		
+		h += cant_tubos + 1;
+		iteracion++;
+
+	end
+
+end
+
+function print_tube_helper(surfacing, vector_puntos, Field, punto_origen, tomas, iteracion)
+
+% Primera columna filas, segunda columnas
 	cant_y = size(Field)(1);
 	cant_x = size(Field)(2);
 
@@ -29,12 +52,9 @@ function print_tube(surfacing = false, archivo_vector_puntos = 'puntos.dat', arc
 
 		% Damos un valor negativo muy alto a las tuberias
 		% Pero solo una vez
-		Field(x_pto, y_pto) = -1000;
+		Field(abs(x_pto), abs(y_pto)) = -1000;
 		
 	end
-x
-y
-Field
 
 	clf;
 	if (surfacing) 
@@ -45,14 +65,40 @@ Field
 		plot(vector_puntos(:,1), vector_puntos(:,2), 'ob');
 
 		% Origen
-		plot(vector_puntos(1,1), vector_puntos(1,2), 'or');
+		plot(punto_origen(1), punto_origen(2), 'or');
+		
+		% Tomas
+		plot(tomas(:,1), tomas(:,2), 'xm');
 
 		% Ajustamos limites
 		xlim([min(vector_puntos(:,1) - 1) , max(vector_puntos(:,1) + 1)]);
 		ylim([min(vector_puntos(:,2) - 1) , max(vector_puntos(:,2) + 1)]);
 		
 		grid;
+		title(["Generacion [" num2str(iteracion) "]" ]);
+		
+%		pause(0.01);
+		print(["draws/dibujo_" padding_zeros(iteracion) ".png"]);
+		
 		hold off;
 	end
 
+endfunction
+
+
+
+function [ret] = padding_zeros(num)
+	
+	ceros = "0000";
+
+	for it = 1 : 4
+	
+		if (num / 10^it < 1)
+			if (it > 0)
+				ceros = ceros(it:4);
+			end
+			ret = [ ceros num2str(num) ];
+			break;
+		end
+	end
 end
