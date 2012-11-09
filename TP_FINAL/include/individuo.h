@@ -7,7 +7,6 @@
 #include "../../utils/utils.h"
 
 using namespace std;
-
 class Individuo {
     string cromosoma;
 

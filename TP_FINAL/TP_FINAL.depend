@@ -115,3 +115,62 @@
 	<sstream>
 	"../include/individuo.h"
 
+1352478783 source:c:\users\marcos\workspace\inteco\tp_final\src\individuo.cpp
+	<sstream>
+	"../include/individuo.h"
+
+1352483747 c:\users\marcos\workspace\inteco\tp_final\include\individuo.h
+	<string>
+	<vector>
+	"punto.h"
+	"../../utils/utils.h"
+
+1352478781 c:\users\marcos\workspace\inteco\tp_final\include\punto.h
+	<vector>
+	<cstdlib>
+	<cmath>
+	<iostream>
+
+1352478783 c:\users\marcos\workspace\inteco\utils\utils.h
+	<vector>
+	<sstream>
+	<fstream>
+	<iostream>
+	<string>
+	<cstdlib>
+	<cassert>
+
+1352478783 source:c:\users\marcos\workspace\inteco\tp_final\src\matriz.cpp
+	"../include/matriz.h"
+
+1352478781 c:\users\marcos\workspace\inteco\tp_final\include\matriz.h
+
+1352483133 source:c:\users\marcos\workspace\inteco\tp_final\src\poblacion.cpp
+	<vector>
+	"../include/poblacion.h"
+	"../include/individuo.h"
+
+1352478781 c:\users\marcos\workspace\inteco\tp_final\include\poblacion.h
+	<vector>
+	<algorithm>
+	<iterator>
+	"individuo.h"
+
+1352478783 source:c:\users\marcos\workspace\inteco\tp_final\src\punto.cpp
+	"../include/punto.h"
+
+1352478783 source:c:\users\marcos\workspace\inteco\utils\utils.cpp
+	"utils.h"
+	<vector>
+	<math.h>
+	<algorithm>
+
+1352481695 source:c:\users\marcos\workspace\inteco\tp_final\main.cpp
+	<iostream>
+	<string>
+	<ctime>
+	<cstdlib>
+	<vector>
+	"include/punto.h"
+	"include/poblacion.h"
+

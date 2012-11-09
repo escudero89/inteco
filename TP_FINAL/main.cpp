@@ -10,13 +10,13 @@
 using namespace std;
 //////////
 
-MARCOS
+/*MARCOS
 Lo que tendrias que hacer es optimizar la poblacion. Y fijate si podes, en
 get_spliced_cromosoma_r, hacer andar de forma que agarre no solo las hojas, sino
 los tramos de hijos como 2aaa(algo) agarre "aaa".
 No olvides de revisar logs/draws.
 Saludos.
-
+*/
 /////////////
 
 int main() {
