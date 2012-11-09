@@ -84,7 +84,7 @@ function print_tube_helper(surfacing, vector_puntos, Field, punto_origen, tomas,
 		
 		grid;
 		axis("equal");
-		title(["Generacion [" num2str(round(1000/30 * iteracion)) "]" ]);
+		title(["Generacion [" num2str(round(1500/50 * iteracion)) "]" ]);
 		
 %		pause(0.01);
 		print(["draws/dibujo_" padding_zeros(iteracion) ".png"]);

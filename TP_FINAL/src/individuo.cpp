@@ -65,7 +65,7 @@ string Individuo::autocompletar_r(punto punto_actual, vector<punto> &tomas_asign
         menor_dist,
         idx_menor_distancia,
         direccion_actual = direccion,
-        radio_absorcion = (esta_siendo_mutado) ? 4 : 2;
+        radio_absorcion = (esta_siendo_mutado) ? 15 : 5;
 
     bool orientacion;
 

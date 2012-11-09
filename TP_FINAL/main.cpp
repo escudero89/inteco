@@ -9,14 +9,14 @@
 
 using namespace std;
 //////////
-
+/*
 MARCOS
 Lo que tendrias que hacer es optimizar la poblacion. Y fijate si podes, en
 get_spliced_cromosoma_r, hacer andar de forma que agarre no solo las hojas, sino
 los tramos de hijos como 2aaa(algo) agarre "aaa".
 No olvides de revisar logs/draws.
 Saludos.
-
+*/
 /////////////
 
 int main() {
@@ -27,8 +27,8 @@ int main() {
     vector<punto> tomas2;
     tomas2.push_back(punto(-40,0));
     tomas2.push_back(punto(40,0));
-    tomas2.push_back(punto(-40,-10));
-    tomas2.push_back(punto(40,10));
+    tomas2.push_back(punto(0,-40));
+    tomas2.push_back(punto(0,40));
 #if 0
 do {
     cout << "\n\n\n\n\n\n";
@@ -80,28 +80,28 @@ do {
 
     Individuo ind(origen, tomas2, "");
 
-    Poblacion P(0.9,0.2,0.3,300,origen,tomas2);
+    Poblacion P(0.6,0.1,0.5,300,origen,tomas2);
 
     unsigned int tamanio;
 
-    for(unsigned int k = 0, base_max = 1000 ; k < base_max ; k++) {
+    for(unsigned int k = 0, base_max = 1500 ; k < base_max ; k++) {
 
         vector<vector<double> > puntos;
 
         P.reproduccion();
 
-        puntos = P.get_mejor_individuo().get_puntos_double();
+        if (k % (base_max / 50) == 0) {
+            puntos = P.get_mejor_individuo().get_puntos_double();
 
-        tamanio = puntos.size();
-        vector<double> Vd;
+            tamanio = puntos.size();
+            vector<double> Vd;
 
 
-        Vd.push_back((double)tamanio);
-        Vd.push_back(-9999.0);
+            Vd.push_back((double)tamanio);
+            Vd.push_back(-9999.0);
 
-        puntos.insert(puntos.begin(),Vd);
+            puntos.insert(puntos.begin(),Vd);
 
-        if (k % (base_max / 30) == 0) {
             printCSV<double>(puntos, "logs/puntos.dat", true);
         }
     }
