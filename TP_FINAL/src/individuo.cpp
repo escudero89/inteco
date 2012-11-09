@@ -614,6 +614,11 @@ string Individuo::get_spliced_cromosoma(double idx_percentage, vector<punto> &pu
         }
     }
 
+    // Si caigo en una l, r o cruz, me muevo un lugar hacia atras
+    string cro_c; cro_c = cromosoma[idx];
+    if ( es_bifurcacion(cro_c) ) {
+        idx--;
+    }
 
     string
         cromosoma_base = this->cromosoma.substr(idx),
@@ -623,6 +628,7 @@ string Individuo::get_spliced_cromosoma(double idx_percentage, vector<punto> &pu
     cout << "Indice inicial: "<< idx<< endl;
     idx += pos_corte;
     cout << "Indice mas posicion de corte: "<< idx << endl;
+    cout << "Tamanio tuberia inicial: " << tuberias.size() << endl;
 
     cout << "Normal: " <<cromosoma <<endl;
     cout << "Base: " <<cromosoma_base <<endl;
@@ -655,9 +661,11 @@ string Individuo::get_spliced_cromosoma(double idx_percentage, vector<punto> &pu
         if (cromosoma_spliceado_sin_parentesis[k] == '(' ||
             cromosoma_spliceado_sin_parentesis[k] == ')') {
             cromosoma_spliceado_sin_parentesis.erase(k, 1);
-            k-=2;
+            k = 0;
+            cout << "Cr splic: " << cromosoma_spliceado_sin_parentesis << endl;
         }
     }
+    cout << "Cromosoma spliceado sin parentesis: " << cromosoma_spliceado_sin_parentesis << endl;
     cout << "END" << endl;
     cout << endl;
 
@@ -683,8 +691,8 @@ cout << endl;
 string Individuo::get_spliced_cromosoma_r(string cromosoma_base, unsigned int &pos_corte) {
 
     string retorno = cromosoma_base;
+
 #if 0
-    short contador_parentesis_abiertos = 0;
 
     // Si caigo en un parentesis cerrado, me voy al proximo caso
     if (cromosoma_base[0] == ')') {
@@ -692,15 +700,11 @@ string Individuo::get_spliced_cromosoma_r(string cromosoma_base, unsigned int &p
         retorno = get_spliced_cromosoma_r(cromosoma_base.substr(1), pos_corte);
     } else {
         for (unsigned int k = 0, N = cromosoma_base.size() ; k < N ; k++) {
-            // Si encuentro un (, lo agrego para ser reemplazado
+            // Si encuentro un (, corto
             if (cromosoma_base[k] == '(') {
-                contador_parentesis_abiertos++;
+                retorno = cromosoma_base.substr(0, k - 1);
+                break;
             } else if (cromosoma_base[k] == ')') {
-                contador_parentesis_abiertos--;
-            }
-
-            // Si tengo contador de ) negativos, lo detengo!
-            if (contador_parentesis_abiertos < 0) {
                 retorno = cromosoma_base.substr(0, k);
                 break;
             }
@@ -765,7 +769,9 @@ void Individuo::getPosDirByIndex(unsigned int idx,
     unsigned int real_idx = idx;
 
     cout << "\nIniciando getPosDirByIndex..." << endl;
+    cout << "Cromosoma: " << cromosoma << endl;
 
+    cout << "Idx: " << idx << " | tubsize: " << tuberias.size() << endl;
     // Voy recorriendo el indice, si encuentro algun ( lo resto
     for (unsigned int i = 0; i <= idx; i++) {
         if (cromosoma[i] == '(' || cromosoma[i] == ')') {
@@ -802,6 +808,9 @@ void Individuo::forzarCromosoma(string &cromosoma_base,
     short direccion_actual;
     vector<punto> nuevas_tuberias;
 
+    cout << "Posicion separador: " << pos_separador << endl;
+    cout << "Posicion con reemplazo: " << pos_con_reemplazo << endl;
+
     // El -1 es porque contaba la posicion de E
     getPosDirByIndex(pos_con_reemplazo,
                      punto_actual,
@@ -836,7 +845,7 @@ void Individuo::forzarCromosoma(string &cromosoma_base,
         // El +1 es porque ya no esta la "E"
 
         cout << "Tamanio cromosoma: " << cromosoma.size() << endl;
-        cout << "Posicion de reemplazo: " << pos_con_reemplazo + 1 << endl;
+        cout << "Posicion de reemplazo: " << pos_con_reemplazo + 1<< endl;
         cromosoma.insert(pos_con_reemplazo + 1, autocompletado);
 
         cout << "Cromosoma con autocompletado: " << cromosoma << endl;
@@ -845,6 +854,8 @@ void Individuo::forzarCromosoma(string &cromosoma_base,
     }
 
     cout << "\nACTUALIZANDO INDIVIDUO (Fase 2)\n";
+    cout << cromosoma << endl;
+    cout << endl;
     actualizarIndividuo();
     cout << "Actualizado con exito!\n\n";
 
@@ -1291,6 +1302,8 @@ Salida: el cromosoma mutado
 */
 void Individuo::mutarCromosoma() {
 
+    insercion = 0;
+
     cout << "\n\nMUTACION EN PROCESO....\n\n";
 
     esta_siendo_mutado = true;
@@ -1307,6 +1320,22 @@ void Individuo::mutarCromosoma() {
     cout << "Cromosoma mutado: " << this->intercambiarCromosoma(cromosoma_mutado) << endl;
 
     cout << "\nTRABAJANDO CON MUTACION\n\n";
+    // Antes elimino si hay cosas asi 2aa() lo paso a 2aa y muevo la insercion
+    size_t
+        posicion_parentesis = this->cromosoma.find("()"),
+        posicion_parentesis_cruzados = this->cromosoma.find(")(");
+
+    // Si encuentro uno pero no el otro, lo reemplazo (evito algo como 2(r()(..)))
+    while (posicion_parentesis != string::npos && posicion_parentesis_cruzados == string::npos) {
+        cout << cromosoma.find("()") << endl ;
+        this->cromosoma.erase(this->cromosoma.find("()"), 2);
+        this->insercion--;
+        posicion_parentesis = this->cromosoma.find("()");
+    }
+
+    cout << "Cromosoma mutado 2: " << cromosoma << endl;
+
+
     this->cruzarCromosoma_helper(0, puntos_eliminados);
 
     esta_siendo_mutado = false;
@@ -1337,13 +1366,19 @@ void Individuo::cruzarCromosoma(Individuo &I2, double pos_corte) {
 void Individuo::cruzarCromosoma_helper(unsigned int tam_cromosoma_reemplazado,
                                        vector<punto> tuberias_reemplazadas) {
 cout << "Fase 0" << endl;
-    this->actualizarIndividuo();
+cout << cromosoma << endl;
+
+    // Si agrego una nueva tanda de cromosomas (en otras palabras, CRUZA)
+    //if (tam_cromosoma_reemplazado > 0) {
+        this->actualizarIndividuo();
+   // }
+
 cout << "Fase 1" << endl;
     this->forzarCromosoma(this->cromosoma,
                           tam_cromosoma_reemplazado,
                           tuberias_reemplazadas);
-cout << "Fase 2" << endl;
-    cout << tomas_sin_cubrir.size();
+cout << "\nFase 2" << endl;
+    cout << "Tomas sin cubrir: " << tomas_sin_cubrir.size() << endl;
 
     cout << "Cromosoma final: "<< this->get_cromosoma() << endl;
     cout << "Tomas sin cubrir: " << tomas_sin_cubrir.size() << endl;

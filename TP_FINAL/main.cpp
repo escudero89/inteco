@@ -8,6 +8,16 @@
 #include "include/poblacion.h"
 
 using namespace std;
+//////////
+
+MARCOS
+Lo que tendrias que hacer es optimizar la poblacion. Y fijate si podes, en
+get_spliced_cromosoma_r, hacer andar de forma que agarre no solo las hojas, sino
+los tramos de hijos como 2aaa(algo) agarre "aaa".
+No olvides de revisar logs/draws.
+Saludos.
+
+/////////////
 
 int main() {
 
@@ -15,13 +25,13 @@ int main() {
     punto origen(0, 0);
 
     vector<punto> tomas2;
-    tomas2.push_back(punto(-2,-2));
-    tomas2.push_back(punto(2,2));
-    tomas2.push_back(punto(-10,-10));
-    tomas2.push_back(punto(10,-10));
-    tomas2.push_back(punto(-10,10));
-#if 1
+    tomas2.push_back(punto(-40,0));
+    tomas2.push_back(punto(40,0));
+    tomas2.push_back(punto(-40,-10));
+    tomas2.push_back(punto(40,10));
+#if 0
 do {
+    cout << "\n\n\n\n\n\n";
     string rama1 = "";
     string rama2 = "";
 
@@ -33,7 +43,7 @@ do {
 
     cout << "Tomas sin cubrir: " << C1.actualizarTomasLibres();
 
-    C1.cruzarCromosoma(C2, 0.5);
+    C1.cruzarCromosoma(C2, get_rand());
 
     cout << "hijo1> " << C1.get_cromosoma() << endl;
     cout << "Tomas sin cubrir: " << C1.actualizarTomasLibres() << endl;
@@ -44,10 +54,11 @@ do {
     C1.mutarCromosoma();
     cout << "hijo1 mutado> " << C1.get_cromosoma() << endl;
     cout << "Tomas sin cubrir: " << C1.actualizarTomasLibres() << endl;
+
 } while (true);
 #endif
     //C1.cruzarCromosoma(C2, 0.2);
-#if 0
+#if 1
 
     vector<vector<double> > retorno;
     vector<double> aux;
@@ -69,7 +80,7 @@ do {
 
     Individuo ind(origen, tomas2, "");
 
-    Poblacion P(0.9,0.2,0.3,100,origen,tomas2);
+    Poblacion P(0.9,0.2,0.3,300,origen,tomas2);
 
     unsigned int tamanio;
 
