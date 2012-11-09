@@ -38,6 +38,7 @@ public:
 
     vector<vector<double> > generarMatrizBloques(unsigned int, unsigned int);
     vector<vector<double> > get_matrizBloques() { return M; }
+    vector<vector<double> > generarMatrizBloques_desdeArchivo(string = "logs/field_base.csv");
 
     Individuo get_mejor_individuo() { return v_individuos[idx_mejorIndividuo]; }
 

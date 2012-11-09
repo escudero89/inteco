@@ -16,7 +16,8 @@ Poblacion::Poblacion(float prob_cruza,
     this->tam_poblacion = tam_poblacion;
     this->origen = origen;
     this->tomas = tomas;
-    this->M = generarMatrizBloques(1500,1500);
+    this->M = generarMatrizBloques_desdeArchivo();
+    printVectorVector<double>(M); getchar();
     printCSV<double>(M, "logs/field.dat", false);
 
     for( unsigned int k = 0; k<tam_poblacion; k++){
@@ -211,4 +212,10 @@ vector<vector<double> > Poblacion::generarMatrizBloques(unsigned int cant_rows,
     }
 
     return Field;
+}
+
+
+vector<vector<double> > Poblacion::generarMatrizBloques_desdeArchivo(string filename) {
+    parseCSV(filename, M);
+    return get_matrizBloques();
 }

@@ -22,13 +22,14 @@ Saludos.
 int main() {
 
     srand(time(0));
-    punto origen(0, 0);
+    punto origen(38, 15);
 
     vector<punto> tomas2;
-    tomas2.push_back(punto(-40,0));
-    tomas2.push_back(punto(40,0));
-    tomas2.push_back(punto(0,-40));
-    tomas2.push_back(punto(0,40));
+    //tomas2.push_back(punto(-40,0));
+    //tomas2.push_back(punto(40,0));
+    tomas2.push_back(punto(20,4));
+    tomas2.push_back(punto(90,7));
+    tomas2.push_back(punto(88,32));
 #if 0
 do {
     cout << "\n\n\n\n\n\n";

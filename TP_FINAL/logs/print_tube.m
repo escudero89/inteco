@@ -24,7 +24,11 @@ function print_tube(surfacing = false, archivo_vector_puntos = 'puntos.dat', arc
 		cant_tubos = vector_puntos(h, 1);
 		recorrer = vector_puntos((h + 1) : (h + cant_tubos), :);
 		
-		print_tube_helper(surfacing, recorrer, Field, punto_origen, tomas, iteracion);
+		if (surfacing)
+			print_tube_surface(recorrer, Field, punto_origen, tomas, iteracion);
+		else
+			print_tube_plot(recorrer, Field, punto_origen, tomas, iteracion);
+		end
 		
 		h += cant_tubos + 1;
 		iteracion++;
@@ -33,7 +37,49 @@ function print_tube(surfacing = false, archivo_vector_puntos = 'puntos.dat', arc
 
 end
 
-function print_tube_helper(surfacing, vector_puntos, Field, punto_origen, tomas, iteracion)
+function print_tube_plot(vector_puntos, Field, punto_origen, tomas, iteracion)
+	
+	cant_rows = size(Field)(1);
+	cant_cols = size(Field)(2);
+	
+	clf;
+	% Ploteo comun
+	hold on;
+Field
+	% Bloques
+	size(Field)
+	for j = 1 : cant_cols
+		for i = 1 : cant_rows
+			if (Field(i, j) != 0)
+				plot(j - 1, cant_rows - i, 'xk');
+			end
+		end
+	end
+
+	plot(vector_puntos(:,1), vector_puntos(:,2), 'ob');
+
+	% Origen
+	plot(punto_origen(1), punto_origen(2), 'or');
+
+	% Tomas
+	plot(tomas(:,1), tomas(:,2), 'om');
+
+	% Ajustamos limites
+%	xlim([min(vector_puntos(:,1) - 1) , max(vector_puntos(:,1) + 1)]);
+%	ylim([min(vector_puntos(:,2) - 1) , max(vector_puntos(:,2) + 1)]);
+
+	grid;
+	axis("equal");
+	title(["Generacion [" num2str(round(1500/50 * iteracion)) "]" ]);
+
+	%		pause(0.01);
+	print(["draws/dibujo_" padding_zeros(iteracion) ".png"]);
+
+	hold off;
+
+endfunction
+
+function print_tube_surface(vector_puntos, Field, punto_origen, tomas, iteracion)
 
 % Primera columna filas, segunda columnas
 	cant_y = size(Field)(1);
@@ -47,54 +93,26 @@ function print_tube_helper(surfacing, vector_puntos, Field, punto_origen, tomas,
 
 	for k = 1 : size(vector_puntos)(1)
 		% Obtenemos puntos siempre positivos
-		x_pto = round(vector_puntos(k, 1) + cant_x/2);
-		y_pto = round(vector_puntos(k, 2) + cant_y/2);
+		x_pto = round(vector_puntos(k, 1));
+		y_pto = round(vector_puntos(k, 2));
 
 		% Damos un valor negativo muy alto a las tuberias
 		% Pero solo una vez
-		if Field(abs(x_pto), abs(y_pto)) != 1000
-		   Field(abs(x_pto), abs(y_pto)) = -1000;
-		else
-		   Field(abs(x_pto), abs(y_pto)) = -2000;
+		if x_pto > 0 & y_pto > 0 
+			if Field(abs(x_pto), abs(y_pto)) != 1000
+			   Field(abs(x_pto), abs(y_pto)) = -1000;
+			else
+			   Field(abs(x_pto), abs(y_pto)) = -2000;
+			end
 		end
-		
 	end
 
 	clf;
-	if (surfacing) 
-	   clf;
-		surface(y, x, Field);
-		title(["Generacion [" num2str(iteracion) "]" ]);
-		print(["draws/surface_" padding_zeros(iteracion) ".png"]);
-		
-	else
-		% Ploteo comun
-		hold on;
-		plot(vector_puntos(:,1), vector_puntos(:,2), 'ob');
-
-		% Origen
-		plot(punto_origen(1), punto_origen(2), 'or');
-	
-		% Tomas
-		plot(tomas(:,1), tomas(:,2), 'xm');
-
-		% Ajustamos limites
-		xlim([min(vector_puntos(:,1) - 1) , max(vector_puntos(:,1) + 1)]);
-		ylim([min(vector_puntos(:,2) - 1) , max(vector_puntos(:,2) + 1)]);
-		
-		grid;
-		axis("equal");
-		title(["Generacion [" num2str(round(1500/50 * iteracion)) "]" ]);
-		
-%		pause(0.01);
-		print(["draws/dibujo_" padding_zeros(iteracion) ".png"]);
-		
-		hold off;
-	end
+	surface(y, x, Field);
+	title(["Generacion [" num2str(iteracion) "]" ]);
+	print(["draws/surface_" padding_zeros(iteracion) ".png"]);
 
 endfunction
-
-
 
 function [ret] = padding_zeros(num)
 	

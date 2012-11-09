@@ -876,7 +876,7 @@ double Individuo::evaluarFitness(vector<vector<double> > &Field) {
 
     double
         fitness = 0,    // Mi valor de fitness
-        fitness_bloqueado = 500;    // Esto es que tan caro hago el pasar sobre un bloque
+        fitness_bloqueado = 10000;    // Esto es que tan caro hago el pasar sobre un bloque
 
     // Voy a suponer que todos mis puntos obtenidos son enteros
     int x, y,
@@ -887,18 +887,18 @@ double Individuo::evaluarFitness(vector<vector<double> > &Field) {
 
     for (unsigned int k = 0, kCant = puntosObtenidos.size() ; k < kCant ; k++) {
         // Obtengo la coordenada de una tuberia
-        x = (int) puntosObtenidos[k].coordenadas[0] + cant_cols / 2.0;
-        y = (int) puntosObtenidos[k].coordenadas[1] + cant_rows / 2.0;
+        x = puntosObtenidos[k].coordenadas[0];
+        y = cant_rows - puntosObtenidos[k].coordenadas[1] - 1;
 
-//        cout << x << " # " << y <<  " (bloqueado? " << Field[x][y] << ")" << endl;
-
-        if (x < 0  || y < 0 || x > cant_cols || y > cant_rows) {
-            cout << "Error, la matriz no alcanza a cubrir todos los puntos\n";
-            getchar();
+        if (x < 0  || y < 0 || x >= cant_cols || y >= cant_rows) {
+            //cout << "Error, la matriz no alcanza a cubrir todos los puntos\n";
+            //getchar();
+            /// Si me salgo del area, penalizo al fitness
+            fitness += 100000;
+        } else {
+            // Hay un bloque coincidiendo? Yo lo sumo total
+            fitness += Field[y][x] * fitness_bloqueado;
         }
-
-        // Hay un bloque coincidiendo? Yo lo sumo total
-        fitness += Field[x][y] * fitness_bloqueado;
     }
 
     // Ademas voy viendo en mi cromosoma que costo tiene cada pieza
