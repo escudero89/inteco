@@ -15,12 +15,13 @@ int main() {
     punto origen(0, 0);
 
     vector<punto> tomas2;
+    tomas2.push_back(punto(-2,-2));
+    tomas2.push_back(punto(2,2));
     tomas2.push_back(punto(-10,-10));
-    tomas2.push_back(punto(10,10));
-    //tomas2.push_back(punto(-10,-10));
-    //tomas2.push_back(punto(10,-10));
-    //tomas2.push_back(punto(-10,10));
-#if 0
+    tomas2.push_back(punto(10,-10));
+    tomas2.push_back(punto(-10,10));
+#if 1
+do {
     string rama1 = "";
     string rama2 = "";
 
@@ -29,14 +30,24 @@ int main() {
 
     cout << "padre1> " << C1.get_cromosoma() << endl;
     cout << "padre2> " << C2.get_cromosoma() << endl;
-    getchar();
+
+    cout << "Tomas sin cubrir: " << C1.actualizarTomasLibres();
+
     C1.cruzarCromosoma(C2, 0.5);
 
     cout << "hijo1> " << C1.get_cromosoma() << endl;
+    cout << "Tomas sin cubrir: " << C1.actualizarTomasLibres() << endl;
+
     cout << "hijo2> " << C2.get_cromosoma() << endl;
+    cout << "Tomas sin cubrir: " << C2.actualizarTomasLibres() << endl;
+
+    C1.mutarCromosoma();
+    cout << "hijo1 mutado> " << C1.get_cromosoma() << endl;
+    cout << "Tomas sin cubrir: " << C1.actualizarTomasLibres() << endl;
+} while (true);
 #endif
     //C1.cruzarCromosoma(C2, 0.2);
-#if 1
+#if 0
 
     vector<vector<double> > retorno;
     vector<double> aux;
@@ -58,11 +69,11 @@ int main() {
 
     Individuo ind(origen, tomas2, "");
 
-    Poblacion P(0.9,0.2,0.3,30,origen,tomas2);
+    Poblacion P(0.9,0.2,0.3,100,origen,tomas2);
 
     unsigned int tamanio;
 
-    for(unsigned int k = 0, base_max = 10 ; k < base_max ; k++) {
+    for(unsigned int k = 0, base_max = 1000 ; k < base_max ; k++) {
 
         vector<vector<double> > puntos;
 
@@ -79,7 +90,7 @@ int main() {
 
         puntos.insert(puntos.begin(),Vd);
 
-        if (k % (base_max / 10) == 0) {
+        if (k % (base_max / 30) == 0) {
             printCSV<double>(puntos, "logs/puntos.dat", true);
         }
     }

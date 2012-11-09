@@ -4,13 +4,23 @@ function print_fitness(archivo = "fitness.dat")
    
    clf;
    hold on;
+
+	matriz_fitness = 1000 ./ (1 + matriz_fitness);
    
    % primera fila los min, medio max
    for k = 1 : size(matriz_fitness)(2)
       
-     plot(matriz_fitness(:, 2), 'm');
-     plot(matriz_fitness(:, 3), 'r');
-     stem(matriz_fitness(:, 1), 'b');
+     plot(matriz_fitness(:, 3), 'xm');
+     plot(matriz_fitness(:, 2), 'r');
+     plot(matriz_fitness(:, 1), 'b');
+     
+     title("Funcion de fitness");
+     
+     ylabel("fitness");
+     xlabel("generacion");
+     
+     grid;
+     ylim([min (1./matriz_fitness(:, 3)) max(1./matriz_fitness(:, 1))]);
    
    end
    hold off;

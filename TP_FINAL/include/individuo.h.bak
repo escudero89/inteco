@@ -14,14 +14,10 @@ class Individuo {
     bool esta_siendo_mutado;
 
     punto origen;
-
-    unsigned int insercion;    // Aca es donde pongo la E, contando parentesis
-
     Tubo T;
 
     vector<punto>
         tomas,
-        tomas_sin_cubrir,    /// Esta es nueva
         tuberias;
 
     vector<short>
@@ -40,6 +36,9 @@ public:
     string anexarElemento(short, bool);
     bool calcularOrientacion(punto, punto);
     bool calcularDistancia(short);
+
+    string obtenerSubramaje(short);
+    string obtenerSubramaje_r(string);
 
     punto obtenerPuntoPosicion(punto, string, short&);
     punto obtenerPuntoPosicion_helper(string, punto, short&);
@@ -62,9 +61,9 @@ public:
     punto getPosByIndex(unsigned int idx) { return tuberias[idx]; }
     short getDirByIndex(unsigned int idx) { return direcciones[idx]; }
 
-    void getPosDirByIndex(unsigned int, punto &, short &, unsigned int = 0);
+    vector<punto> getPosDirByIndex(unsigned int, punto &, short &, unsigned int = 0);
 
-    void forzarCromosoma(string &cromosoma_base, unsigned int, vector<punto>);
+    string forzarCromosoma(string &cromosoma_base, string cromosoma_reemplazado, vector<punto>);
 
     double evaluarFitness(vector<vector<double> > &);
     double evaluarFitness_helper();
@@ -79,13 +78,6 @@ public:
 	void mutarCromosoma();
 
     void cruzarCromosoma(Individuo &I2, double pos_corte);
-
-    /// Nuevas funciones
-    void cruzarCromosoma_helper(unsigned int, vector<punto>);
-
-    unsigned int actualizarIndividuo () { get_puntos(); return actualizarTomasLibres(); }
-    unsigned int actualizarTomasLibres();
-
 };
 
 #endif // INDIVIDUO_H
