@@ -78,7 +78,7 @@ do {
     streambuf * old;
     old = cout.rdbuf();
 
-    for(unsigned int k = 0, base_max = 1500 ; k < base_max ; k++) {
+    for(unsigned int k = 0, base_max = 1500 ; k <= base_max ; k++) {
 
         vector<vector<double> > puntos;
 
