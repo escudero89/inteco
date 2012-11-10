@@ -8,35 +8,24 @@
 #include "include/poblacion.h"
 
 using namespace std;
-//////////
-/*
-MARCOS
-Lo que tendrias que hacer es optimizar la poblacion. Y fijate si podes, en
-get_spliced_cromosoma_r, hacer andar de forma que agarre no solo las hojas, sino
-los tramos de hijos como 2aaa(algo) agarre "aaa".
-No olvides de revisar logs/draws.
-Saludos.
-*/
-/////////////
 
 int main() {
 
     srand(time(0));
-    punto origen(38, 15);
+    punto origen(30, 20);
 
     vector<punto> tomas2;
-    //tomas2.push_back(punto(-40,0));
-    //tomas2.push_back(punto(40,0));
+    tomas2.push_back(punto(5,5));
     tomas2.push_back(punto(20,4));
     tomas2.push_back(punto(90,7));
     tomas2.push_back(punto(88,32));
 #if 0
 do {
     cout << "\n\n\n\n\n\n";
-    string rama1 = "";
+    string rama1 = "iadaaiadiadaaaiaada)(adaaidaidaaidaididaaaiaaaddaaiaaaia))";
     string rama2 = "";
 
-    Individuo C1(origen, tomas2, rama1, true);//, C2(origen, tomas2);
+    Individuo C1(origen, tomas2, rama2, true);//, C2(origen, tomas2);
     Individuo C2(origen, tomas2, rama2, true);//, C2(origen, tomas2);
 
     cout << "padre1> " << C1.get_cromosoma() << endl;
@@ -58,7 +47,7 @@ do {
 
 } while (true);
 #endif
-    //C1.cruzarCromosoma(C2, 0.2);
+
 #if 1
 
     vector<vector<double> > retorno;
@@ -85,11 +74,21 @@ do {
 
     unsigned int tamanio;
 
+    // OCULTAMOS SALIDA
+    streambuf * old;
+    old = cout.rdbuf();
+
     for(unsigned int k = 0, base_max = 1500 ; k < base_max ; k++) {
 
         vector<vector<double> > puntos;
 
+        cout.rdbuf(0);
         P.reproduccion();
+
+        // Visible
+        cout.rdbuf(old);
+        cout << "Generacion [" << k << "]." << endl;
+
 
         if (k % (base_max / 50) == 0) {
             puntos = P.get_mejor_individuo().get_puntos_double();

@@ -32,7 +32,9 @@ vector<Individuo> Poblacion::reproduccion(){
     //Metodo de competencias
     vector<Individuo> seleccionados;
 
-    //Elitismo
+    unsigned int brecha = int(tam_poblacion * brecha_generacional);
+
+    ///Elitismo
     seleccionados.push_back(getMejorIndividuo());
 
     int cant_competidores = (tam_poblacion < 5 ) ? tam_poblacion : 5;
@@ -69,9 +71,19 @@ vector<Individuo> Poblacion::reproduccion(){
 
         }
 
-        // Cruza
-        if(get_rand() < prob_cruza){
+        if(seleccionados.size() < brecha){
 
+            seleccionados.push_back(v_individuos[ganador[0]]);
+
+            if(seleccionados.size() < brecha){
+                seleccionados.push_back(v_individuos[ganador[1]]);
+            }
+
+
+        }
+
+        else{
+        // Cruza
             Individuo hijo_1(origen, tomas, "",false),
                       hijo_2(origen, tomas, "",false);
 
@@ -99,26 +111,9 @@ vector<Individuo> Poblacion::reproduccion(){
             if(seleccionados.size() == tam_poblacion){
                 break;
             }
+
         }
-
-
-        // Brecha Generacional
-        if( get_rand() < brecha_generacional){
-            seleccionados.push_back(v_individuos[ganador[0]]);
-
-            if(seleccionados.size() == tam_poblacion){
-                break;
-            }
-        }
-
-        if( get_rand() < brecha_generacional){
-            seleccionados.push_back(v_individuos[ganador[1]]);
-            if(seleccionados.size() == tam_poblacion){
-                break;
-            }
-        }
-
-    }//end while
+    }//end for
 
     //Cambio la poblacion anterior
     this->v_individuos = seleccionados;

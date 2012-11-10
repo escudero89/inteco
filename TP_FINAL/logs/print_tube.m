@@ -16,6 +16,20 @@ function print_tube(surfacing = false, archivo_vector_puntos = 'puntos.dat', arc
 		tomas = [tomas ; vector_puntos(k, :) ];
 	end
 
+	cant_rows = size(Field)(1);
+	cant_cols = size(Field)(2);
+	
+	Field_nuevo = [];
+	% Bloques
+	for j = 1 : cant_cols
+		for i = 1 : cant_rows
+			if (Field(i, j) != 0)
+				Field_nuevo = [Field_nuevo; (j - 1) (cant_rows - i) ];
+			end
+		end
+	end
+	
+
 	iteracion = 0;
 	h = k;
 	% Ahora estoy parado en algo -9999
@@ -25,9 +39,9 @@ function print_tube(surfacing = false, archivo_vector_puntos = 'puntos.dat', arc
 		recorrer = vector_puntos((h + 1) : (h + cant_tubos), :);
 		
 		if (surfacing)
-			print_tube_surface(recorrer, Field, punto_origen, tomas, iteracion);
+			print_tube_surface(recorrer, Field_nuevo, punto_origen, tomas, iteracion);
 		else
-			print_tube_plot(recorrer, Field, punto_origen, tomas, iteracion);
+			print_tube_plot(recorrer, Field_nuevo, punto_origen, tomas, iteracion);
 		end
 		
 		h += cant_tubos + 1;
@@ -39,22 +53,11 @@ end
 
 function print_tube_plot(vector_puntos, Field, punto_origen, tomas, iteracion)
 	
-	cant_rows = size(Field)(1);
-	cant_cols = size(Field)(2);
-	
 	clf;
 	% Ploteo comun
 	hold on;
-Field
-	% Bloques
-	size(Field)
-	for j = 1 : cant_cols
-		for i = 1 : cant_rows
-			if (Field(i, j) != 0)
-				plot(j - 1, cant_rows - i, 'xk');
-			end
-		end
-	end
+
+	plot(Field(:, 1), Field(:, 2), 'xk');
 
 	plot(vector_puntos(:,1), vector_puntos(:,2), 'ob');
 
