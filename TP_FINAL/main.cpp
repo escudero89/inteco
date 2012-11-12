@@ -58,7 +58,7 @@ int main() {
 
     Individuo ind(origen, tomas, "");
 
-    Poblacion P(0.4,0.2,300,origen,tomas);
+    Poblacion P(0.1,0.4,300,origen,tomas);
 
     unsigned int tamanio;
 

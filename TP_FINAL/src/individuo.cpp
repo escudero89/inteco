@@ -24,6 +24,11 @@ Individuo::Individuo(punto origen,
     T.abre_parentesis = "(";
     T.cierra_parentesis = ")";
 
+    p_bifurcacion = get_rand() * .5;      // maxima 50%
+    p_codo = get_rand() * .35 + 0.01;     // maxima 35%, minima 1%
+    p_tee = get_rand() * .5;              // maxima 50%
+    p_orientacion = get_rand() * 0.05;    // maxima 5%
+
     if(completar) {
         autocompletar();
     }
@@ -241,12 +246,6 @@ Salida: Elemento nuevo a conexionar con la tuberia
 string Individuo::anexarElemento(short tomas_libres, bool orientacion){
 
     string t;
-
-    double
-        p_bifurcacion = get_rand() / 2,   // 10%
-        p_codo = get_rand() / 3,         // 15%
-        p_tee = 0.5,
-        p_orientacion = 0.05;
 
     orientacion = (get_rand() < p_orientacion) ? !orientacion : orientacion;
 

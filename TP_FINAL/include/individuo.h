@@ -16,6 +16,12 @@ class Individuo {
 
     unsigned int insercion;    // Aca es donde pongo la E, contando parentesis
 
+    double
+        p_bifurcacion,
+        p_codo,
+        p_tee,
+        p_orientacion;
+
     Tubo T;
 
     vector<punto>
