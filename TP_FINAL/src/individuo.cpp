@@ -245,7 +245,10 @@ string Individuo::anexarElemento(short tomas_libres, bool orientacion){
     double
         p_bifurcacion = get_rand() / 2,   // 10%
         p_codo = get_rand() / 3,         // 15%
-        p_tee = 0.5;
+        p_tee = 0.5,
+        p_orientacion = 0.05;
+
+    orientacion = (get_rand() < p_orientacion) ? !orientacion : orientacion;
 
     if (tomas_libres > 1 && get_rand() < p_bifurcacion) {
         // Existe bifurcacion, vemos si es Tee o Cruz
@@ -972,7 +975,7 @@ double Individuo::evaluarFitness_helper() {
 
     double
         precio_total = 0,
-        precio_base = 1;        // Esto es una medida para ajustar cuanto pesa el precio
+        precio_base = 0.1;        // Esto es una medida para ajustar cuanto pesa el precio
 
     // Voy a tomar tubos de 1''. Por lo que las medidas (segun planos)
     // de cada cuadrado son 0.118 x 0.118 m

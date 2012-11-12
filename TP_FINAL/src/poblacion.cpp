@@ -3,14 +3,12 @@
 #include "../include/poblacion.h"
 #include "../include/individuo.h"
 
-Poblacion::Poblacion(float prob_cruza,
-                     float prob_mutacion,
+Poblacion::Poblacion(float prob_mutacion,
                      float brecha_generacional,
                      unsigned int tam_poblacion,
                      punto origen,
                      vector<punto> &tomas) {
 
-    this->prob_cruza = prob_cruza;
     this->prob_mutacion = prob_mutacion;
     this->brecha_generacional = brecha_generacional;
     this->tam_poblacion = tam_poblacion;
@@ -130,7 +128,7 @@ void Poblacion::cruzar(int padre_1, int padre_2, Individuo &hijo_1, Individuo &h
 cout << "Padre 1: "<<hijo_1.get_cromosoma()<<endl;
 cout << "Padre 2: "<<hijo_2.get_cromosoma()<<endl;
 
-    hijo_1.cruzarCromosoma(hijo_2, 0.5);
+    hijo_1.cruzarCromosoma(hijo_2, get_rand());
 cout << "\nHijo 1: "<<hijo_1.get_cromosoma()<<endl;
 cout << "Hijo 2: "<<hijo_2.get_cromosoma()<<endl;
 }

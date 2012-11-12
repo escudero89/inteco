@@ -20,7 +20,7 @@ function print_fitness(archivo = "fitness.dat")
      xlabel("generacion");
      
      grid;
-     ylim([min (1./matriz_fitness(:, 3)) max(1./matriz_fitness(:, 1))]);
+     ylim([min(matriz_fitness(:, 3)) max(matriz_fitness(:, 1))*1.1]);
    
    end
    hold off;

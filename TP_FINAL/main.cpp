@@ -12,10 +12,10 @@ using namespace std;
 int main() {
 
     srand(time(0));
-    punto origen(2, 19);
+    punto origen(7, 3);
 
     vector<punto> tomas2;
-    tomas2.push_back(punto(2,13));
+    tomas2.push_back(punto(-5,5));
 //    tomas2.push_back(punto(20,4));
 //    tomas2.push_back(punto(90,7));
 //    tomas2.push_back(punto(88,32));
@@ -70,15 +70,17 @@ do {
 
     Individuo ind(origen, tomas2, "");
 
-    Poblacion P(0.6,0.1,0.5,80,origen,tomas2);
+    Poblacion P(0.4,0.2,300,origen,tomas2);
 
     unsigned int tamanio;
+
+    P.printFitness();
 
     // OCULTAMOS SALIDA
     streambuf * old;
     old = cout.rdbuf();
 
-    for(unsigned int k = 0, base_max = 1500 ; k <= base_max ; k++) {
+    for(unsigned int k = 0, base_max = 1500 ; true ; k++) {
 
         vector<vector<double> > puntos;
 
@@ -103,9 +105,10 @@ do {
             puntos.insert(puntos.begin(),Vd);
 
             printCSV<double>(puntos, "logs/puntos.dat", true);
+            P.printFitness(true);
         }
     }
-    P.printFitness();
+
 #endif
 /*
     printCSV<double>(Field, "logs/field.dat", false);

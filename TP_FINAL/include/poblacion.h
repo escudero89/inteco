@@ -11,8 +11,7 @@ using namespace std;
 
 class Poblacion {
 
-    float prob_cruza,
-          prob_mutacion,
+    float prob_mutacion,
           brecha_generacional,
           fitness_masCapo;
 
@@ -29,7 +28,7 @@ class Poblacion {
 
 
 public:
-    Poblacion(float, float, float, unsigned int, punto, vector<punto> &);
+    Poblacion(float, float, unsigned int, punto, vector<punto> &);
 
     vector<Individuo> reproduccion();
     Individuo getMejorIndividuo();
@@ -44,7 +43,9 @@ public:
     Individuo get_mejor_individuo() { return v_individuos[0]; }
     double get_fitness() { return fitness_masCapo; }
 
-    void printFitness() { printCSV<double>(fitness_values, "logs/fitness.dat", false); }
+    void printFitness(bool append = false) {
+        printCSV<double>(fitness_values, "logs/fitness.dat", append);
+        fitness_values.clear(); }
 };
 
 #endif // POBLACION_H
