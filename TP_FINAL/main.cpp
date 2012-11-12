@@ -38,8 +38,6 @@ int main() {
 //    tomas.push_back(punto(90,7));
 //    tomas.push_back(punto(88,32));
 
-#if 1
-
     vector<vector<double> > retorno;
     vector<double> aux;
 
@@ -72,8 +70,6 @@ int main() {
 
     for(unsigned int k = 0, base_max = 1500 ; true ; k++) {
 
-        vector<vector<double> > puntos;
-
         cout.rdbuf(0);
         P.reproduccion();
 
@@ -83,6 +79,7 @@ int main() {
 
 
         if (k % (base_max / 50) == 0) {
+            vector<vector<double> > puntos;
             puntos = P.get_mejor_individuo().get_puntos_double();
 
             tamanio = puntos.size();
@@ -99,13 +96,5 @@ int main() {
         }
     }
 
-#endif
-/*
-    printCSV<double>(Field, "logs/field.dat", false);
-
-    Field = C1.get_puntos_double();
-    printCSV<double>(Field, "logs/puntos.dat", false);
-
-*/
     return 0;
 }
