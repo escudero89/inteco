@@ -22,7 +22,7 @@ int main() {
 #if 0
 do {
     cout << "\n\n\n\n\n\n";
-    string rama1 = "iadaaiadiadaaaiaada)(adaaidaidaaidaididaaaiaaaddaaiaaaia))";
+    string rama1 = "iadaaiadiadaaaiaaada)(adaaidaidaaidaididaaaiaaaddaaiaaaia))";
     string rama2 = "";
 
     Individuo C1(origen, tomas2, rama2, true);//, C2(origen, tomas2);
