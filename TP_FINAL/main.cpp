@@ -16,7 +16,9 @@ int main() {
 
     string
         directorio = "espiral",
-        archivo = "logs/" + directorio + "/points_base.csv";
+        raiz = "logs/" + directorio + "/",
+        archivo = raiz + "points_base.csv",
+        matriz = raiz + "field_base.csv";
 
     parseCSV<double>(archivo, puntos);
 
@@ -56,9 +58,15 @@ int main() {
 
     printCSV<double>(retorno, "logs/puntos.dat", false);
 
+
+    double base_max;
+    cout << "Limite de generaciones (0 para ilimitado): ";
+    cin >> base_max;
+    base_max = round(base_max);
+
     Individuo ind(origen, tomas, "");
 
-    Poblacion P(0.1,0.4,300,origen,tomas);
+    Poblacion P(0.1, 0.4, 300, origen, tomas, matriz);
 
     unsigned int tamanio;
 
@@ -68,7 +76,7 @@ int main() {
     streambuf * old;
     old = cout.rdbuf();
 
-    for(unsigned int k = 0, base_max = 1500 ; true ; k++) {
+    for (int k = 0 ; k < base_max || base_max == 0; k++) {
 
         cout.rdbuf(0);
         P.reproduccion();
@@ -78,7 +86,7 @@ int main() {
         cout << "Generacion [" << k << "]. Mejor fitness: " << P.get_fitness() << endl;
 
 
-        if (k % (base_max / 50) == 0) {
+        if (k % 50 == 0) {
             vector<vector<double> > puntos;
             puntos = P.get_mejor_individuo().get_puntos_double();
 

@@ -70,7 +70,7 @@ string Individuo::autocompletar_r(punto punto_actual, vector<punto> &tomas_asign
         menor_dist,
         idx_menor_distancia,
         direccion_actual = direccion,
-        radio_absorcion = (esta_siendo_mutado) ? rand()%10 : rand()%5;
+        radio_absorcion = (esta_siendo_mutado) ? rand()%9 + 1 : rand()%4 + 1;
 
     bool orientacion;
 

@@ -7,14 +7,15 @@ Poblacion::Poblacion(float prob_mutacion,
                      float brecha_generacional,
                      unsigned int tam_poblacion,
                      punto origen,
-                     vector<punto> &tomas) {
+                     vector<punto> &tomas,
+                     string filename) {
 
     this->prob_mutacion = prob_mutacion;
     this->brecha_generacional = brecha_generacional;
     this->tam_poblacion = tam_poblacion;
     this->origen = origen;
     this->tomas = tomas;
-    this->M = generarMatrizBloques_desdeArchivo();
+    this->M = generarMatrizBloques_desdeArchivo(filename);
     printVectorVector<double>(M); getchar();
     printCSV<double>(M, "logs/field.dat", false);
 

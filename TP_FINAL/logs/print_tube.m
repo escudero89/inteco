@@ -73,7 +73,7 @@ function print_tube_plot(vector_puntos, Field, punto_origen, tomas, iteracion)
 
 	grid;
 	axis("equal");
-	title(["Generacion [" num2str(round(1500/50 * iteracion)) "]" ]);
+	title(["Generacion [" num2str(round(50 * iteracion)) "]" ]);
 
 	%		pause(0.01);
 	print(["draws/dibujo_" padding_zeros(iteracion) ".png"]);

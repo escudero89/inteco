@@ -28,7 +28,7 @@ class Poblacion {
 
 
 public:
-    Poblacion(float, float, unsigned int, punto, vector<punto> &);
+    Poblacion(float, float, unsigned int, punto, vector<punto> &, string);
 
     vector<Individuo> reproduccion();
     Individuo getMejorIndividuo();
@@ -44,8 +44,8 @@ public:
     double get_fitness() { return fitness_masCapo; }
 
     void printFitness(bool append = false) {
-        printCSV<double>(fitness_values, "logs/fitness.dat", append);
-        fitness_values.clear(); }
+    printCSV<double>(fitness_values, "logs/fitness.dat", append);
+    fitness_values.clear(); }
 };
 
 #endif // POBLACION_H
