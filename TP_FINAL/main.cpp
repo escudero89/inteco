@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <vector>
 
-#include "include/punto.h"
+#include "../utils/utils.h"
 #include "include/poblacion.h"
 
 using namespace std;
@@ -12,41 +12,21 @@ using namespace std;
 int main() {
 
     srand(time(0));
-    punto origen(7, 3);
+    vector<double> puntos;
+
+    string
+        directorio = "espiral",
+        archivo = "logs/" + directorio + "/points_base.csv";
+
+//    parseCSV<double>(archivo, puntos);
 
     vector<punto> tomas2;
+    punto origen(7, 3);
+
     tomas2.push_back(punto(-5,5));
 //    tomas2.push_back(punto(20,4));
 //    tomas2.push_back(punto(90,7));
 //    tomas2.push_back(punto(88,32));
-#if 0
-do {
-    cout << "\n\n\n\n\n\n";
-    string rama1 = "iadaaiadiadaaaiaaada)(adaaidaidaaidaididaaaiaaaddaaiaaaia))";
-    string rama2 = "";
-
-    Individuo C1(origen, tomas2, rama2, true);//, C2(origen, tomas2);
-    Individuo C2(origen, tomas2, rama2, true);//, C2(origen, tomas2);
-
-    cout << "padre1> " << C1.get_cromosoma() << endl;
-    cout << "padre2> " << C2.get_cromosoma() << endl;
-
-    cout << "Tomas sin cubrir: " << C1.actualizarTomasLibres();
-
-    C1.cruzarCromosoma(C2, get_rand());
-
-    cout << "hijo1> " << C1.get_cromosoma() << endl;
-    cout << "Tomas sin cubrir: " << C1.actualizarTomasLibres() << endl;
-
-    cout << "hijo2> " << C2.get_cromosoma() << endl;
-    cout << "Tomas sin cubrir: " << C2.actualizarTomasLibres() << endl;
-
-    C1.mutarCromosoma();
-    cout << "hijo1 mutado> " << C1.get_cromosoma() << endl;
-    cout << "Tomas sin cubrir: " << C1.actualizarTomasLibres() << endl;
-
-} while (true);
-#endif
 
 #if 1
 

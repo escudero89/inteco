@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1352511260 source:/media/Cristian/Repositorios/inteco/TP_FINAL/main.cpp
+1352752910 source:/media/Cristian/Repositorios/inteco/TP_FINAL/main.cpp
 	<iostream>
 	<string>
 	<ctime>
 	<cstdlib>
 	<vector>
-	"include/punto.h"
+	"../utils/utils.h"
 	"include/poblacion.h"
 
 1352381348 /media/Cristian/Repositorios/inteco/TP_FINAL/include/punto.h
@@ -14,13 +14,13 @@
 	<cmath>
 	<iostream>
 
-1352509244 /media/Cristian/Repositorios/inteco/TP_FINAL/include/individuo.h
+1352752921 /media/Cristian/Repositorios/inteco/TP_FINAL/include/individuo.h
 	<string>
 	<vector>
 	"punto.h"
 	"../../utils/utils.h"
 
-1352283324 /media/Cristian/Repositorios/inteco/utils/utils.h
+1352752031 /media/Cristian/Repositorios/inteco/utils/utils.h
 	<vector>
 	<sstream>
 	<fstream>
@@ -43,7 +43,7 @@
 	"../include/poblacion.h"
 	"../include/individuo.h"
 
-1352511483 /media/Cristian/Repositorios/inteco/TP_FINAL/include/poblacion.h
+1352752031 /media/Cristian/Repositorios/inteco/TP_FINAL/include/poblacion.h
 	<vector>
 	<algorithm>
 	<iterator>
