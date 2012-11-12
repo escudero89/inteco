@@ -12,21 +12,31 @@ using namespace std;
 int main() {
 
     srand(time(0));
-    vector<double> puntos;
+    vector<vector<double> > puntos;
 
     string
         directorio = "espiral",
         archivo = "logs/" + directorio + "/points_base.csv";
 
-//    parseCSV<double>(archivo, puntos);
+    parseCSV<double>(archivo, puntos);
 
-    vector<punto> tomas2;
-    punto origen(7, 3);
+    if (puntos.empty()) {
+        cout <<  "ERROR LEYENDO ARCHIVO DE DATOS points_base.csv";
+        getchar();
+    }
 
-    tomas2.push_back(punto(-5,5));
-//    tomas2.push_back(punto(20,4));
-//    tomas2.push_back(punto(90,7));
-//    tomas2.push_back(punto(88,32));
+    vector<punto> tomas;
+    punto origen(puntos[0][0], puntos[0][1]);
+
+    for (unsigned int i = 1; i < puntos.size(); i++) {
+        tomas.push_back(punto(puntos[i][0],puntos[i][1]));
+    }
+
+// punto origen = punto(puntos[0][0], puntos[0][1]);
+// tomas.clear();
+//    tomas.push_back(punto(20,4));
+//    tomas.push_back(punto(90,7));
+//    tomas.push_back(punto(88,32));
 
 #if 1
 
@@ -38,9 +48,9 @@ int main() {
         retorno.push_back(aux);
         aux.clear();
 
-    for (unsigned int k = 0, kCant = tomas2.size(); k < kCant; k++ ) {
-        aux.push_back(tomas2[k].coordenadas[0]);
-        aux.push_back(tomas2[k].coordenadas[1]);
+    for (unsigned int k = 0, kCant = tomas.size(); k < kCant; k++ ) {
+        aux.push_back(tomas[k].coordenadas[0]);
+        aux.push_back(tomas[k].coordenadas[1]);
 
         retorno.push_back(aux);
         aux.clear();
@@ -48,9 +58,9 @@ int main() {
 
     printCSV<double>(retorno, "logs/puntos.dat", false);
 
-    Individuo ind(origen, tomas2, "");
+    Individuo ind(origen, tomas, "");
 
-    Poblacion P(0.4,0.2,300,origen,tomas2);
+    Poblacion P(0.4,0.2,300,origen,tomas);
 
     unsigned int tamanio;
 
