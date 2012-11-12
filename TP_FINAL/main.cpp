@@ -12,13 +12,13 @@ using namespace std;
 int main() {
 
     srand(time(0));
-    punto origen(30, 20);
+    punto origen(2, 19);
 
     vector<punto> tomas2;
-    tomas2.push_back(punto(5,5));
-    tomas2.push_back(punto(20,4));
-    tomas2.push_back(punto(90,7));
-    tomas2.push_back(punto(88,32));
+    tomas2.push_back(punto(2,13));
+//    tomas2.push_back(punto(20,4));
+//    tomas2.push_back(punto(90,7));
+//    tomas2.push_back(punto(88,32));
 #if 0
 do {
     cout << "\n\n\n\n\n\n";
@@ -70,7 +70,7 @@ do {
 
     Individuo ind(origen, tomas2, "");
 
-    Poblacion P(0.6,0.1,0.5,300,origen,tomas2);
+    Poblacion P(0.6,0.1,0.5,80,origen,tomas2);
 
     unsigned int tamanio;
 
@@ -87,7 +87,7 @@ do {
 
         // Visible
         cout.rdbuf(old);
-        cout << "Generacion [" << k << "]." << endl;
+        cout << "Generacion [" << k << "]. Mejor fitness: " << P.get_fitness() << endl;
 
 
         if (k % (base_max / 50) == 0) {

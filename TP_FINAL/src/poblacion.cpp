@@ -147,7 +147,10 @@ Individuo Poblacion::getMejorIndividuo(){
 
     //si se pone muy lento esto puede hacerse MUCHO mas eficiente
     Individuo masCapo = v_individuos[0];
-    float fitness_masCapo = masCapo.evaluarFitness(M),
+
+    fitness_masCapo = masCapo.evaluarFitness(M);
+
+    float
         fitness_nuevo,
         fitness_max = 0,
         fitness_medio = 0;

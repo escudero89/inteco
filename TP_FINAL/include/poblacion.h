@@ -13,7 +13,8 @@ class Poblacion {
 
     float prob_cruza,
           prob_mutacion,
-          brecha_generacional;
+          brecha_generacional,
+          fitness_masCapo;
 
     unsigned int tam_poblacion;
 
@@ -40,7 +41,8 @@ public:
     vector<vector<double> > get_matrizBloques() { return M; }
     vector<vector<double> > generarMatrizBloques_desdeArchivo(string = "logs/field_base.csv");
 
-    Individuo get_mejor_individuo() { return v_individuos[idx_mejorIndividuo]; }
+    Individuo get_mejor_individuo() { return v_individuos[0]; }
+    double get_fitness() { return fitness_masCapo; }
 
     void printFitness() { printCSV<double>(fitness_values, "logs/fitness.dat", false); }
 };

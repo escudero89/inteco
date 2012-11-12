@@ -65,7 +65,7 @@ string Individuo::autocompletar_r(punto punto_actual, vector<punto> &tomas_asign
         menor_dist,
         idx_menor_distancia,
         direccion_actual = direccion,
-        radio_absorcion = (esta_siendo_mutado) ? 15 : 5;
+        radio_absorcion = (esta_siendo_mutado) ? rand()%10 : rand()%5;
 
     bool orientacion;
 
@@ -243,8 +243,8 @@ string Individuo::anexarElemento(short tomas_libres, bool orientacion){
     string t;
 
     double
-        p_bifurcacion = 0.1,   // 10%
-        p_codo = 0.35,         // 15%
+        p_bifurcacion = get_rand() / 2,   // 10%
+        p_codo = get_rand() / 3,         // 15%
         p_tee = 0.5;
 
     if (tomas_libres > 1 && get_rand() < p_bifurcacion) {
@@ -929,7 +929,7 @@ double Individuo::evaluarFitness(vector<vector<double> > &Field) {
             //cout << "Error, la matriz no alcanza a cubrir todos los puntos\n";
             //getchar();
             /// Si me salgo del area, penalizo al fitness
-            fitness += 1000;
+            // fitness += 1000;
         } else {
             // Hay un bloque coincidiendo? Yo lo sumo total
             fitness += Field[y][x] * fitness_bloqueado;
