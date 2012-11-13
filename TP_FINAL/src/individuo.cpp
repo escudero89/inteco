@@ -1399,8 +1399,8 @@ void Individuo::cruzarCromosoma(Individuo &I2, double pos_corte) {
     vector<punto> pos1_r, pos2_r;
 
     string
-        h1 = this->get_spliced_cromosoma(pos_corte, pos1_r),
-        h2 = I2.get_spliced_cromosoma(pos_corte, pos2_r);
+        h1 = this->get_spliced_cromosoma(get_rand(), pos1_r),
+        h2 = I2.get_spliced_cromosoma(get_rand(), pos2_r);
 
     cout << "Cromosoma hijo 1: " << this->intercambiarCromosoma(h2) << endl;
     cout << "Cromosoma hijo 2: " << I2.intercambiarCromosoma(h1) << endl;
