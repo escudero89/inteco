@@ -228,5 +228,5 @@ void Poblacion::printCromosomas() {
     }
     ss << "----------------------------------------------\n";
 
-    myRecord.add_record(ss, false);
+    myRecord.add_record(ss, true);
 }

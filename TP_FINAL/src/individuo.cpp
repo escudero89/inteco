@@ -24,9 +24,9 @@ Individuo::Individuo(punto origen,
     T.abre_parentesis = "(";
     T.cierra_parentesis = ")";
 
-    p_bifurcacion = get_rand() * .5;      // maxima 50%
-    p_codo = get_rand() * .35 + 0.01;     // maxima 35%, minima 1%
-    p_tee = get_rand() * .5;              // maxima 50%
+    p_bifurcacion = get_rand();
+    p_codo = get_rand() * .25 + 0.1;     // maxima 35%, minima 5%
+    p_tee = get_rand();
     p_orientacion = get_rand() * 0.05;    // maxima 5%
 
     if(completar) {

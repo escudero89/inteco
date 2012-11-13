@@ -1,7 +1,7 @@
 #! /usr/bin/octave -qf
 
 % Le voy a pasar dos archivos csv para que lea, uno vector<punto> y otro matriz
-function print_tube(surfacing = false, archivo_vector_puntos = 'puntos.dat', archivo_Field = 'field.dat')
+function print_tube(archivo_vector_puntos = 'puntos.dat', archivo_Field = 'field.dat', surfacing = false)
 
 	vector_puntos = csvread(archivo_vector_puntos);
 	Field = csvread(archivo_Field);
@@ -57,7 +57,9 @@ function print_tube_plot(vector_puntos, Field, punto_origen, tomas, iteracion)
 	% Ploteo comun
 	hold on;
 
-	plot(Field(:, 1), Field(:, 2), 'xk');
+	if (size(Field)(1) > 0)
+		plot(Field(:, 1), Field(:, 2), 'xk');
+	end
 
 	plot(vector_puntos(:,1), vector_puntos(:,2), 'ob');
 

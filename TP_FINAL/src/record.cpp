@@ -5,6 +5,9 @@ Record::Record(std::string filename, std::string dir) {
     this->filename = filename;
     this->filedir = dir + "/" + filename;
     this->separador = "--------------------------------------------------------------------------------\n";
+
+    file.open(filename.c_str(), std::ios::out | std::ios::trunc);
+    assert(file.is_open()); //muestra error si no se pudo abrir el archivo
 }
 
 Record::~Record() {
