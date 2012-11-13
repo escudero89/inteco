@@ -1347,8 +1347,8 @@ void Individuo::mutarCromosoma() {
 
     double pos_corte = get_rand();
 
-    // SI DA LA CASUALIDAD DE SALIR EL PRIMER ELEMENTO MUTAMOS DE FORMA COPADA
-    if ((int) (pos_corte * cromosoma.size()) == 0) {
+    // Con 20% de probabilidad, muto de forma copada
+    if (get_rand() < 0.2) {
         short direccion_actual = rand() % 4 + 1;
 
         stringstream ss;

@@ -1,7 +1,6 @@
 #include <vector>
 #include <sstream>
 
-#include "../include/record.h"
 #include "../include/poblacion.h"
 #include "../include/individuo.h"
 
@@ -25,6 +24,8 @@ Poblacion::Poblacion(float prob_mutacion,
         Individuo I (origen, tomas);
         this->v_individuos.push_back(I);
     }
+
+    Record myRecord("logs/cromosomas.log");
 }
 
 
@@ -220,7 +221,6 @@ vector<vector<double> > Poblacion::generarMatrizBloques_desdeArchivo(string file
 }
 
 void Poblacion::printCromosomas() {
-    Record myRecord("cromosomas.log");
     stringstream ss;
 
     for (unsigned int i = 0 ; i < v_individuos.size(); i++ ) {

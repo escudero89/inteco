@@ -6,6 +6,7 @@
 #include <iterator>
 
 #include "individuo.h"
+#include "record.h"
 
 using namespace std;
 
@@ -25,6 +26,8 @@ class Poblacion {
     vector<Individuo> v_individuos;
 
     unsigned int idx_mejorIndividuo;
+
+    Record myRecord;
 
 
 public:

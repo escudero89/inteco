@@ -19,7 +19,7 @@ class Record {
     std::fstream file;
 
 public:
-    Record(std::string filename = "record.log", std::string dir = "logs");
+    Record(std::string filename = "cromosomas.log", std::string dir = "logs");
     ~Record();
 
     void start(bool is_recording = true);

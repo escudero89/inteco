@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1352775841 source:/media/Cristian/Repositorios/inteco/TP_FINAL/main.cpp
+1352779478 source:/media/Cristian/Repositorios/inteco/TP_FINAL/main.cpp
 	<iostream>
 	<string>
 	<ctime>
@@ -29,7 +29,7 @@
 	<cstdlib>
 	<cassert>
 
-1352754763 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/individuo.cpp
+1352776940 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/individuo.cpp
 	<sstream>
 	"../include/individuo.h"
 
@@ -38,18 +38,18 @@
 
 1352381348 /media/Cristian/Repositorios/inteco/TP_FINAL/include/matriz.h
 
-1352776794 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/poblacion.cpp
+1352777445 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/poblacion.cpp
 	<vector>
 	<sstream>
-	"../include/record.h"
 	"../include/poblacion.h"
 	"../include/individuo.h"
 
-1352774987 /media/Cristian/Repositorios/inteco/TP_FINAL/include/poblacion.h
+1352777441 /media/Cristian/Repositorios/inteco/TP_FINAL/include/poblacion.h
 	<vector>
 	<algorithm>
 	<iterator>
 	"individuo.h"
+	"record.h"
 
 1352381348 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/punto.cpp
 	"../include/punto.h"
@@ -63,7 +63,7 @@
 1352776660 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/record.cpp
 	"../include/record.h"
 
-1352752030 /media/Cristian/Repositorios/inteco/TP_FINAL/include/record.h
+1352777550 /media/Cristian/Repositorios/inteco/TP_FINAL/include/record.h
 	<cassert>
 	<string>
 	<fstream>
