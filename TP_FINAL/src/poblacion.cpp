@@ -1,8 +1,7 @@
 #include <vector>
+#include <sstream>
 
-#include "../../Perceptron/include/record.h"
-#include "../../Perceptron/src/record.cpp"
-
+#include "../include/record.h"
 #include "../include/poblacion.h"
 #include "../include/individuo.h"
 
@@ -221,10 +220,13 @@ vector<vector<double> > Poblacion::generarMatrizBloques_desdeArchivo(string file
 }
 
 void Poblacion::printCromosomas() {
-    Record myRecord("cromosomas.log", "");
+    Record myRecord("cromosomas.log");
+    stringstream ss;
 
     for (unsigned int i = 0 ; i < v_individuos.size(); i++ ) {
-        myRecord.add_record(v_individuos[i].get_cromosoma());
+        ss << v_individuos[i].get_cromosoma() << endl;
     }
+    ss << "----------------------------------------------\n";
 
+    myRecord.add_record(ss, false);
 }

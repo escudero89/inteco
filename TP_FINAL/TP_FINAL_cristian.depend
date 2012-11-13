@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1352754990 source:/media/Cristian/Repositorios/inteco/TP_FINAL/main.cpp
+1352775841 source:/media/Cristian/Repositorios/inteco/TP_FINAL/main.cpp
 	<iostream>
 	<string>
 	<ctime>
@@ -38,12 +38,14 @@
 
 1352381348 /media/Cristian/Repositorios/inteco/TP_FINAL/include/matriz.h
 
-1352754420 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/poblacion.cpp
+1352775824 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/poblacion.cpp
 	<vector>
+	<sstream>
+	"../include/record.h"
 	"../include/poblacion.h"
 	"../include/individuo.h"
 
-1352754302 /media/Cristian/Repositorios/inteco/TP_FINAL/include/poblacion.h
+1352774987 /media/Cristian/Repositorios/inteco/TP_FINAL/include/poblacion.h
 	<vector>
 	<algorithm>
 	<iterator>
@@ -57,4 +59,15 @@
 	<vector>
 	<math.h>
 	<algorithm>
+
+1352752030 source:/media/Cristian/Repositorios/inteco/TP_FINAL/src/record.cpp
+	"../include/record.h"
+
+1352752030 /media/Cristian/Repositorios/inteco/TP_FINAL/include/record.h
+	<cassert>
+	<string>
+	<fstream>
+	<sstream>
+	<iostream>
+	<ctime>
 

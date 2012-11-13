@@ -15,10 +15,11 @@ int main() {
     vector<vector<double> > puntos;
 
     string
-        directorio = "pasarela",
+        directorio = "sin_pared",
         raiz = "logs/" + directorio + "/",
         archivo = raiz + "points_base.csv",
-        matriz = raiz + "field_base.csv";
+        matriz = raiz + "field_base.csv",
+        puntos_dat = raiz + "puntos.dat";
 
     parseCSV<double>(archivo, puntos);
 
@@ -56,7 +57,7 @@ int main() {
         aux.clear();
     }
 
-    printCSV<double>(retorno, "logs/puntos.dat", false);
+    printCSV<double>(retorno, puntos_dat, false);
 
 
     double base_max;
@@ -99,7 +100,7 @@ int main() {
 
             puntos.insert(puntos.begin(),Vd);
 
-            printCSV<double>(puntos, "logs/puntos.dat", true);
+            printCSV<double>(puntos, puntos_dat, true);
             P.printFitness(true);
 
             P.printCromosomas();
