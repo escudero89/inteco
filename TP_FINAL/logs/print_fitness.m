@@ -21,9 +21,10 @@ function print_fitness(archivo = "fitness.dat")
      
      grid;
      ylim([min(matriz_fitness(:, 3)) max(matriz_fitness(:, 1))*1.1]);
-     xlim([0, size(fitness)(1)]);
+     xlim([0, size(matriz_fitness)(1)]);
    
    end
    hold off;
+   print('Fitness.png');
    
 end
