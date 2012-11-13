@@ -1,0 +1,10 @@
+Se uso una población de 300 individuos, con:
+* p_mutacion = 0.1
+* brecha_generacional = 0.4
+
+* Iteraciones: 150
+* Tiempo de ejecución: default
+
+Tomas:
+* (5, 5)
+
