@@ -15,7 +15,7 @@ int main() {
     vector<vector<double> > puntos;
 
     string
-        directorio = "espiral",
+        directorio = "pasarela",
         raiz = "logs/" + directorio + "/",
         archivo = raiz + "points_base.csv",
         matriz = raiz + "field_base.csv";
@@ -86,7 +86,7 @@ int main() {
         cout << "Generacion [" << k << "]. Mejor fitness: " << P.get_fitness() << endl;
 
 
-        if (k % 50 == 0) {
+        if (k % 2 == 0) {
             vector<vector<double> > puntos;
             puntos = P.get_mejor_individuo().get_puntos_double();
 
@@ -101,6 +101,8 @@ int main() {
 
             printCSV<double>(puntos, "logs/puntos.dat", true);
             P.printFitness(true);
+
+            P.printCromosomas();
         }
     }
 

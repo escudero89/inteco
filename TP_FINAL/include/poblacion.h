@@ -44,8 +44,10 @@ public:
     double get_fitness() { return fitness_masCapo; }
 
     void printFitness(bool append = false) {
-    printCSV<double>(fitness_values, "logs/fitness.dat", append);
-    fitness_values.clear(); }
+        printCSV<double>(fitness_values, "logs/fitness.dat", append);
+        fitness_values.clear(); }
+
+    void printCromosomas();
 };
 
 #endif // POBLACION_H
