@@ -115,17 +115,17 @@
 	<sstream>
 	"../include/individuo.h"
 
-1352478783 source:c:\users\marcos\workspace\inteco\tp_final\src\individuo.cpp
+1352780291 source:c:\users\marcos\workspace\inteco\tp_final\src\individuo.cpp
 	<sstream>
 	"../include/individuo.h"
 
-1352483747 c:\users\marcos\workspace\inteco\tp_final\include\individuo.h
+1352754137 c:\users\marcos\workspace\inteco\tp_final\include\individuo.h
 	<string>
 	<vector>
 	"punto.h"
 	"../../utils/utils.h"
 
-1352478781 c:\users\marcos\workspace\inteco\tp_final\include\punto.h
+1352753444 c:\users\marcos\workspace\inteco\tp_final\include\punto.h
 	<vector>
 	<cstdlib>
 	<cmath>
@@ -140,23 +140,25 @@
 	<cstdlib>
 	<cassert>
 
-1352478783 source:c:\users\marcos\workspace\inteco\tp_final\src\matriz.cpp
+1352753444 source:c:\users\marcos\workspace\inteco\tp_final\src\matriz.cpp
 	"../include/matriz.h"
 
-1352478781 c:\users\marcos\workspace\inteco\tp_final\include\matriz.h
+1352753444 c:\users\marcos\workspace\inteco\tp_final\include\matriz.h
 
-1352483133 source:c:\users\marcos\workspace\inteco\tp_final\src\poblacion.cpp
+1352780291 source:c:\users\marcos\workspace\inteco\tp_final\src\poblacion.cpp
 	<vector>
+	<sstream>
 	"../include/poblacion.h"
 	"../include/individuo.h"
 
-1352478781 c:\users\marcos\workspace\inteco\tp_final\include\poblacion.h
+1352780290 c:\users\marcos\workspace\inteco\tp_final\include\poblacion.h
 	<vector>
 	<algorithm>
 	<iterator>
 	"individuo.h"
+	"record.h"
 
-1352478783 source:c:\users\marcos\workspace\inteco\tp_final\src\punto.cpp
+1352753444 source:c:\users\marcos\workspace\inteco\tp_final\src\punto.cpp
 	"../include/punto.h"
 
 1352478783 source:c:\users\marcos\workspace\inteco\utils\utils.cpp
@@ -165,12 +167,20 @@
 	<math.h>
 	<algorithm>
 
-1352481695 source:c:\users\marcos\workspace\inteco\tp_final\main.cpp
+1352780508 source:c:\users\marcos\workspace\inteco\tp_final\main.cpp
 	<iostream>
 	<string>
 	<ctime>
 	<cstdlib>
 	<vector>
-	"include/punto.h"
+	"../utils/utils.h"
 	"include/poblacion.h"
+
+1352780290 c:\users\marcos\workspace\inteco\tp_final\include\record.h
+	<cassert>
+	<string>
+	<fstream>
+	<sstream>
+	<iostream>
+	<ctime>
 

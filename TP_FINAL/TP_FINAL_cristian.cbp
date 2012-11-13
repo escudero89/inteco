@@ -36,11 +36,13 @@
 		<Unit filename="include/matriz.h" />
 		<Unit filename="include/poblacion.h" />
 		<Unit filename="include/punto.h" />
+		<Unit filename="include/record.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/individuo.cpp" />
 		<Unit filename="src/matriz.cpp" />
 		<Unit filename="src/poblacion.cpp" />
 		<Unit filename="src/punto.cpp" />
+		<Unit filename="src/record.cpp" />
 		<Unit filename="../utils/utils.cpp" />
 		<Unit filename="../utils/utils.h" />
 		<Extensions>
