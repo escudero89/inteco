@@ -68,12 +68,15 @@ function print_tube_plot(vector_puntos, Field, punto_origen, tomas, iteracion)
 	plot(tomas(:,1), tomas(:,2), 'om');
 
 	% Ajustamos limites
-%	xlim([min(vector_puntos(:,1) - 1) , max(vector_puntos(:,1) + 1)]);
-%	ylim([min(vector_puntos(:,2) - 1) , max(vector_puntos(:,2) + 1)]);
+%	xlim([min(vector_puntos(:,1) - 1) , max(vector_puntos(:,1)) + 1]);
+%	ylim([min(vector_puntos(:,2) - 1) , max(vector_puntos(:,2)) + 1]);
 
 	grid;
 	axis("equal");
 	title(["Generacion [" num2str(round(50 * iteracion)) "]" ]);
+    
+     ylabel("y");
+     xlabel("x");
 
 	%		pause(0.01);
 	print(["draws/dibujo_" padding_zeros(iteracion) ".png"]);
