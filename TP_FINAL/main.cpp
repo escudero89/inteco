@@ -15,7 +15,7 @@ int main() {
     vector<vector<double> > puntos;
 
     string
-        directorio = "pasarela",
+        directorio = "espiralYedriano",
         raiz = "logs/" + directorio + "/",
         archivo = raiz + "points_base.csv",
         matriz = raiz + "field_base.csv",
@@ -67,7 +67,7 @@ int main() {
 
     Individuo ind(origen, tomas, "");
 
-    Poblacion P(0.1, 0.4, 300, origen, tomas, matriz);
+    Poblacion P(0.1, 0.3, 300, origen, tomas, matriz);
 
     unsigned int tamanio;
 
