@@ -25,5 +25,6 @@ function print_fitness(archivo = "fitness.dat")
    
    end
    hold off;
+   print('Fitness.png');
    
 end

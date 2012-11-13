@@ -1,0 +1,13 @@
+Se uso una población de 300 individuos, con:
+* p_cruza = 0.6
+* p_mutacion = 0.1
+* brecha_generacional = 0.5
+
+* Iteraciones: 1500
+* Tiempo de ejecución: 2559.429 seg (~43 min)
+
+Tomas:
+* (-40, 0)
+* (40, 0)
+* (0, 40)
+* (0, -40)
