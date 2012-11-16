@@ -3,11 +3,7 @@ Se uso una población de 300 individuos, con:
 * p_mutacion = 0.1
 * brecha_generacional = 0.5
 
-* Iteraciones: 1500
-* Tiempo de ejecución: 2559.429 seg (~43 min)
+* Iteraciones: 4265
+* Mejor fitness: 5984
+* Tiempo de ejecución: 17216.466 seg (~5 horas)
 
-Tomas:
-* (-40, 0)
-* (40, 0)
-* (0, 40)
-* (0, -40)
