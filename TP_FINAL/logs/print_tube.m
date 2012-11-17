@@ -1,10 +1,10 @@
 #! /usr/bin/octave -qf
 
 % Le voy a pasar dos archivos csv para que lea, uno vector<punto> y otro matriz
-function print_tube(archivo_vector_puntos = 'puntos.dat', archivo_Field = 'field.dat', surfacing = false)
+function print_tube(directorio, archivo_vector_puntos = 'puntos.dat', archivo_Field = 'field.dat', surfacing = false)
 
-	vector_puntos = csvread(archivo_vector_puntos);
-	Field = csvread(archivo_Field);
+	vector_puntos = csvread([directorio "/" archivo_vector_puntos]);
+	Field = csvread([directorio "/" archivo_Field]);
 	
 	% En la primera fila agregamos tomas y origen
 	punto_origen = vector_puntos(1, :);
@@ -75,7 +75,7 @@ function print_tube_plot(vector_puntos, Field, punto_origen, tomas, iteracion)
 
 	grid;
 	axis("equal");
-	title(["Generacion [" num2str(round(2 * iteracion)) "]" ]);
+	title(["Generacion [" num2str(round(50 * iteracion)) "]" ]);
     
      ylabel("y");
      xlabel("x");

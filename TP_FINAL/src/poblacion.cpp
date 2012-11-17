@@ -39,12 +39,14 @@ vector<Individuo> Poblacion::reproduccion(){
     ///Elitismo
     seleccionados.push_back(getMejorIndividuo());
 
-    int cant_competidores = (tam_poblacion < 5 ) ? tam_poblacion : 5;
+    int cant_competidores = (tam_poblacion < 4 ) ? tam_poblacion : 4;
     vector<double> fitness;
     vector<int> competidores,
                 ganador;
 
     ganador.resize(2);
+
+//    bool cambio_poblacional = true;
 
 
     while(true){
@@ -73,8 +75,11 @@ vector<Individuo> Poblacion::reproduccion(){
 
         }
 
-        if(seleccionados.size() < brecha){
-
+        if(seleccionados.size() < brecha){// && cambio_poblacional){
+/*
+            cambio_poblacional = false;
+            seleccionados.insert(seleccionados.end(), v_individuos.end() - brecha, v_individuos.end());
+            */
             seleccionados.push_back(v_individuos[ganador[0]]);
 
             if(seleccionados.size() < brecha){

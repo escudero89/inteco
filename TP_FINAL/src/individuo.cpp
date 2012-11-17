@@ -25,7 +25,7 @@ Individuo::Individuo(punto origen,
     T.cierra_parentesis = ")";
 
     p_bifurcacion = get_rand();
-    p_codo = get_rand() * .25 + 0.1;     // maxima 35%, minima 5%
+    p_codo = get_rand() * .25 + 0.05;     // maxima 35%, minima 5%
     p_tee = get_rand();
     p_orientacion = get_rand() * 0.05;    // maxima 5%
 
@@ -70,7 +70,7 @@ string Individuo::autocompletar_r(punto punto_actual, vector<punto> &tomas_asign
         menor_dist,
         idx_menor_distancia,
         direccion_actual = direccion,
-        radio_absorcion = (esta_siendo_mutado) ? rand()%9 + 1 : rand()%4 + 1;
+        radio_absorcion = (esta_siendo_mutado) ? rand()%10 : rand()%4;
 
     bool orientacion;
 
@@ -913,28 +913,30 @@ double Individuo::evaluarFitness(vector<vector<double> > &Field) {
 
     double
         fitness = 0,    // Mi valor de fitness
-        fitness_bloqueado = 10000;    // Esto es que tan caro hago el pasar sobre un bloque
+        fitness_bloqueado = 1000;    // Esto es que tan caro hago el pasar sobre un bloque
 
-    // Voy a suponer que todos mis puntos obtenidos son enteros
-    int x, y,
-        cant_rows = Field.size(),
-        cant_cols = (Field[0]).size(); // Notese la diferencia
+    if (Field.size()) {
+        // Voy a suponer que todos mis puntos obtenidos son enteros
+        int x, y,
+            cant_rows = Field.size(),
+            cant_cols = (Field[0]).size(); // Notese la diferencia
 
-//    cout << "Tenemos un Field de [" << cant_rows << " x " << cant_cols << "]\n";
+    //    cout << "Tenemos un Field de [" << cant_rows << " x " << cant_cols << "]\n";
 
-    for (unsigned int k = 0, kCant = puntosObtenidos.size() ; k < kCant ; k++) {
-        // Obtengo la coordenada de una tuberia
-        x = puntosObtenidos[k].coordenadas[0];
-        y = cant_rows - puntosObtenidos[k].coordenadas[1] - 1;
+        for (unsigned int k = 0, kCant = puntosObtenidos.size() ; k < kCant ; k++) {
+            // Obtengo la coordenada de una tuberia
+            x = puntosObtenidos[k].coordenadas[0];
+            y = cant_rows - puntosObtenidos[k].coordenadas[1] - 1;
 
-        if (x < 0  || y < 0 || x >= cant_cols || y >= cant_rows) {
-            //cout << "Error, la matriz no alcanza a cubrir todos los puntos\n";
-            //getchar();
-            /// Si me salgo del area, penalizo al fitness
-            // fitness += 1000;
-        } else {
-            // Hay un bloque coincidiendo? Yo lo sumo total
-            fitness += Field[y][x] * fitness_bloqueado;
+            if (x < 0  || y < 0 || x >= cant_cols || y >= cant_rows) {
+                //cout << "Error, la matriz no alcanza a cubrir todos los puntos\n";
+                //getchar();
+                /// Si me salgo del area, penalizo al fitness
+                // fitness += 1000;
+            } else {
+                // Hay un bloque coincidiendo? Yo lo sumo total
+                fitness += Field[y][x] * fitness_bloqueado;
+            }
         }
     }
 
@@ -974,7 +976,7 @@ double Individuo::evaluarFitness_helper() {
 
     double
         precio_total = 0,
-        precio_base = 0.1;        // Esto es una medida para ajustar cuanto pesa el precio
+        precio_base = 1;        // Esto es una medida para ajustar cuanto pesa el precio
 
     // Voy a tomar tubos de 1''. Por lo que las medidas (segun planos)
     // de cada cuadrado son 0.118 x 0.118 m
@@ -1005,7 +1007,7 @@ double Individuo::evaluarFitness_helper() {
 
         //  Cruz galvanizada (300$).
         } else if (cro_k == T.cruz) {
-            precio_total += precio_base * 300;
+            precio_total += precio_base * 230;
 
         // Sino se da ninguna, es porque hubo un error
         } else {
@@ -1358,6 +1360,9 @@ void Individuo::mutarCromosoma() {
         cromosoma.replace(0, 1, cro);
 
         actualizarIndividuo();
+
+        // Llamo a mutar cromosoma otra vez
+        mutarCromosoma();
 
     } else {
 
