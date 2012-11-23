@@ -15,7 +15,7 @@ int main() {
     vector<vector<double> > puntos;
 
     string
-        directorio = "diapositiva",
+        directorio = "espiralYedriano",
         raiz = "logs/" + directorio + "/",
         archivo = raiz + "points_base.csv",
         matriz = raiz + "field_base.csv",
